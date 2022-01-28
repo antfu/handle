@@ -29,42 +29,73 @@ export const INITIALS = [
   'y',
 ]
 
-export const bopomofo = ref(false)
-export const answer = ref(ALL[623].word)
+export type MatchType = 'exact' | 'misplaced' | 'none'
 
 export interface ParsedChar {
   char: string
-  pinyin: ParsedPinyin
-}
-
-export interface ParsedPinyin {
   initial: string
   medial: string
   tone: number
 }
 
+export interface MatchResult {
+  char: MatchType
+  initial: MatchType
+  medial: MatchType
+  tone: MatchType
+}
+
+export const bopomofo = ref(false)
+export const answer = ref(ALL[623].word)
+export const parsedAnswer = computed(() => parseWord(answer.value))
+
 export function parseWord(sentence: string) {
   const pinyins = Pinyin(sentence, {
     style: Pinyin.STYLE_TONE2,
-  }) || []
+  })
   const chars = Array.from(sentence)
+
   return chars.map((char, i): ParsedChar => {
+    const pinyin = pinyins[i]?.[0] || ''
+    const initial = INITIALS.find(i => pinyin.startsWith(i)) || ''
+    const tone = pinyin.match(/[\d]$/)?.[0] || ''
+    const medial = pinyin.slice(initial.length, -tone.length)
     return {
       char,
-      pinyin: (pinyins[i] || []).filter(i => i.trim()).map(parsePinyin)[0],
+      initial,
+      medial,
+      tone: +tone || 0,
     }
   })
 }
 
-export function parsePinyin(pinyin: string): ParsedPinyin {
-  const initial = INITIALS.find(i => pinyin.startsWith(i)) || ''
-  const tone = pinyin.match(/[\d]$/)?.[0] || ''
-  const medial = pinyin.slice(initial.length, -tone.length)
-  return {
-    initial,
-    medial,
-    tone: +tone || 0,
-  }
-}
+export function testAnswer(input: ParsedChar[]) {
+  const keys = ['char', 'initial', 'medial', 'tone'] as const
+  const answer = parsedAnswer.value
+  const unmatched = Object.fromEntries(
+    keys.map(key => [
+      key,
+      answer
+        .map((a, i) => input[i][key] === a[key] ? undefined : a[key])
+        .filter(i => i != null),
+    ]),
+  )
 
-export const parsedAnswer = computed(() => parseWord(answer.value))
+  return input.map((a, i): MatchResult => {
+    return Object.fromEntries(
+      keys.map((key) => {
+        if (answer[i][key] === a[key]) {
+          return [key, 'exact']
+        }
+        else if (unmatched[key].includes(a[key])) {
+          const index = unmatched[key].indexOf(a[key])
+          unmatched[key].splice(index, 1)
+          return [key, 'misplaced']
+        }
+        else {
+          return [key, 'none']
+        }
+      }),
+    ) as any as MatchResult
+  })
+}
