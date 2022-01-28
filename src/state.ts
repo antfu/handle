@@ -56,7 +56,7 @@ export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
     keys.map(key => [
       key,
       answer
-        .map((a, i) => input[i][key] === a[key] ? undefined : toSimplified(a[key]))
+        .map((a, i) => toSimplified(input[i][key]) === toSimplified(a[key]) ? undefined : toSimplified(a[key]))
         .filter(i => i != null),
     ]),
   )

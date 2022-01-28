@@ -20,3 +20,5 @@ export function getDay(day: number) {
 const daySince = Math.floor((Date.now() - +START_DATE) / 86400000)
 export const day = +(new URLSearchParams(window.location.search).get('d') || daySince)
 export const today = getDay(day)
+
+console.log(`D${day}`, today.word)
