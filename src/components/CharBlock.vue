@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MatchResult, MatchType, ParsedChar } from '~/state'
 import { bopomofo } from '~/storage'
-import { initialMap, medialMap, toneMap } from '~/bopomofo'
+import * as b from '~/bopomofo'
 
 const props = defineProps<{
   char?: ParsedChar
@@ -41,15 +41,18 @@ const blockColor = computed(() => {
         </div>
         <div absolute text-center top-0 bottom-0 right-2 w-auto flex items-center>
           <div flex justify-center text-xs style="writing-mode: vertical-rl;">
-            <span :class="getColor(answer?.initial)">
-              {{ initialMap[char.initial] || (answer?.initial === 'none' ? '_': '') }}
+            <span :class="getColor(answer?.one)">
+              {{ char.one }}
             </span>
-            <span :class="getColor(answer?.medial)">
-              {{ medialMap[char.medial] }}
+            <span :class="getColor(answer?.two)">
+              {{ char.two }}
+            </span>
+            <span :class="getColor(answer?.three)">
+              {{ char.three }}
             </span>
           </div>
-          <span :class="getColor(answer?.tone)" text-xl font-light>
-            {{ toneMap[char.tone] }}
+          <span :class="getColor(answer?.tone)" text-xl font-light w="1.5">
+            {{ b.toneMap[char.tone] }}
           </span>
         </div>
       </template>
@@ -59,11 +62,11 @@ const blockColor = computed(() => {
           {{ char.char }}
         </div>
         <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center>
-          <span :class="getColor(answer?.initial)">
-            {{ char.initial || (answer?.initial === 'none' ? '_': '') }}
+          <span :class="getColor(answer?.one)">
+            {{ char.one }}
           </span>
-          <span :class="getColor(answer?.medial)">
-            {{ char.medial }}
+          <span :class="getColor(answer?.two)">
+            {{ char.two }}
           </span>
           <span :class="getColor(answer?.tone)" text-xs mr--2>
             {{ char.tone }}

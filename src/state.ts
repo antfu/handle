@@ -1,23 +1,27 @@
 import Pinyin from 'pinyin'
+import { py2zy } from './bopomofo'
 import { today } from './data'
+import { bopomofo } from './storage'
 import { toSimplified } from './t2s'
 
 export const WORD_LENGTH = 4
-export const INITIALS = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 'x', 's', 'w', 'y']
+export const ONES = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 'x', 's', 'w', 'y']
 
 export type MatchType = 'exact' | 'misplaced' | 'none'
 
 export interface ParsedChar {
   char: string
-  initial: string
-  medial: string
+  one: string
+  two: string
+  three: string
   tone: number
 }
 
 export interface MatchResult {
   char: MatchType
-  initial: MatchType
-  medial: MatchType
+  one: MatchType
+  two: MatchType
+  three: MatchType
   tone: MatchType
 }
 
@@ -37,21 +41,38 @@ export function parseWord(sentence: string) {
   const chars = Array.from(sentence)
 
   return chars.map((char, i): ParsedChar => {
-    const pinyin = pinyins[i]?.[0] || ''
-    const initial = INITIALS.find(i => pinyin.startsWith(i)) || ''
+    let pinyin = pinyins[i]?.[0] || ''
     const tone = pinyin.match(/[\d]$/)?.[0] || ''
-    const medial = pinyin.slice(initial.length, -tone.length)
+    pinyin = pinyin.slice(0, -tone.length).trim()
+
+    let parts: string[] = []
+    if (pinyin) {
+      if (bopomofo.value) {
+        const zhuyin = py2zy[pinyin]
+        parts = Array.from(zhuyin)
+      }
+      else {
+        const t = ONES.find(i => pinyin.startsWith(i))
+        if (t) {
+          parts.push(t)
+          parts.push(pinyin.slice(t.length))
+        }
+      }
+    }
+
+    const [one = '', two = '', three = ''] = parts
     return {
       char,
-      initial,
-      medial,
+      one,
+      two,
+      three,
       tone: +tone || 0,
     }
   })
 }
 
 export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
-  const keys = ['char', 'initial', 'medial', 'tone'] as const
+  const keys = ['char', 'one', 'two', 'three', 'tone'] as const
   const unmatched = Object.fromEntries(
     keys.map(key => [
       key,
