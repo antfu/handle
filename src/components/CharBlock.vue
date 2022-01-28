@@ -24,22 +24,22 @@ function getColor(result?: MatchType) {
 
 const blockColor = computed(() => {
   if (!props.answer)
-    return 'border border-2 border-base'
+    return 'border-base'
   if (exact.value)
-    return 'bg-green-500 text-white'
-  return 'bg-gray-500/10'
+    return 'border-transparent bg-green-500 text-white'
+  return 'border-transparent bg-gray-500/10'
 })
 </script>
 
 <template>
-  <div h-20 w-20 :class="blockColor" flex="~" items-center justify-center relative>
+  <div h-20 w-20 border-2 :class="blockColor" flex="~" items-center justify-center relative>
     <template v-if="char?.char?.trim()">
       <!-- Bopomofo -->
       <template v-if="bopomofo">
         <div text-3xl mr-3 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
-        <div absolute text-center top-0 bottom-0 right-2 w-auto flex items-center>
+        <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
           <div flex justify-center text-xs style="writing-mode: vertical-rl;">
             <span :class="getColor(answer?.one)">
               {{ char.one }}

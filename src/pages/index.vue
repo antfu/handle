@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { WORD_LENGTH, showHelp, showHint } from '~/state'
 import { tries } from '~/storage'
-import { day } from '~/data'
+import { day, isPassed } from '~/data'
 
 const toggleHint = useToggle(showHint)
 
@@ -45,26 +45,30 @@ watchEffect(() => {
     <div flex="~ col gap-2" items-center @click="focus()">
       <!-- <Sentence :word="answer" /> -->
       <Sentence v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
-      <Sentence :word="input" />
-      <input
-        ref="el"
-        :value="input"
-        type="text"
-        autocomplete="false"
-        outline-none
-        placeholder="輸入四字成语"
-        w-86
-        p3
-        border="~ base rounded"
-        text="center"
-        bg="transparent"
-        @input="handleInput"
-        @keydown.enter="go"
-      >
+
+      <template v-if="!isPassed">
+        <Sentence :word="input" />
+        <input
+          ref="el"
+          :value="input"
+          type="text"
+          autocomplete="false"
+          outline-none
+          placeholder="輸入四字成语"
+          w-86
+          p3
+          border="~ base rounded"
+          text="center"
+          bg="transparent"
+          @input="handleInput"
+          @keydown.enter="go"
+        >
+      </template>
     </div>
 
     <div flex="~ col gap-2" p4 justify-center items-center>
       <button
+        v-if="!isPassed"
         class="btn"
         :disabled="input.length !== WORD_LENGTH"
         @click="go"

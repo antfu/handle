@@ -35,7 +35,7 @@ export const showSettings = ref(false)
 export const showHelp = ref(false)
 
 export function parseWord(sentence: string) {
-  const pinyins = Pinyin(sentence, {
+  const pinyins = Pinyin(toSimplified(sentence), {
     style: Pinyin.STYLE_TONE2,
   })
   const chars = Array.from(sentence)
@@ -48,8 +48,7 @@ export function parseWord(sentence: string) {
     let parts: string[] = []
     if (pinyin) {
       if (bopomofo.value) {
-        const zhuyin = py2zy[pinyin]
-        parts = Array.from(zhuyin)
+        parts = Array.from(py2zy[pinyin] || '')
       }
       else {
         const t = ONES.find(i => pinyin.startsWith(i))
@@ -101,6 +100,6 @@ export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
   })
 }
 
-export function isPassed(result: MatchResult[]) {
+export function checkPass(result: MatchResult[]) {
   return result.every(r => r.char === 'exact')
 }
