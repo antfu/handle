@@ -13,7 +13,8 @@ export function parseWord(sentence: string) {
   return chars.map((char, i): ParsedChar => {
     let pinyin = pinyins[i]?.[0] || ''
     const tone = pinyin.match(/[\d]$/)?.[0] || ''
-    pinyin = pinyin.slice(0, -tone.length).trim()
+    if (tone)
+      pinyin = pinyin.slice(0, -tone.length).trim()
 
     let parts: string[] = []
     if (pinyin) {

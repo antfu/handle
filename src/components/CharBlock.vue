@@ -61,7 +61,7 @@ const blockColor = computed(() => {
         <div text-3xl mt-4 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
-        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center font-light>
+        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.5" justify-center font-light>
           <span :class="getColor(answer?.one)">
             {{ char.one }}
           </span>

@@ -12,7 +12,7 @@ export const showSettings = ref(false)
 export const showHelp = ref(false)
 export const showShare = ref(false)
 
-const daySince = computed(() => Math.floor((+now.value - +START_DATE) / 86400000))
+const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
 export const dayNo = computed(() => +(new URLSearchParams(window.location.search).get('d') || daySince.value))
 export const answer = computed(() => getAnswerOfDay(dayNo.value))
 export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1]))))
