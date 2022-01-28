@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MatchResult, MatchType, ParsedChar } from '~/state'
-import { bopomofo } from '~/state'
+import { bopomofo } from '~/storage'
 import { initialMap, medialMap, toneMap } from '~/bopomofo'
 
 const props = defineProps<{
@@ -34,20 +34,42 @@ const blockColor = computed(() => {
 <template>
   <div h-20 w-20 :class="blockColor" flex="~" items-center justify-center relative>
     <template v-if="char?.char?.trim()">
-      <div text-3xl mt-4 :class="getColor(answer?.char)">
-        {{ char.char }}
-      </div>
-      <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center>
-        <span :class="getColor(answer?.initial)">
-          {{ bopomofo ? initialMap[char.initial] : char.initial || (answer?.initial === 'none' ? '_': '') }}
-        </span>
-        <span :class="getColor(answer?.medial)">
-          {{ bopomofo ? medialMap[char.medial]: char.medial }}
-        </span>
-        <span :class="getColor(answer?.tone)" text-xs mr--2>
-          {{ bopomofo ? toneMap[char.tone] : char.tone }}
-        </span>
-      </div>
+      <!-- Bopomofo -->
+      <template v-if="bopomofo">
+        <div text-3xl mr-3 :class="getColor(answer?.char)">
+          {{ char.char }}
+        </div>
+        <div absolute text-center top-0 bottom-0 right-2 flex items-center>
+          <div flex justify-center text-xs style="writing-mode: vertical-rl;">
+            <span :class="getColor(answer?.initial)">
+              {{ initialMap[char.initial] || (answer?.initial === 'none' ? '_': '') }}
+            </span>
+            <span :class="getColor(answer?.medial)">
+              {{ medialMap[char.medial] }}
+            </span>
+          </div>
+          <span :class="getColor(answer?.tone)" text-xl>
+            {{ toneMap[char.tone] }}
+          </span>
+        </div>
+      </template>
+      <!-- Pinyin -->
+      <template v-else>
+        <div text-3xl mt-4 :class="getColor(answer?.char)">
+          {{ char.char }}
+        </div>
+        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center>
+          <span :class="getColor(answer?.initial)">
+            {{ char.initial || (answer?.initial === 'none' ? '_': '') }}
+          </span>
+          <span :class="getColor(answer?.medial)">
+            {{ char.medial }}
+          </span>
+          <span :class="getColor(answer?.tone)" text-xs mr--2>
+            {{ char.tone }}
+          </span>
+        </div>
+      </template>
     </template>
   </div>
 </template>

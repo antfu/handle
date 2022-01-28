@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { bopomofo } from '~/state'
+import { bopomofo } from '~/storage'
 </script>
 
 <template>

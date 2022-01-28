@@ -21,7 +21,6 @@ export interface MatchResult {
   tone: MatchType
 }
 
-export const bopomofo = ref(false)
 export const answer = ref(today.word)
 export const hint = today.hint
 export const parsedAnswer = computed(() => parseWord(answer.value))
