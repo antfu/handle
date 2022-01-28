@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { WORD_LENGTH, showHint } from '~/state'
+import { WORD_LENGTH, showHelp, showHint } from '~/state'
 import { tries } from '~/storage'
 import { day } from '~/data'
 
 const toggleHint = useToggle(showHint)
 
+const el = ref<HTMLInputElement>()
 const input = ref('')
 function go() {
   if (input.value.length !== WORD_LENGTH)
@@ -23,6 +24,13 @@ function handleInput(e: Event) {
     .slice(0, 4)
     .join('')
 }
+function focus() {
+  el.value?.focus()
+}
+watchEffect(() => {
+  if (!showHelp.value)
+    focus()
+})
 </script>
 
 <template>
@@ -34,11 +42,12 @@ function handleInput(e: Event) {
       <Hint />
     </Modal>
 
-    <div flex="~ col gap-2" items-center>
+    <div flex="~ col gap-2" items-center @click="focus()">
       <!-- <Sentence :word="answer" /> -->
       <Sentence v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
       <Sentence :word="input" />
       <input
+        ref="el"
         :value="input"
         type="text"
         autocomplete="false"
