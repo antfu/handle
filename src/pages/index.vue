@@ -6,15 +6,18 @@ const toggleHint = useToggle(showHint)
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
+const inputValue = ref('')
 function go() {
   if (input.value.length !== WORD_LENGTH)
     return
   tries.value.push(input.value)
   input.value = ''
+  inputValue.value = ''
 }
 function reset() {
   tries.value = []
   input.value = ''
+  inputValue.value = ''
 }
 function handleInput(e: Event) {
   const el = (e.target! as HTMLInputElement)
@@ -46,7 +49,7 @@ watchEffect(() => {
         <Sentence :word="input" />
         <input
           ref="el"
-          :value="input"
+          v-model="inputValue"
           type="text"
           autocomplete="false"
           outline-none
