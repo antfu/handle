@@ -1,4 +1,5 @@
 import Pinyin from 'pinyin'
+import ALL from '../data/data.json'
 
 export const WORD_LENGTH = 4
 export const INITIALS = [
@@ -29,11 +30,11 @@ export const INITIALS = [
 ]
 
 export const bopomofo = ref(false)
-export const answer = ref('万水千山')
+export const answer = ref(ALL[623].word)
 
 export interface ParsedChar {
   char: string
-  pinyin: ParsedPinyin[]
+  pinyin: ParsedPinyin
 }
 
 export interface ParsedPinyin {
@@ -50,7 +51,7 @@ export function parseWord(sentence: string) {
   return chars.map((char, i): ParsedChar => {
     return {
       char,
-      pinyin: (pinyins[i] || []).filter(i => i.trim()).map(parsePinyin),
+      pinyin: (pinyins[i] || []).filter(i => i.trim()).map(parsePinyin)[0],
     }
   })
 }

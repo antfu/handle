@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { WORD_LENGTH, parseWord, parsedAnswer } from '~/utils'
 
-defineProps<{ word: string }>()
+defineProps<{
+  word: string
+  revealed?: boolean
+}>()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ defineProps<{ word: string }>()
       v-for="c,i in parseWord(word.padEnd(WORD_LENGTH, ' '))"
       :key="i"
       :char="c"
-      :answer="parsedAnswer[i]"
+      :answer="revealed ? parsedAnswer[i] : undefined"
     />
   </div>
 </template>

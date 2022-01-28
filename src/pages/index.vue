@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { WORD_LENGTH } from '~/utils'
+import { WORD_LENGTH, answer, bopomofo } from '~/utils'
+
+const hint = answer.value[2]
 
 const tries = useStorage<string[]>('tries', [])
 const input = useStorage('input', '')
@@ -13,6 +15,13 @@ function reset() {
   tries.value = []
   input.value = ''
 }
+function handleInput(e: Event) {
+  const el = (e.target! as HTMLInputElement)
+  input.value = Array.from(el.value)
+    .filter(i => /\p{Script=Han}/u.test(i))
+    .slice(0, 4)
+    .join('')
+}
 </script>
 
 <template>
@@ -22,28 +31,36 @@ function reset() {
         Pindle
       </a>
     </p>
-    <div py-4 />
+    <div py-4>
+      Hint
+      <div text-4xl>
+        {{ hint }}
+      </div>
+    </div>
 
     <div flex="~ col gap-1" items-center>
       <!-- <Sentence :word="answer" /> -->
-      <Sentence v-for="t,i of tries" :key="i" :word="t" />
-      <Sentence :word="input" />
+      <Sentence v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
+      <div relative pt-8>
+        <Sentence :word="input" />
+        <input
+          :value="input"
+          type="text"
+          autocomplete="false"
+          absolute
+          inset-0
+          text-4xl
+          w-full
+          h-full
+          outline-none
+          bg="transparent"
+          op-1
+          style="letter-spacing: 2rem; font-size: 3.5rem"
+          @input="handleInput"
+          @keydown.enter="go"
+        >
+      </div>
     </div>
-
-    <input
-      v-model="input"
-      mt-5
-      placeholder="What's your name?"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
 
     <div>
       <button
@@ -60,5 +77,10 @@ function reset() {
         Reset
       </button>
     </div>
+
+    <label>
+      <input v-model="bopomofo" type="checkbox">
+      注音
+    </label>
   </div>
 </template>

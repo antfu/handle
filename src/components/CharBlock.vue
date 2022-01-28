@@ -27,9 +27,9 @@ const charColor = computed(() => {
 const initialColor = computed(() => {
   if (!props.answer)
     return
-  if (props.answer.pinyin.find(i => i.initial === props.char.pinyin[0].initial))
+  if (props.answer.pinyin.initial === props.char.pinyin.initial)
     return colors.match
-  else if (parsedAnswer.value.find(i => i.pinyin.find(j => j.initial === props.char.pinyin[0].initial)))
+  else if (parsedAnswer.value.find(i => i.pinyin.initial === props.char.pinyin.initial))
     return colors.partial
   return colors.mismatch
 })
@@ -37,9 +37,9 @@ const initialColor = computed(() => {
 const medialColor = computed(() => {
   if (!props.answer)
     return
-  if (props.answer.pinyin.find(i => i.medial === props.char.pinyin[0].medial))
+  if (props.answer.pinyin.medial === props.char.pinyin.medial)
     return colors.match
-  else if (parsedAnswer.value.find(i => i.pinyin.find(j => j.medial === props.char.pinyin[0].medial)))
+  else if (parsedAnswer.value.find(i => i.pinyin.medial === props.char.pinyin.medial))
     return colors.partial
   return colors.mismatch
 })
@@ -47,9 +47,9 @@ const medialColor = computed(() => {
 const toneColor = computed(() => {
   if (!props.answer)
     return
-  if (props.answer.pinyin.find(i => i.tone === props.char.pinyin[0].tone))
+  if (props.answer.pinyin.tone === props.char.pinyin.tone)
     return colors.match
-  else if (parsedAnswer.value.find(i => i.pinyin.find(j => j.tone === props.char.pinyin[0].tone)))
+  else if (parsedAnswer.value.find(i => i.pinyin.tone === props.char.pinyin.tone))
     return colors.partial
   return colors.mismatch
 })
@@ -60,15 +60,15 @@ const toneColor = computed(() => {
     <div text-3xl mt-4 :class="charColor">
       {{ char.char }}
     </div>
-    <div v-if="char.pinyin[0]" absolute top-1 text-center left-0 right-0 flex gap-1 justify-center>
+    <div v-if="char.pinyin" absolute top-1 text-center left-0 right-0 flex gap-1 justify-center>
       <span :class="initialColor">
-        {{ bopomofo ? initialMap[char.pinyin[0].initial] : char.pinyin[0].initial || '-' }}
+        {{ bopomofo ? initialMap[char.pinyin.initial] : char.pinyin.initial || '-' }}
       </span>
       <span :class="medialColor">
-        {{ bopomofo ? medialMap[char.pinyin[0].medial]: char.pinyin[0].medial }}
+        {{ bopomofo ? medialMap[char.pinyin.medial]: char.pinyin.medial }}
       </span>
       <span :class="toneColor">
-        {{ bopomofo ? toneMap[char.pinyin[0].tone] : char.pinyin[0].tone }}
+        {{ bopomofo ? toneMap[char.pinyin.tone] : char.pinyin.tone }}
       </span>
     </div>
   </div>
