@@ -56,7 +56,7 @@ export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
     keys.map(key => [
       key,
       answer
-        .map((a, i) => input[i][key] === a[key] ? undefined : a[key])
+        .map((a, i) => input[i][key] === a[key] ? undefined : toSimplified(a[key]))
         .filter(i => i != null),
     ]),
   )
@@ -64,13 +64,11 @@ export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
   return input.map((a, i): MatchResult => {
     return Object.fromEntries(
       keys.map((key) => {
-        if (key === 'char' && toSimplified(answer[i][key]) === toSimplified(a[key]))
+        const value = toSimplified(a[key])
+        if (answer[i][key] === value)
           return [key, 'exact']
-        if (answer[i][key] === a[key])
-          return [key, 'exact']
-
-        if (unmatched[key].includes(a[key])) {
-          const index = unmatched[key].indexOf(a[key])
+        if (unmatched[key].includes(value)) {
+          const index = unmatched[key].indexOf(value)
           unmatched[key].splice(index, 1)
           return [key, 'misplaced']
         }

@@ -2902,7 +2902,9 @@ const map: Record<string, string> = {
   '\uFE6B': '\uFF20',
 }
 
-export function toSimplified(text: string) {
+export function toSimplified(text: string | number) {
+  if (typeof text === 'number')
+    return text
   // eslint-disable-next-line no-control-regex
   return text.replace(/[^\x00-\xFF]/g, s => ((s in map) ? map[s] : s))
 }
