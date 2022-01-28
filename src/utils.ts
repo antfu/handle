@@ -26,6 +26,9 @@ export function parseWord(sentence: string) {
           parts.push(t)
           parts.push(pinyin.slice(t.length))
         }
+        else {
+          parts = [pinyin]
+        }
       }
     }
 
