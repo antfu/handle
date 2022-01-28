@@ -6,7 +6,7 @@ const formatted = computed(() => {
   const h = Math.floor((ms.value % 86400000) / 3600000)
   const m = Math.floor((ms.value % 3600000) / 60000)
   const s = Math.floor((ms.value % 60000) / 1000)
-  return `${h}小时${m}分${s}秒`
+  return `${h}时${m}分${s}秒`
 })
 </script>
 
@@ -16,7 +16,7 @@ const formatted = computed(() => {
       <div op80>
         距离下一题更新还有
       </div>
-      <div font-mono text-2xl>
+      <div text-2xl font-serif w-45>
         {{ formatted }}
       </div>
     </div>

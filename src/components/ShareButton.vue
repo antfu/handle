@@ -28,7 +28,7 @@ function share() {
 </script>
 
 <template>
-  <button btn flex items-center justify-center gap-3 text-xl p="x4 y2" @click="share()">
+  <button btn flex items-center justify-center gap-3 text-xl font-serif p="x4 y2" @click="share()">
     <div i-carbon-share />
     分享
   </button>

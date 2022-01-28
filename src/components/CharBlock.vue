@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const colors = {
-  exact: 'text-teal-500',
+  exact: 'text-teal-600',
   misplaced: 'text-orange-400',
   none: 'op80',
 }
@@ -26,7 +26,7 @@ const blockColor = computed(() => {
   if (!props.answer)
     return 'border-base'
   if (exact.value)
-    return 'border-transparent bg-teal-500 text-white'
+    return 'border-transparent bg-teal-600 text-white'
   return 'border-transparent bg-gray-500/10'
 })
 </script>
@@ -61,7 +61,7 @@ const blockColor = computed(() => {
         <div text-3xl mt-4 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
-        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center>
+        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.8" justify-center font-light>
           <span :class="getColor(answer?.one)">
             {{ char.one }}
           </span>
