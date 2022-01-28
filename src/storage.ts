@@ -1,4 +1,4 @@
-import { dayNo, showHelp } from './state'
+import { dayNo } from './state'
 
 export const initialized = useStorage('handle-initialized', false)
 export const allTries = useStorage<Record<number, string[]>>('handle-tries', {})
@@ -14,6 +14,3 @@ export const tries = computed<string[]>({
     allTries.value[dayNo.value] = v
   },
 })
-
-if (!initialized.value)
-  showHelp.value = true
