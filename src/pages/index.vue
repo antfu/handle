@@ -37,9 +37,6 @@ watchEffect(() => {
     <button icon-btn text-base pb3 gap-1 inline-flex items-center justify-center @click="toggleHint()">
       <div i-carbon-idea /> 提示
     </button>
-    <Modal v-model="showHint" direction="top">
-      <Hint />
-    </Modal>
 
     <div flex="~ col gap-2" items-center @click="focus()">
       <!-- <Sentence :word="answer" /> -->
@@ -62,6 +59,9 @@ watchEffect(() => {
           @input="handleInput"
           @keydown.enter="go"
         >
+      </template>
+      <template v-else>
+        <Countdown />
       </template>
     </div>
 
