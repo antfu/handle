@@ -4,7 +4,7 @@ import { checkPass, parseWord, testAnswer } from './utils'
 
 export const now = useNow({ interval: 1000 })
 export const WORD_LENGTH = 4
-export const START_DATE = new Date('2022-01-20')
+export const START_DATE = new Date(2022, 0, 20)
 
 export const isDark = useDark()
 export const showHint = ref(false)
