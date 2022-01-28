@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WORD_LENGTH, answer, bopomofo } from '~/utils'
+import { WORD_LENGTH, answer, bopomofo, parseWord } from '~/utils'
 
 const hint = answer.value[2]
 
@@ -31,14 +31,13 @@ function handleInput(e: Event) {
         Pindle
       </a>
     </p>
-    <div py-4>
+
+    <div py-4 flex="~ col" items-center>
       Hint
-      <div text-4xl>
-        {{ hint }}
-      </div>
+      <CharBlock :char="parseWord(hint)[0]" />
     </div>
 
-    <div flex="~ col gap-1" items-center>
+    <div flex="~ col gap-2" items-center>
       <!-- <Sentence :word="answer" /> -->
       <Sentence v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
       <div relative pt-8>

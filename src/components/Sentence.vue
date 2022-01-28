@@ -14,7 +14,7 @@ const answer = computed(() => {
 </script>
 
 <template>
-  <div flex gap-1>
+  <div flex gap-2>
     <CharBlock
       v-for="c,i in parseWord(word.padEnd(WORD_LENGTH, ' '))"
       :key="i"

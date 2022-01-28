@@ -2,32 +2,7 @@ import Pinyin from 'pinyin'
 import ALL from '../data/data.json'
 
 export const WORD_LENGTH = 4
-export const INITIALS = [
-  'b',
-  'p',
-  'm',
-  'f',
-  'd',
-  't',
-  'n',
-  'l',
-  'g',
-  'k',
-  'h',
-  'j',
-  'q',
-  'x',
-  'zh',
-  'ch',
-  'sh',
-  'r',
-  'z',
-  'c',
-  'x',
-  's',
-  'w',
-  'y',
-]
+export const INITIALS = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 'x', 's', 'w', 'y']
 
 export type MatchType = 'exact' | 'misplaced' | 'none'
 
