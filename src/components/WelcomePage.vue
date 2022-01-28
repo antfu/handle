@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { showHelp } from '~/state'
+import { isDark, showHelp } from '~/state'
 import { parseWord } from '~/utils'
 import { initialized } from '~/storage'
 
@@ -10,7 +10,12 @@ function start() {
 </script>
 
 <template>
-  <div p6 flex="~ col gap-2" items-center max-h-screen h-screen overflow-auto>
+  <div p6 flex="~ col gap-2" items-center max-h-screen h-screen overflow-auto relative>
+    <div absolute top-4 right-4>
+      <button class="icon-btn" @click="isDark = !isDark">
+        <div i-carbon-sun dark:i-carbon-moon />
+      </button>
+    </div>
     <div text-3xl font-serif>
       汉兜
     </div>
