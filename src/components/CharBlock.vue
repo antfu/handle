@@ -39,7 +39,7 @@ const blockColor = computed(() => {
         <div text-3xl mr-3 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
-        <div absolute text-center top-0 bottom-0 right-2 flex items-center>
+        <div absolute text-center top-0 bottom-0 right-2 w-auto flex items-center>
           <div flex justify-center text-xs style="writing-mode: vertical-rl;">
             <span :class="getColor(answer?.initial)">
               {{ initialMap[char.initial] || (answer?.initial === 'none' ? '_': '') }}
@@ -48,7 +48,7 @@ const blockColor = computed(() => {
               {{ medialMap[char.medial] }}
             </span>
           </div>
-          <span :class="getColor(answer?.tone)" text-xl>
+          <span :class="getColor(answer?.tone)" text-xl font-light>
             {{ toneMap[char.tone] }}
           </span>
         </div>
