@@ -82,3 +82,7 @@ export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
     ) as any as MatchResult
   })
 }
+
+export function isPassed(result: MatchResult[]) {
+  return result.every(r => r.char === 'exact')
+}
