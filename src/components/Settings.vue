@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { bopomofo } from '~/storage'
+import { useZhuyin } from '~/storage'
 </script>
 
 <template>
   <div p6 flex="~ gap-4" justify-center>
     <label>
-      <input v-model="bopomofo" type="checkbox">
+      <input v-model="useZhuyin" type="checkbox">
       注音
     </label>
     <!--TODO-->

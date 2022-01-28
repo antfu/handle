@@ -1,4 +1,4 @@
-export const toneMap: Record<number, string> = {
+export const zhuyinToneMap: Record<number, string> = {
   0: '˙',
   1: 'ˉ',
   2: 'ˊ',
@@ -6,7 +6,7 @@ export const toneMap: Record<number, string> = {
   4: 'ˋ',
 }
 
-export const py2zy: Record<string, string> = {
+export const pinyin2zhuyin: Record<string, string> = {
   a: 'ㄚ',
   ai: 'ㄞ',
   an: 'ㄢ',

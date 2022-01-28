@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { WORD_LENGTH, showHelp, showHint } from '~/state'
+import { WORD_LENGTH, dayNo, isPassed, showHelp, showHint } from '~/state'
 import { tries } from '~/storage'
-import { day, isPassed } from '~/data'
 
 const toggleHint = useToggle(showHint)
 
@@ -87,7 +86,7 @@ watchEffect(() => {
       </button>
       <a
         class="btn"
-        :href="`/?d=${day + 1}`"
+        :href="`/?d=${dayNo + 1}`"
       >
         下一天
       </a>

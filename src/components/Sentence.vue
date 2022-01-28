@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { ParsedChar } from '~/state'
-import { WORD_LENGTH, parseWord, parsedAnswer, testAnswer } from '~/state'
+import { WORD_LENGTH, parsedAnswer } from '~/state'
+import type { ParsedChar } from '~/types'
+import { parseWord, testAnswer } from '~/utils'
 
 const props = defineProps<{
   word: string

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { MatchResult, MatchType, ParsedChar } from '~/state'
-import { bopomofo } from '~/storage'
-import * as b from '~/bopomofo'
+import type { MatchResult, MatchType, ParsedChar } from '~/types'
+import { useZhuyin } from '~/storage'
+import { zhuyinToneMap } from '~/lang'
 
 const props = defineProps<{
   char?: ParsedChar
@@ -34,8 +34,8 @@ const blockColor = computed(() => {
 <template>
   <div h-20 w-20 border-2 :class="blockColor" flex="~" items-center justify-center relative>
     <template v-if="char?.char?.trim()">
-      <!-- Bopomofo -->
-      <template v-if="bopomofo">
+      <!-- Zhuyin -->
+      <template v-if="useZhuyin">
         <div text-3xl mr-3 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
@@ -52,7 +52,7 @@ const blockColor = computed(() => {
             </span>
           </div>
           <span :class="getColor(answer?.tone)" text-xl font-light w="1.5">
-            {{ b.toneMap[char.tone] }}
+            {{ zhuyinToneMap[char.tone] }}
           </span>
         </div>
       </template>

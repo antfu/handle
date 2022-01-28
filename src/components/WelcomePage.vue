@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { parseWord, showHelp } from '~/state'
+import { showHelp } from '~/state'
+import { parseWord } from '~/utils'
 import { initialized } from '~/storage'
 
 function start() {
