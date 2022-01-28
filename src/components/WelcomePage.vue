@@ -9,7 +9,7 @@ function start() {
 </script>
 
 <template>
-  <div p6 flex="~ col gap-2" items-center max-h-screen overflow-auto>
+  <div p6 flex="~ col gap-2" items-center max-h-screen h-screen overflow-auto>
     <div text-2xl>
       汉兜
     </div>
@@ -31,6 +31,11 @@ function start() {
     <Sentence :word="'巧夺天工'" :revealed="true" :answer="parseWord('桥它拖 ')" />
     <p max-w-130>
       每个字的 <b>字</b>、<b>声母</b>、<b>韵母</b>、<b>声调</b> 都会独立进行颜色的指示。<br>例如，第一个 <b>巧</b> 字面为灰色，但其声母韵母均为绿色，代表该位置的正确答案为其同音字但非 <b>巧</b> 字本身。<br>同理，第二个字中韵母 <code>ou</code> 为橙色，代表其韵母出现在四个字之中，但非第二个字。以此类推。
+    </p>
+
+    <Sentence :word="'武运昌隆'" :revealed="true" :answer="parseWord('武运昌隆')" />
+    <p max-w-130>
+      当四字个都为绿色时，你便赢得了游戏！
     </p>
 
     <div h-1px w-10 border="b base" m4 />
