@@ -50,7 +50,7 @@ watchEffect(() => {
           type="text"
           autocomplete="false"
           outline-none
-          placeholder="输入四字成语..."
+          placeholder="输入四字词语..."
           w-86
           p3
           border="~ base rounded"
