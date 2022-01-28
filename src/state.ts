@@ -1,5 +1,6 @@
 import Pinyin from 'pinyin'
-import ALL from '../data/data.json'
+import { today } from './data'
+import { toSimplified } from './t2s'
 
 export const WORD_LENGTH = 4
 export const INITIALS = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 'x', 's', 'w', 'y']
@@ -21,8 +22,14 @@ export interface MatchResult {
 }
 
 export const bopomofo = ref(false)
-export const answer = ref(ALL[623].word)
+export const answer = ref(today.word)
+export const hint = today.hint
 export const parsedAnswer = computed(() => parseWord(answer.value))
+
+export const isDark = useDark()
+export const showHint = ref(false)
+export const showSettings = ref(false)
+export const showHelp = ref(false)
 
 export function parseWord(sentence: string) {
   const pinyins = Pinyin(sentence, {
@@ -44,9 +51,8 @@ export function parseWord(sentence: string) {
   })
 }
 
-export function testAnswer(input: ParsedChar[]) {
+export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
   const keys = ['char', 'initial', 'medial', 'tone'] as const
-  const answer = parsedAnswer.value
   const unmatched = Object.fromEntries(
     keys.map(key => [
       key,
@@ -59,10 +65,12 @@ export function testAnswer(input: ParsedChar[]) {
   return input.map((a, i): MatchResult => {
     return Object.fromEntries(
       keys.map((key) => {
-        if (answer[i][key] === a[key]) {
+        if (key === 'char' && toSimplified(answer[i][key]) === toSimplified(a[key]))
           return [key, 'exact']
-        }
-        else if (unmatched[key].includes(a[key])) {
+        if (answer[i][key] === a[key])
+          return [key, 'exact']
+
+        if (unmatched[key].includes(a[key])) {
           const index = unmatched[key].indexOf(a[key])
           unmatched[key].splice(index, 1)
           return [key, 'misplaced']

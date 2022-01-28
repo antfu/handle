@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { WORD_LENGTH, answer, bopomofo, parseWord } from '~/utils'
+import { WORD_LENGTH, showHint } from '~/state'
+import { tries } from '~/storage'
+import { day } from '~/data'
 
-const hint = answer.value[2]
+const toggleHint = useToggle(showHint)
 
-const tries = useStorage<string[]>('tries', [])
-const input = useStorage('input', '')
+const input = ref('')
 function go() {
   if (input.value.length !== WORD_LENGTH)
     return
@@ -26,60 +27,57 @@ function handleInput(e: Event) {
 
 <template>
   <div>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Pindle
-      </a>
-    </p>
-
-    <div py-4 flex="~ col" items-center>
-      Hint
-      <CharBlock :char="parseWord(hint)[0]" />
-    </div>
+    <button icon-btn text-base pb3 gap-1 inline-flex items-center justify-center @click="toggleHint()">
+      <div i-carbon-idea /> 提示
+    </button>
+    <Modal v-model="showHint" direction="top">
+      <Hint />
+    </Modal>
 
     <div flex="~ col gap-2" items-center>
       <!-- <Sentence :word="answer" /> -->
       <Sentence v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
-      <div relative pt-8>
-        <Sentence :word="input" />
-        <input
-          :value="input"
-          type="text"
-          autocomplete="false"
-          absolute
-          inset-0
-          text-4xl
-          w-full
-          h-full
-          outline-none
-          bg="transparent"
-          op-1
-          style="letter-spacing: 2rem; font-size: 3.5rem"
-          @input="handleInput"
-          @keydown.enter="go"
-        >
-      </div>
+      <Sentence :word="input" />
+      <input
+        :value="input"
+        type="text"
+        autocomplete="false"
+        outline-none
+        placeholder="輸入四字成语"
+        w-86
+        p3
+        border="~ base rounded"
+        text="center"
+        bg="transparent"
+        @input="handleInput"
+        @keydown.enter="go"
+      >
     </div>
 
-    <div>
+    <div flex="~ col gap-2" p4 justify-center items-center>
       <button
-        class="m-3 text-sm btn"
-        :disabled="!input"
+        class="btn"
+        :disabled="input.length !== WORD_LENGTH"
         @click="go"
       >
-        Go
+        确定
       </button>
+      <div h-200 />
+      <div op50>
+        这个是测试用的，之后会拿掉 👀
+      </div>
       <button
-        class="m-3 text-sm btn"
+        class="btn"
         @click="reset"
       >
-        Reset
+        重置
       </button>
+      <a
+        class="btn"
+        :href="`/?d=${day + 1}`"
+      >
+        下一天
+      </a>
     </div>
-
-    <label>
-      <input v-model="bopomofo" type="checkbox">
-      注音
-    </label>
   </div>
 </template>
