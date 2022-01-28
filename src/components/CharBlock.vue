@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const colors = {
-  exact: 'text-green-500',
+  exact: 'text-teal-500',
   misplaced: 'text-orange-400',
   none: 'op80',
 }
@@ -26,13 +26,13 @@ const blockColor = computed(() => {
   if (!props.answer)
     return 'border-base'
   if (exact.value)
-    return 'border-transparent bg-green-500 text-white'
+    return 'border-transparent bg-teal-500 text-white'
   return 'border-transparent bg-gray-500/10'
 })
 </script>
 
 <template>
-  <div h-20 w-20 border-2 :class="blockColor" flex="~" items-center justify-center relative>
+  <div h-20 w-20 border-2 font-serif :class="blockColor" flex="~" items-center justify-center relative>
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="useZhuyin">

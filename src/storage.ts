@@ -6,12 +6,12 @@ export const useZhuyin = useStorage('handle-zhuyin', false)
 
 export const tries = computed<string[]>({
   get() {
-    if (!(dayNo in allTries.value))
-      allTries.value[dayNo] = []
-    return allTries.value[dayNo]
+    if (!(dayNo.value in allTries.value))
+      allTries.value[dayNo.value] = []
+    return allTries.value[dayNo.value]
   },
   set(v) {
-    allTries.value[dayNo] = v
+    allTries.value[dayNo.value] = v
   },
 })
 

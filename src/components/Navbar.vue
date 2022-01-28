@@ -8,7 +8,7 @@ const toggleHelp = useToggle(showHelp)
 
 <template>
   <nav p4 border="b base" flex="~" justify-between items-center relative>
-    <div p4 absolute left-0 right-0 z--1>
+    <div p4 absolute text-xl left-0 right-0 z--1>
       汉兜
     </div>
     <div flex="~ gap-4" items-center>

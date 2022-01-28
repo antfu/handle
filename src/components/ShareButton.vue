@@ -13,7 +13,7 @@ const text = computed(() =>
           if (i.char === 'misplaced')
             return '🟧'
           if ([i.one, i.two, i.three].includes('exact'))
-            return '🟨'
+            return '🟡'
           return '⬜️'
         })
         .join(''))
