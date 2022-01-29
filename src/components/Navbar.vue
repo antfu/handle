@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDark, showHelp, showHint, showSettings } from '~/state'
+import { isDark, showFailed, showHelp, showHint, showSettings } from '~/state'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
@@ -35,5 +35,8 @@ const toggleHelp = useToggle(showHelp)
   </Modal>
   <Modal v-model="showHint" direction="top">
     <Hint />
+  </Modal>
+  <Modal v-model="showFailed" direction="top">
+    <FailedPage />
   </Modal>
 </template>

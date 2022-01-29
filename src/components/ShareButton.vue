@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { answer, dayNo } from '~/state'
-import { tries } from '~/storage'
+import { meta, tries } from '~/storage'
 import { parseWord, testAnswer } from '~/utils'
 
 const text = computed(() =>
-  `汉兜 ${dayNo.value} ${tries.value.length}/10\n${
+  `汉兜 ${dayNo.value} ${meta.value.answer ? 'X' : tries.value.length}/10\n${
     tries.value
       .map(word => testAnswer(parseWord(word, answer.value.word))
         .map((i) => {
@@ -44,14 +44,14 @@ function start() {
     分享
   </button>
   <Modal v-model="shareDialog" direction="top">
-    <div flex="~ col" p-5 items-center>
+    <div flex="~ col" p5 items-center>
       <p text-xl font-serif mb4>
         <b>分享</b>
       </p>
       <p text-center mb4>
         你使用的浏览器似乎不支持弹窗分享，<br>以下内容已复制到你的剪贴板，你可以在其他平台贴上分享。
       </p>
-      <pre text-left bg-gray-500:5 rounded p5 select-text>{{ text }}</pre>
+      <pre text-left bg-gray-500:5 rounded p5 select-text mb4>{{ text }}</pre>
     </div>
   </Modal>
 </template>

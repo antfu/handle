@@ -11,6 +11,7 @@ export const showHint = ref(false)
 export const showSettings = ref(false)
 export const showHelp = ref(false)
 export const showShare = ref(false)
+export const showFailed = ref(false)
 
 const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
@@ -25,6 +26,7 @@ export const answer = computed(() =>
     : getAnswerOfDay(dayNo.value),
 )
 export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1], answer.value.word))))
+export const isFailed = computed(() => !isPassed.value && tries.value.length >= 10)
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))
