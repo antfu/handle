@@ -2,6 +2,7 @@
 import type { MatchResult, MatchType, ParsedChar } from '~/types'
 import { useZhuyin } from '~/storage'
 import { zhuyinToneMap } from '~/lang'
+import { useMask } from '~/state'
 
 const props = defineProps<{
   char?: ParsedChar
@@ -16,10 +17,13 @@ const colors = {
 
 const exact = computed(() => Object.values(props.answer || {}).every(i => i === 'exact'))
 
-function getColor(result?: MatchType) {
+function getColor(result?: MatchType, isChar = false) {
+  const pre = useMask.value
+    ? `bg-current ${isChar ? ' !op70' : '!op40'}`
+    : ''
   if (!result || exact.value)
-    return ''
-  return colors[result]
+    return pre
+  return `${pre} ${colors[result]}`
 }
 
 const blockColor = computed(() => {
@@ -32,11 +36,11 @@ const blockColor = computed(() => {
 </script>
 
 <template>
-  <div h-20 w-20 border-2 font-serif :class="blockColor" flex="~ center" relative>
+  <div h-20 w-20 border-2 font-serif leading-1em :class="blockColor" flex="~ center" relative>
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="useZhuyin">
-        <div text-3xl mr-3 :class="getColor(answer?.char)">
+        <div text-3xl leading-1em mr-3 :class="getColor(answer?.char, true)">
           {{ char.char }}
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
@@ -51,26 +55,28 @@ const blockColor = computed(() => {
               {{ char.three }}
             </span>
           </div>
-          <span :class="getColor(answer?.tone)" text-xl font-light w="1.5">
+          <span :class="getColor(answer?.tone)" text-xl font-light w="12px" h="12px" mt--3>
             {{ zhuyinToneMap[char.tone] }}
           </span>
         </div>
       </template>
       <!-- Pinyin -->
       <template v-else>
-        <div text-3xl mt-4 :class="getColor(answer?.char)">
+        <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
           {{ char.char }}
         </div>
-        <div absolute top="1.5" text-center left-0 right-0 flex="~ x-center gap-0.5" font-light>
-          <span :class="getColor(answer?.one)">
+        <div absolute top="2.5" text-center left-0 right-0 flex="~ x-center gap-0.5" items-start font-light>
+          <div :class="getColor(answer?.one)">
             {{ char.one }}
-          </span>
-          <span :class="getColor(answer?.two)">
+          </div>
+          <div :class="getColor(answer?.two)">
             {{ char.two }}
-          </span>
-          <span :class="getColor(answer?.tone)" text-xs mr--2>
-            {{ char.tone }}
-          </span>
+          </div>
+          <div>
+            <div :class="getColor(answer?.tone)" text-xs leading-1em mr--2 mt--1>
+              {{ char.tone }}
+            </div>
+          </div>
         </div>
       </template>
     </template>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { isDark, showHelp } from '~/state'
+import { isDark, showHelp, useMask } from '~/state'
 import { initialized, meta } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
   showHelp.value = false
+  useMask.value = false
   initialized.value = true
   if (!meta.value.start)
     meta.value.start = Date.now()

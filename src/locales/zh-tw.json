@@ -48,5 +48,6 @@
   "view-answer": "查看答案",
   "pinyin": "拼音",
   "zhuyin": "注音",
-  "update-tip": "* 新題目每日零時更新"
+  "update-tip": "* 新題目每日零時更新",
+  "enable-mask": "開啟遮罩"
 }

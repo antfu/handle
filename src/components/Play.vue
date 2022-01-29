@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
+import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint, useMask } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/constants'
@@ -57,7 +57,7 @@ watchEffect(() => {
         <div i-carbon-idea /> {{ t('hint') }}
       </button>
 
-      <WordBlocks v-for="t,i of tries" :key="i" :word="t" :revealed="true" />
+      <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" />
 
       <template v-if="meta.answer">
         <div my4>
@@ -101,6 +101,11 @@ watchEffect(() => {
       </template>
       <template v-else>
         <Countdown />
+        <div border="~ base" flex="~ gap-2" p="x2 y1">
+          <button :class="useMask ? 'text-primary' : 'op80' " @click="useMask = !useMask">
+            {{ t('enable-mask') }}
+          </button>
+        </div>
       </template>
 
       <template v-if="isDev">

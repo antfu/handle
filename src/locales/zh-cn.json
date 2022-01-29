@@ -48,5 +48,6 @@
   "no-future-play": "Ops，这道题目来自未来，还不能玩哦！",
   "zhuyin": "注音",
   "pinyin": "拼音",
-  "update-tip": "* 新题目每日零时更新"
+  "update-tip": "* 新题目每日零时更新",
+  "enable-mask": "开启遮罩"
 }

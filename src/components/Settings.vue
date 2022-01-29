@@ -5,7 +5,7 @@ import { locale, t } from '~/i18n'
 
 <template>
   <div p6 flex="~ gap-4 center">
-    <div border="~ base rounded" flex="~ gap-2" p="x2 y1">
+    <div border="~ base" flex="~ gap-2" p="x2 y1">
       <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
         简体
       </button>
@@ -14,7 +14,7 @@ import { locale, t } from '~/i18n'
         繁體
       </button>
     </div>
-    <div border="~ base rounded" flex="~ gap-2" p="x2 y1">
+    <div border="~ base" flex="~ gap-2" p="x2 y1">
       <button :class="!useZhuyin ? 'text-primary' : 'op80' " @click="useZhuyin = false">
         {{ t('pinyin') }}
       </button>
