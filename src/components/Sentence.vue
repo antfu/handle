@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { WORD_LENGTH, parsedAnswer } from '~/state'
-import type { ParsedChar } from '~/types'
+import { WORD_LENGTH, parsedAnswer, answer as todayAnswer } from '~/state'
 import { parseWord, testAnswer } from '~/utils'
 
 const props = defineProps<{
   word: string
   revealed?: boolean
-  answer?: ParsedChar[]
+  answer?: string
 }>()
 
-const answer = computed(() => {
+const result = computed(() => {
   if (props.revealed)
-    return testAnswer(parseWord(props.word), props.answer || parsedAnswer.value)
+    return testAnswer(parseWord(props.word), props.answer ? parseWord(props.answer) : parsedAnswer.value)
   return []
 })
 
@@ -29,7 +28,7 @@ watchEffect(() => {
 <template>
   <div flex gap-2>
     <div
-      v-for="c,i in parseWord(word.padEnd(WORD_LENGTH, ' '))" :key="i"
+      v-for="c,i in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)" :key="i"
       w-20
       h-20
       :class="['tile', flip ? 'revealed': '']"
@@ -42,7 +41,7 @@ watchEffect(() => {
       <CharBlock
         class="back"
         :char="c"
-        :answer="answer[i]"
+        :answer="result[i]"
         :style="{
           transitionDelay: `${i * (300 + Math.random() * 50)}ms`,
           animationDelay: `${i * (100 + Math.random() * 50)}ms`

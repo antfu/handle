@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { dayNo } from '~/state'
+import { answer, dayNo } from '~/state'
 import { tries } from '~/storage'
 import { parseWord, testAnswer } from '~/utils'
 
 const text = computed(() =>
   `汉兜 ${dayNo.value} ${tries.value.length}/10\n${
     tries.value
-      .map(word => testAnswer(parseWord(word))
+      .map(word => testAnswer(parseWord(word, answer.value.word))
         .map((i) => {
           if (i.char === 'exact')
             return '🟩'

@@ -15,7 +15,7 @@ export const showShare = ref(false)
 const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
 export const dayNo = computed(() => +(new URLSearchParams(window.location.search).get('d') || daySince.value))
 export const answer = computed(() => getAnswerOfDay(dayNo.value))
-export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1]))))
+export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1], answer.value.word))))
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))

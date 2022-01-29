@@ -1,17 +1,18 @@
-import Pinyin from 'pinyin'
-import { pinyin2zhuyin, pinyingInitials, toSimplified } from './lang'
+import { getPinyin, pinyin2zhuyin, pinyingInitials, toSimplified } from './lang'
 import type { MatchResult, ParsedChar } from './types'
 import { useZhuyin } from './storage'
 import { parsedAnswer } from './state'
 
-export function parseWord(sentence: string) {
-  const pinyins = Pinyin(toSimplified(sentence), {
-    style: Pinyin.STYLE_TONE2,
-  })
-  const chars = Array.from(sentence)
+export function parseWord(word: string, answer?: string) {
+  const pinyins = getPinyin(word)
+  const chars = Array.from(word)
+  const answerPinyin = answer ? getPinyin(answer) : undefined
 
   return chars.map((char, i): ParsedChar => {
-    let pinyin = pinyins[i]?.[0] || ''
+    let pinyin = pinyins[i] || ''
+    // try match the pinyin from the answer word
+    if (answerPinyin && answer && answer.includes(char))
+      pinyin = answerPinyin[answer.indexOf(char)] || pinyin
     const tone = pinyin.match(/[\d]$/)?.[0] || ''
     if (tone)
       pinyin = pinyin.slice(0, -tone.length).trim()
