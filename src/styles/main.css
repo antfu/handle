@@ -10,6 +10,13 @@ html.dark {
   background: #121212;
 }
 
+:root {
+  --c-ok: #0d9488;
+  --c-primary: #0d9488;
+  --c-primary-deep: #076a61;
+  --c-mis: #de7525;
+}
+
 p {
   text-align: left;
 }

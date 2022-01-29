@@ -9,8 +9,8 @@ const props = defineProps<{
 }>()
 
 const colors = {
-  exact: 'text-teal-600',
-  misplaced: 'text-orange-400',
+  exact: 'text-ok',
+  misplaced: 'text-mis',
   none: 'op80',
 }
 
@@ -26,13 +26,13 @@ const blockColor = computed(() => {
   if (!props.answer)
     return 'border-base'
   if (exact.value)
-    return 'border-transparent bg-teal-600 text-white'
+    return 'border-transparent bg-ok text-white'
   return 'border-transparent bg-gray-500/10'
 })
 </script>
 
 <template>
-  <div h-20 w-20 border-2 font-serif :class="blockColor" flex="~" items-center justify-center relative>
+  <div h-20 w-20 border-2 font-serif :class="blockColor" flex="~ center" relative>
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="useZhuyin">
@@ -40,7 +40,7 @@ const blockColor = computed(() => {
           {{ char.char }}
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
-          <div flex justify-center text-xs style="writing-mode: vertical-rl;">
+          <div flex="~ center" text-xs style="writing-mode: vertical-rl;">
             <span :class="getColor(answer?.one)">
               {{ char.one }}
             </span>
@@ -61,7 +61,7 @@ const blockColor = computed(() => {
         <div text-3xl mt-4 :class="getColor(answer?.char)">
           {{ char.char }}
         </div>
-        <div absolute top="1.5" text-center left-0 right-0 flex gap="0.5" justify-center font-light>
+        <div absolute top="1.5" text-center left-0 right-0 flex="~ x-center gap-0.5" font-light>
           <span :class="getColor(answer?.one)">
             {{ char.one }}
           </span>
