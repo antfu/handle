@@ -9,6 +9,8 @@ declare module 'vue' {
     Hint: typeof import('./src/components/Hint.vue')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
+    NoFuturePlay: typeof import('./src/components/NoFuturePlay.vue')['default']
+    Play: typeof import('./src/components/Play.vue')['default']
     Sentence: typeof import('./src/components/Sentence.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     ShareButton: typeof import('./src/components/ShareButton.vue')['default']
