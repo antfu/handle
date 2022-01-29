@@ -1,9 +1,10 @@
 import { getAnswerOfDay, getHint } from './lang'
-import { initialized, tries } from './storage'
+import { initialized, meta, tries } from './storage'
 import { checkPass, parseWord, testAnswer } from './utils'
 
 export const now = useNow({ interval: 1000 })
 export const WORD_LENGTH = 4
+export const TRIES_LIMIT = 10
 export const START_DATE = new Date(2022, 0, 0)
 
 export const isDark = useDark()
@@ -26,7 +27,8 @@ export const answer = computed(() =>
     : getAnswerOfDay(dayNo.value),
 )
 export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1], answer.value.word))))
-export const isFailed = computed(() => !isPassed.value && tries.value.length >= 10)
+export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
+export const isFinished = computed(() => isPassed.value || meta.value.answer)
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))

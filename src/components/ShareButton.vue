@@ -51,7 +51,7 @@ function start() {
       <p text-center mb4>
         你使用的浏览器似乎不支持弹窗分享，<br>以下内容已复制到你的剪贴板，你可以在其他平台贴上分享。
       </p>
-      <pre text-left bg-gray-500:5 rounded p5 select-text mb4>{{ text }}</pre>
+      <pre text-left bg-gray-500:5 rounded p5 select-text mb4 style="line-height: 18px;letter-spacing: 1px;">{{ text }}</pre>
     </div>
   </Modal>
 </template>

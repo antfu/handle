@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WORD_LENGTH, answer, dayNo, isDev, isFailed, isPassed, showFailed, showHelp, showHint } from '~/state'
+import { TRIES_LIMIT, WORD_LENGTH, answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
 import { meta, tries } from '~/storage'
 
 const el = ref<HTMLInputElement>()
@@ -49,7 +49,7 @@ watchEffect(() => {
 
 <template>
   <div>
-    <button icon-btn text-base pb3 gap-1 inline-flex items-center justify-center @click="hint()">
+    <button icon-btn text-base pb3 gap-1 inline-flex items-center justify-center :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
       <div i-carbon-idea /> 提示
     </button>
 
@@ -66,7 +66,7 @@ watchEffect(() => {
         </div>
       </template>
 
-      <template v-if="!isPassed && !meta.answer">
+      <template v-if="!isFinished">
         <Sentence :word="input" />
         <input
           ref="el"
@@ -100,7 +100,7 @@ watchEffect(() => {
           确定
         </button>
         <div v-if="tries.length > 4 && !isFailed" op50>
-          剩余 {{ 10 - tries.length }} 次尝试机会
+          剩余 {{ TRIES_LIMIT - tries.length }} 次尝试机会
         </div>
         <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
           <div i-mdi-emoticon-devil-outline /> 查看答案
