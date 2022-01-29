@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CharBlock: typeof import('./src/components/CharBlock.vue')['default']
     Countdown: typeof import('./src/components/Countdown.vue')['default']
+    Dashboard: typeof import('./src/components/Dashboard.vue')['default']
     FailedPage: typeof import('./src/components/FailedPage.vue')['default']
     Hint: typeof import('./src/components/Hint.vue')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']

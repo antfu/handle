@@ -50,7 +50,7 @@ function start() {
         <b>{{ t('share') }}</b>
       </p>
       <p text-center mb4>
-        {{ t('share-unsupported') }}<br>{{ t('share-copied') }}
+        {{ t('share-copied') }}
       </p>
       <pre text-left bg-gray-500:5 rounded p5 select-text mb4 style="line-height: 18px;letter-spacing: 1px;">{{ text }}</pre>
     </div>

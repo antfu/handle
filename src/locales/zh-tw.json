@@ -39,13 +39,14 @@
   "ok": "確定",
   "rule": "遊戲規則",
   "share": "分享",
-  "share-copied": "以下內容已復製到你的剪貼板，你可以在其他平台貼上分享",
+  "share-copied": "以下內容已復製到你的剪貼板，你可以在其他平台貼上進行分享",
   "share-unsupported": "你使用的瀏覽器似乎不支持彈窗分享",
-  "start": "開始遊戲!",
+  "start": "開始遊戲",
   "support-tip": "*支援繁體輸入與註音",
   "time-format": "{0}時{1}分{2}秒",
   "tries-rest": "剩餘 {0} 次嘗試機會",
   "view-answer": "查看答案",
   "pinyin": "拼音",
-  "zhuyin": "注音"
+  "zhuyin": "注音",
+  "update-tip": "* 新題目每日零時更新"
 }

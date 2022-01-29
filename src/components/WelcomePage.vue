@@ -14,8 +14,11 @@ function start() {
 <template>
   <div p="x5 y10" flex="~ col gap-2 y-center" max-h-screen h-screen overflow-auto relative>
     <div absolute top-4 right-4 flex="~ gap-3">
-      <button icon-btn @click="isDark = !isDark">
+      <button v-if="!initialized" icon-btn @click="isDark = !isDark">
         <div i-carbon-sun dark:i-carbon-moon />
+      </button>
+      <button v-else icon-btn @click="start()">
+        <div i-carbon-close />
       </button>
     </div>
 
@@ -57,10 +60,11 @@ function start() {
     <button btn tracking-widest p="x4 y2" @click="start()">
       {{ t('start') }}
     </button>
-
     <div op50>
-      {{ t('support-tip') }}
+      {{ t('update-tip') }}
     </div>
+
+    <Settings />
 
     <div h-1px w-10 border="b base" m4 />
     <div op50>
