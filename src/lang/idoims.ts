@@ -7,6 +7,10 @@ import { overrides } from '~/overrides'
 const SEED = 'handle'
 const DATA_SET = DATA.length
 
+export function getHint(word: string) {
+  return word[Math.floor(seedrandom(word)() * word.length)]
+}
+
 export function getAnswerOfDay(day: number) {
   let [word = '', hint = ''] = overrides[day] || []
   if (!word) {
@@ -16,7 +20,7 @@ export function getAnswerOfDay(day: number) {
     word = DATA[Math.floor(rng() * DATA_SET - 1)].word
   }
   if (!hint)
-    hint = word[Math.floor(seedrandom(word)() * 4)]
+    hint = getHint(word)
   return {
     word,
     hint,
