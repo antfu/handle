@@ -1,14 +1,6 @@
 import { preferZhuyin } from './i18n'
 import { dayNo } from './state'
-
-export interface TriesMeta {
-  hint?: boolean
-  answer?: boolean
-  start?: number
-  end?: number
-  failed?: boolean
-  passed?: boolean
-}
+import type { TriesMeta } from './types'
 
 export const initialized = useStorage('handle-initialized', false)
 export const allTries = useStorage<Record<number, string[]>>('handle-tries', {})

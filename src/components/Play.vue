@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { TRIES_LIMIT, WORD_LENGTH, answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
+import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
+import { TRIES_LIMIT, WORD_LENGTH } from '~/constants'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')

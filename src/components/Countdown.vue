@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { START_DATE, now } from '~/state'
+import { now } from '~/state'
 import { t } from '~/i18n'
+import { START_DATE } from '~/constants'
 
 const ms = computed(() => 86400000 - (+now.value - +START_DATE) % 86400000)
 const formatted = computed(() => {

@@ -1,4 +1,3 @@
-
 export type MatchType = 'exact' | 'misplaced' | 'none'
 
 export interface ParsedChar {
@@ -15,4 +14,13 @@ export interface MatchResult {
   two: MatchType
   three: MatchType
   tone: MatchType
+}
+
+export interface TriesMeta {
+  hint?: boolean
+  answer?: boolean
+  start?: number
+  end?: number
+  failed?: boolean
+  passed?: boolean
 }

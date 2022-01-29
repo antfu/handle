@@ -1,12 +1,9 @@
 import { getAnswerOfDay, getHint } from './lang'
 import { meta, tries } from './storage'
 import { checkPass, parseWord, testAnswer } from './utils'
+import { START_DATE, TRIES_LIMIT } from './constants'
 
 export const now = useNow({ interval: 1000 })
-export const WORD_LENGTH = 4
-export const TRIES_LIMIT = 10
-export const START_DATE = new Date(2022, 0, 0)
-
 export const isDark = useDark()
 export const showHint = ref(false)
 export const showSettings = ref(false)

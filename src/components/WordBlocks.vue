@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { WORD_LENGTH, parsedAnswer, answer as todayAnswer } from '~/state'
+import { parsedAnswer, answer as todayAnswer } from '~/state'
 import { parseWord, testAnswer } from '~/utils'
+import { WORD_LENGTH } from '~/constants'
 
 const props = defineProps<{
   word: string
