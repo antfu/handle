@@ -8,4 +8,5 @@ const a = Array.from({ length: 100 }, () => data[Math.round(len * Math.random())
   })
   .join('\n')
 
+// eslint-disable-next-line no-console
 console.log(a)

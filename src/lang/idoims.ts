@@ -8,14 +8,15 @@ const SEED = 'handle'
 const DATA_SET = DATA.length
 
 export function getAnswerOfDay(day: number) {
-  let word = overrides[day]
+  let [word = '', hint = ''] = overrides[day] || []
   if (!word) {
     const rng = seedrandom(SEED)
     for (let i = 0; i <= day; i++)
       rng()
     word = DATA[Math.floor(rng() * DATA_SET - 1)].word
   }
-  const hint = word[Math.floor(seedrandom(word)() * 4)]
+  if (!hint)
+    hint = word[Math.floor(seedrandom(word)() * 4)]
   return {
     word,
     hint,

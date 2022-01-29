@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WORD_LENGTH, dayNo, isPassed, showHelp, showHint } from '~/state'
+import { WORD_LENGTH, dayNo, isDev, isPassed, showHelp, showHint } from '~/state'
 import { tries } from '~/storage'
 
 const toggleHint = useToggle(showHint)
@@ -77,22 +77,24 @@ watchEffect(() => {
       >
         确定
       </button>
-      <div h-200 />
-      <div op50>
-        这个是测试用的，之后会拿掉 👀
-      </div>
-      <button
-        class="btn"
-        @click="reset"
-      >
-        重置
-      </button>
-      <a
-        class="btn"
-        :href="`/?d=${dayNo + 1}`"
-      >
-        下一天
-      </a>
+      <template v-if="isDev">
+        <div h-200 />
+        <div op50>
+          测试用
+        </div>
+        <button
+          class="btn"
+          @click="reset"
+        >
+          重置
+        </button>
+        <a
+          class="btn"
+          :href="`/?d=${dayNo + 1}`"
+        >
+          下一天
+        </a>
+      </template>
     </div>
   </div>
 </template>

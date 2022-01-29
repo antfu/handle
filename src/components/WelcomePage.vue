@@ -52,6 +52,10 @@ function start() {
       开始游戏!
     </button>
 
+    <div op50>
+      *支持繁体输入与注音
+    </div>
+
     <div h-1px w-10 border="b base" m4 />
     <div op50>
       heavily inspired by <a underline href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>

@@ -12,6 +12,7 @@ import { useZhuyin } from '~/storage'
     <label op50>
       <input type="checkbox" disabled>
       模糊音
+      <sup>敬请期待</sup>
     </label>
   </div>
 </template>

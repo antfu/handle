@@ -17,7 +17,7 @@ const text = computed(() =>
           return '⬜️'
         })
         .join(''))
-      .join('\n')}`,
+      .join('\n')}\nhttps://handle.antfu.me`,
 )
 function share() {
   useShare({
