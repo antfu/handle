@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/i18n'
-useTitle(computed(() => `${t('name')} - ${t('description')}`))
+import '~/init'
 </script>
 
 <template>

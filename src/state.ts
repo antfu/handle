@@ -1,5 +1,5 @@
 import { getAnswerOfDay, getHint } from './lang'
-import { initialized, meta, tries } from './storage'
+import { meta, tries } from './storage'
 import { checkPass, parseWord, testAnswer } from './utils'
 
 export const now = useNow({ interval: 1000 })
@@ -32,11 +32,3 @@ export const isFinished = computed(() => isPassed.value || meta.value.answer)
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))
-
-watchEffect(() => {
-  // eslint-disable-next-line no-console
-  console.log(`D${dayNo.value}`, { are: { you: { sure: { to: { cheat: { '?': answer.value.word } } } } } })
-}, { flush: 'post' })
-
-if (!initialized.value)
-  showHelp.value = true

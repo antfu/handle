@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { isDark, showHelp } from '~/state'
-import { initialized } from '~/storage'
+import { initialized, meta } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
   showHelp.value = false
   initialized.value = true
+  if (!meta.value.start)
+    meta.value.start = Date.now()
 }
 </script>
 

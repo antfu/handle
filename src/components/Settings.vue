@@ -23,11 +23,5 @@ import { locale, t } from '~/i18n'
         {{ t('zhuyin') }}
       </button>
     </div>
-    <!--TODO-->
-    <label op50>
-      <input type="checkbox" disabled>
-      模糊音
-      <sup>敬请期待</sup>
-    </label>
   </div>
 </template>
