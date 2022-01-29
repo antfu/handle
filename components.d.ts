@@ -13,10 +13,10 @@ declare module 'vue' {
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NoFuturePlay: typeof import('./src/components/NoFuturePlay.vue')['default']
     Play: typeof import('./src/components/Play.vue')['default']
-    Sentence: typeof import('./src/components/Sentence.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     ShareButton: typeof import('./src/components/ShareButton.vue')['default']
     WelcomePage: typeof import('./src/components/WelcomePage.vue')['default']
+    WordBlocks: typeof import('./src/components/WordBlocks.vue')['default']
   }
 }
 
