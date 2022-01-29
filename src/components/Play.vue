@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { TRIES_LIMIT, WORD_LENGTH, answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
 import { meta, tries } from '~/storage'
+import { t } from '~/i18n'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
 const inputValue = ref('')
+
 function go() {
   if (input.value.length !== WORD_LENGTH)
     return
@@ -50,7 +52,7 @@ watchEffect(() => {
 <template>
   <div>
     <button icon-btn text-base pb3 gap-1 inline-flex items-center justify-center :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
-      <div i-carbon-idea /> 提示
+      <div i-carbon-idea /> {{ t('hint') }}
     </button>
 
     <div flex="~ col gap-2" items-center @click="focus()">
@@ -60,7 +62,7 @@ watchEffect(() => {
       <template v-if="meta.answer">
         <div my4>
           <div font-serif p2>
-            正确答案
+            {{ t('correct-answer') }}
           </div>
           <Sentence :word="answer.word" />
         </div>
@@ -74,7 +76,7 @@ watchEffect(() => {
           type="text"
           autocomplete="false"
           outline-none
-          placeholder="输入四字词语..."
+          :placeholder="t('input-placeholder')"
           w-86
           p3
           border="~ base rounded"
@@ -97,13 +99,13 @@ watchEffect(() => {
           :disabled="input.length !== WORD_LENGTH"
           @click="go"
         >
-          确定
+          {{ t('ok') }}
         </button>
         <div v-if="tries.length > 4 && !isFailed" op50>
-          剩余 {{ TRIES_LIMIT - tries.length }} 次尝试机会
+          {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
         </div>
         <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
-          <div i-mdi-emoticon-devil-outline /> 查看答案
+          <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
         </button>
       </template>
 

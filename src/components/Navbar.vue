@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { isDark, showFailed, showHelp, showHint, showSettings } from '~/state'
+import { t } from '~/i18n'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
@@ -8,8 +9,8 @@ const toggleHelp = useToggle(showHelp)
 
 <template>
   <nav p4 border="b base" flex="~" justify-between items-center relative>
-    <div absolute font-serif text-2xl left-0 right-0 z--1>
-      汉兜
+    <div absolute font-serif text-2xl left-0 right-0 z--1 tracking-2>
+      {{ t('name') }}
     </div>
     <div flex="~ gap-4" items-center>
       <button class="icon-btn" @click="toggleHelp()">

@@ -1,3 +1,4 @@
+import { preferZhuyin } from './i18n'
 import { dayNo } from './state'
 
 export interface TriesMeta {
@@ -12,7 +13,7 @@ export interface TriesMeta {
 export const initialized = useStorage('handle-initialized', false)
 export const allTries = useStorage<Record<number, string[]>>('handle-tries', {})
 export const allMeta = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
-export const useZhuyin = useStorage('handle-zhuyin', false)
+export const useZhuyin = useStorage('handle-zhuyin', preferZhuyin)
 
 export const tries = computed<string[]>({
   get() {

@@ -2,7 +2,7 @@ import seedrandom from 'seedrandom'
 import Pinyin from 'pinyin'
 import DATA from '../../data/data.json'
 import { toSimplified } from './t2s'
-import { overrides } from '~/overrides'
+import { overrides } from '~/answers'
 
 const SEED = 'handle'
 const DATA_SET = DATA.length

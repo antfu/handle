@@ -1,8 +1,12 @@
+<script setup lang="ts">
+import { t } from '~/i18n'
+</script>
+
 <template>
   <div>
     <p text-center p-4>
-      Ops，这道题目来自未来，还不能玩哦！
+      {{ t('no-future-play') }}
     </p>
-    <a btn href="/">回到今天</a>
+    <a btn href="/">{{ t('back-today') }}</a>
   </div>
 </template>

@@ -1,13 +1,28 @@
 <script setup lang="ts">
 import { useZhuyin } from '~/storage'
+import { locale, t } from '~/i18n'
 </script>
 
 <template>
-  <div p6 flex="~ gap-4" justify-center>
-    <label>
-      <input v-model="useZhuyin" type="checkbox">
-      注音
-    </label>
+  <div p6 flex="~ gap-4" justify-center items-center>
+    <div border="~ base rounded" flex="~ gap-2" p="x2 y1">
+      <button :class="locale === 'hans' ? 'text-teal-500' : 'op80' " @click="locale = 'hans'">
+        简体
+      </button>
+      <div w-1px border="r base" />
+      <button :class="locale === 'hant' ? 'text-teal-500' : 'op80' " @click="locale = 'hant'">
+        繁體
+      </button>
+    </div>
+    <div border="~ base rounded" flex="~ gap-2" p="x2 y1">
+      <button :class="!useZhuyin ? 'text-teal-500' : 'op80' " @click="useZhuyin = false">
+        {{ t('pinyin') }}
+      </button>
+      <div w-1px border="r base" />
+      <button :class="useZhuyin ? 'text-teal-500' : 'op80' " @click="useZhuyin = true">
+        {{ t('zhuyin') }}
+      </button>
+    </div>
     <!--TODO-->
     <label op50>
       <input type="checkbox" disabled>
