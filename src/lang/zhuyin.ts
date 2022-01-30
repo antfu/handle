@@ -1,11 +1,3 @@
-export const toneMap: Record<number, string> = {
-  0: '˙',
-  1: 'ˉ',
-  2: 'ˊ',
-  3: 'ˇ',
-  4: 'ˋ',
-}
-
 export const pinyin2zhuyin: Record<string, string> = {
   a: 'ㄚ',
   ai: 'ㄞ',

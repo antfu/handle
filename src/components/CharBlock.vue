@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import ToneSymbol from './ToneSymbol.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/types'
 import { useNumberTone, useZhuyin } from '~/storage'
-import { toneMap } from '~/lang'
 import { useMask } from '~/state'
 
 const props = defineProps<{
@@ -31,7 +31,7 @@ const blockColor = computed(() => {
     return 'border-base'
   if (exact.value)
     return 'border-transparent bg-ok text-white'
-  return 'border-transparent bg-gray-500/10'
+  return 'border-transparent bg-gray-400/8'
 })
 
 const pingyin = computed(() => (props.char?.one || '') + (props.char?.two || '') + (props.char?.three || ''))
@@ -78,9 +78,7 @@ const partTwo = computed(() => {
               {{ char.three }}
             </span>
           </div>
-          <span :class="getColor(answer?.tone)" font-mono font-light w="10px" h="10px" mt--1>
-            {{ toneMap[char.tone] }}
-          </span>
+          <ToneSymbol :tone="char.tone" :class="getColor(answer?.tone)" mt--1 />
         </div>
       </template>
       <!-- Pinyin -->
@@ -88,7 +86,7 @@ const partTwo = computed(() => {
         <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
           {{ char.char }}
         </div>
-        <div absolute font-mono top="2.5" text-center left-0 right-0 font-100 flex flex-col items-center>
+        <div absolute font-mono top="2.7" text-center left-0 right-0 font-100 flex flex-col items-center>
           <div relative flex="~ x-center gap-2px" items-start ma>
             <div :class="getColor(answer?.one)">
               {{ char.one }}
@@ -101,19 +99,16 @@ const partTwo = computed(() => {
                 {{ char.tone }}
               </div>
             </div>
-            <div
+            <ToneSymbol
               v-else
-              :class="getColor(answer?.tone)"
-              text-lg leading-1em
-              w="10px" h="10px"
+              :tone="char.tone" :class="getColor(answer?.tone)"
               absolute
               :style="{
-                left: toneCharLocation * 9.5 + 2 + 'px',
-                top: useMask ? '-4px' : '-1.8px'
+                left: toneCharLocation * 9.64 + 2.6 + 'px',
+                top: useMask ? '-5px' : '-1.2px'
               }"
-            >
-              {{ toneMap[char.tone] }}
-            </div>
+              mt--1
+            />
           </div>
         </div>
       </template>
