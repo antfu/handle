@@ -53,5 +53,8 @@
   "win-rate": "获胜几率",
   "average-tries-count": "平均尝试次数",
   "mask-on": "遮罩开启",
-  "mask-off": "遮罩关闭"
+  "mask-off": "遮罩关闭",
+  "tone-symbol": "符号声调",
+  "tone-number": "数字声调",
+  "colorblind-mode": "色盲模式"
 }

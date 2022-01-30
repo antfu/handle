@@ -11,12 +11,18 @@ html.dark {
 }
 
 :root {
-  --c-ok: #0d8e8e;
   --c-primary: #0d828e;
   --c-primary-deep: #08606a;
+  --c-ok: #0d8e8e;
   --c-mis: #de7525;
 }
 
 p {
   text-align: left;
+}
+
+.colorblind {
+  --c-ok:#5bc419;
+  --c-mis: #ff46ff;
+  --c-primary:#a8b443;
 }

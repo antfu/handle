@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNumberTone, useZhuyin } from '~/storage'
+import { colorblind, useNumberTone, useZhuyin } from '~/storage'
 import { locale, t } from '~/i18n'
 </script>
 
@@ -33,6 +33,12 @@ import { locale, t } from '~/i18n'
         <div w-1px border="r base" />
         <button :class="useNumberTone && !useZhuyin ? 'text-primary' : 'op80' " @click="useNumberTone = true">
           数字声调
+        </button>
+      </div>
+      <div border="~ base" flex="~ gap-2" p="x2 y1">
+        <button :class="colorblind ? 'text-primary' : 'op80' " relative @click="colorblind = !colorblind">
+          {{ t('colorblind-mode') }}
+          <div v-if="colorblind" h-2 w-2 bg-primary absolute style="right:-0.75rem;top:-0.5rem" />
         </button>
       </div>
     </div>

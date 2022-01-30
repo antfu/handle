@@ -53,5 +53,8 @@
   "win-count": "獲勝次數",
   "win-rate": "獲勝機率",
   "mask-off": "遮罩關閉",
-  "mask-on": "遮罩開啟"
+  "mask-on": "遮罩開啟",
+  "colorblind-mode": "色盲模式",
+  "tone-number": "數字聲調",
+  "tone-symbol": "符號聲調"
 }
