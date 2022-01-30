@@ -102,8 +102,9 @@ watchEffect(() => {
       <template v-else>
         <Countdown />
         <div border="~ base" flex="~ gap-2" p="x2 y1">
-          <button :class="useMask ? 'text-primary' : 'op80' " @click="useMask = !useMask">
-            {{ t('enable-mask') }}
+          <button :class="useMask ? 'text-orange' : 'op50'" flex="~ center gap-1" @click="useMask = !useMask">
+            <div :i="useMask ? 'carbon-view-off' : 'carbon-view'" />
+            {{ useMask ? t('mask-on') : t('mask-off') }}
           </button>
         </div>
       </template>

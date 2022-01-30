@@ -8,7 +8,6 @@
   "tries-rest": "剩余 {0} 次尝试机会",
   "view-answer": "查看答案",
   "share": "分享",
-  "share-unsupported": "你使用的浏览器似乎不支持弹窗分享",
   "share-copied": "以下内容已复制到你的剪贴板，你可以在其他平台贴上进行分享",
   "rule": "游戏规则",
   "intro-1": "你有十次的机会猜一个",
@@ -36,7 +35,6 @@
   "example-4": "武运昌隆",
   "intro-20": "当四个格子都为青色时，你便赢得了游戏！",
   "start": "开始游戏",
-  "support-tip": "*支持繁体输入与注音",
   "continue": "继续游戏",
   "failed-1": "今天你已经用完十次的尝试机会了",
   "failed-2": "但是没关系，你还可以继续尝试",
@@ -49,10 +47,11 @@
   "zhuyin": "注音",
   "pinyin": "拼音",
   "update-tip": "* 新题目每日零时更新",
-  "enable-mask": "开启遮罩",
   "dashboard": "记分板",
   "games-count": "游戏次数",
   "win-count": "获胜次数",
   "win-rate": "获胜几率",
-  "average-tries-count": "平均尝试次数"
+  "average-tries-count": "平均尝试次数",
+  "mask-on": "遮罩开启",
+  "mask-off": "遮罩关闭"
 }
