@@ -48,8 +48,8 @@ function start() {
 
     <WordBlocks my2 :word="t('example-3')" :revealed="true" answer="桥它拖 " />
     <p max-w-130>
-      {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}<br>
-      {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}<br>
+      {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}
+      {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
       {{ t('intro-17') }} <b text-mis>{{ t('intro-18') }}</b> {{ t('intro-19') }}
     </p>
 
