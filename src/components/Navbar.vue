@@ -12,7 +12,7 @@ const toggleDashboard = useToggle(showDashboard)
 <template>
   <nav border="b base" relative>
     <div absolute font-serif text-2xl inset-0 z--1 tracking-2 flex>
-      <div ma>
+      <div ma leading-1em>
         {{ t('name') }}
       </div>
     </div>

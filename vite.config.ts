@@ -30,7 +30,7 @@ export default defineConfig({
     Unocss({
       shortcuts: [
         {
-          'btn': 'px-4 py-1 rounded inline-block bg-primary text-white cursor-pointer hover:bg-primary-deep disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50 disabled:pointer-events-none',
+          'btn': 'px-4 py-1 rounded inline-block bg-primary text-white cursor-pointer tracking-wide hover:bg-primary-deep disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50 disabled:pointer-events-none',
           'icon-btn': 'text-1.2em cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-primary disabled:pointer-events-none',
 
           'bg-base': 'bg-white dark:bg-[#111]',

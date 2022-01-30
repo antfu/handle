@@ -53,7 +53,7 @@ watchEffect(() => {
 <template>
   <div>
     <div flex="~ col gap-2" items-center @click="focus()">
-      <button icon-btn text-base pb3 gap-1 flex="~ center" :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
+      <button icon-btn text-base pb2 gap-1 flex="~ center" :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
         <div i-carbon-idea /> {{ t('hint') }}
       </button>
 
