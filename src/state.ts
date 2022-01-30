@@ -11,6 +11,7 @@ export const showHelp = ref(false)
 export const showShare = ref(false)
 export const showFailed = ref(false)
 export const showDashboard = ref(false)
+export const showVariants = ref(false)
 export const useMask = ref(false)
 
 const params = new URLSearchParams(window.location.search)

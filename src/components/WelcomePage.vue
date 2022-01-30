@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDark, showHelp, useMask } from '~/state'
+import { isDark, showHelp, showVariants, useMask } from '~/state'
 import { initialized, meta, useZhuyin } from '~/storage'
 import { t } from '~/i18n'
 
@@ -9,6 +9,10 @@ function start() {
   initialized.value = true
   if (!meta.value.start)
     meta.value.start = Date.now()
+}
+
+function variantButton() {
+  showVariants.value = true
 }
 </script>
 
@@ -66,6 +70,12 @@ function start() {
     </div>
 
     <Settings />
+
+    <div h-1px w-10 border="b base" m4 />
+
+    <button text-primary op80 hover:op100 @click="variantButton()">
+      {{ t('other-variants') }}
+    </button>
 
     <div h-1px w-10 border="b base" m4 />
     <div op50>
