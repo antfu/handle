@@ -19,6 +19,7 @@
   ],
   "i18n-ally.extract.autoDetect": true,
   "i18n-ally.keystyle": "flat",
+  "i18n-ally.sortKeys": true,
   "i18n-ally.refactor.templates": [
     {
       "templates": [

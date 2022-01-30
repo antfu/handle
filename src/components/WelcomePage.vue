@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isDark, showHelp, useMask } from '~/state'
-import { initialized, meta } from '~/storage'
+import { initialized, meta, useZhuyin } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
@@ -50,7 +50,7 @@ function start() {
     <p max-w-130>
       {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}
       {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
-      {{ t('intro-17') }} <b text-mis>{{ t('intro-18') }}</b> {{ t('intro-19') }}
+      {{ t('intro-17') }} <b text-mis>{{ useZhuyin ? 'uo' : 'ㄨㄛ' }}</b> {{ t('intro-19') }}
     </p>
 
     <WordBlocks my2 :word="t('example-4')" :revealed="true" answer="武运昌隆" />
