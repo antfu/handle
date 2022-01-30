@@ -18,7 +18,7 @@ const text = computed(() =>
           return '⬜️'
         })
         .join(''))
-      .join('\n')}\n\nhttps://handle.antfu.me`,
+      .join('\n')}\n\nhandle.antfu.me`,
 )
 const share = useShare(computed(() => ({
   title: t('name'),
