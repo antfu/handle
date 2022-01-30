@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { isDark, showDashboard, showFailed, showHelp, showHint, showSettings } from '~/state'
+import { isDark, showDashboard, showFailed, showHelp, showHint, showSettings, useMask } from '~/state'
 import { gamesCount } from '~/storage'
 import { t } from '~/i18n'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
-const toggleHelp = useToggle(showHelp)
 const toggleDashboard = useToggle(showDashboard)
+
+function openHelp() {
+  showHelp.value = true
+  useMask.value = false
+}
 </script>
 
 <template>
@@ -18,7 +22,7 @@ const toggleDashboard = useToggle(showDashboard)
     </div>
     <div flex="~" items-center justify-between md:max-w-md ma p4>
       <div flex="~ gap-4" items-center>
-        <button class="icon-btn" @click="toggleHelp()">
+        <button class="icon-btn" @click="openHelp()">
           <div i-carbon-help />
         </button>
         <button v-if="gamesCount" class="icon-btn" @click="toggleDashboard()">
