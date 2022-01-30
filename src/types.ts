@@ -23,4 +23,5 @@ export interface TriesMeta {
   end?: number
   failed?: boolean
   passed?: boolean
+  tries?: string[]
 }

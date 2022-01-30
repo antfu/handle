@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { isDark, showFailed, showHelp, showHint, showSettings } from '~/state'
+import { isDark, showDashboard, showFailed, showHelp, showHint, showSettings } from '~/state'
+import { gamesCount } from '~/storage'
 import { t } from '~/i18n'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
 const toggleHelp = useToggle(showHelp)
+const toggleDashboard = useToggle(showDashboard)
 </script>
 
 <template>
@@ -16,12 +18,14 @@ const toggleHelp = useToggle(showHelp)
       <button class="icon-btn" @click="toggleHelp()">
         <div i-carbon-help />
       </button>
+      <button v-if="gamesCount" class="icon-btn" @click="toggleDashboard()">
+        <div i-carbon-catalog />
+      </button>
     </div>
     <div flex="~ gap-4" items-center>
       <button class="icon-btn" @click="toggleSettings()">
         <div i-carbon-settings />
       </button>
-
       <button class="icon-btn" @click="toggleDark()">
         <div i-carbon-sun dark:i-carbon-moon />
       </button>
@@ -39,5 +43,8 @@ const toggleHelp = useToggle(showHelp)
   </Modal>
   <Modal v-model="showFailed" direction="top">
     <FailedPage />
+  </Modal>
+  <Modal v-model="showDashboard" direction="top">
+    <Dashboard />
   </Modal>
 </template>

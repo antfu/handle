@@ -49,5 +49,10 @@
   "zhuyin": "注音",
   "pinyin": "拼音",
   "update-tip": "* 新题目每日零时更新",
-  "enable-mask": "开启遮罩"
+  "enable-mask": "开启遮罩",
+  "dashboard": "记分板",
+  "games-count": "游戏次数",
+  "win-count": "获胜次数",
+  "win-rate": "获胜几率",
+  "average-tries-count": "平均尝试次数"
 }

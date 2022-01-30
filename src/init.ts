@@ -1,5 +1,5 @@
 import { initialized, meta } from './storage'
-import { answer, dayNo, isFinished, showHelp } from './state'
+import { answer, dayNo, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
@@ -12,6 +12,11 @@ watchEffect(() => {
 
 if (!initialized.value)
   showHelp.value = true
+
+watchEffect(() => {
+  if (isPassed.value)
+    meta.value.passed = true
+})
 
 watch([initialized, meta], () => {
   if (initialized.value && !meta.value.start)
