@@ -1,10 +1,10 @@
 <template>
   <div
-    class="fixed inset-0 z-40"
+    class="fixed left-0 right-0 top-0 bottom-0 z-40"
     :class="modelValue ? '': 'pointer-events-none'"
   >
     <div
-      class="bg-base inset-0 absolute transition-opacity duration-500 ease-out"
+      class="bg-base left-0 right-0 top-0 bottom-0 absolute transition-opacity duration-500 ease-out"
       :class="modelValue ? 'opacity-50': 'opacity-0'"
       @click="$emit('update:modelValue', false)"
     />
