@@ -53,7 +53,7 @@ const partTwo = computed(() => {
   const index = toneCharLocation.value - oneLength
   // replace i with dot less for tone symbol
   if (!useNumberTone.value && pingyin.value[toneCharLocation.value] === 'i')
-    return `${two.slice(0, index - 1)}ı${two.slice(index + 1)}`
+    return `${two.slice(0, index)}ı${two.slice(index + 1)}`
   return two
 })
 </script>
