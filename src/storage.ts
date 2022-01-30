@@ -7,6 +7,7 @@ export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', 
 export const initialized = useStorage('handle-initialized', false)
 export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
 export const useZhuyin = useStorage('handle-zhuyin', preferZhuyin)
+export const useNumberTone = useStorage('handle-number-tone', false)
 
 export const meta = computed<TriesMeta>({
   get() {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MatchResult, MatchType, ParsedChar } from '~/types'
-import { useZhuyin } from '~/storage'
-import { zhuyinToneMap } from '~/lang'
+import { useNumberTone, useZhuyin } from '~/storage'
+import { toneMap } from '~/lang'
 import { useMask } from '~/state'
 
 const props = defineProps<{
@@ -33,6 +33,29 @@ const blockColor = computed(() => {
     return 'border-transparent bg-ok text-white'
   return 'border-transparent bg-gray-500/10'
 })
+
+const pingyin = computed(() => (props.char?.one || '') + (props.char?.two || '') + (props.char?.three || ''))
+
+const toneCharLocation = computed(() => {
+  const part = pingyin.value
+  return [
+    part.lastIndexOf('a'),
+    part.lastIndexOf('e'),
+    part.lastIndexOf('i'),
+    part.lastIndexOf('o'),
+    part.lastIndexOf('u'),
+  ].find(i => i !== null && i >= 0) || 0
+})
+
+const partTwo = computed(() => {
+  const two = props.char?.two || ''
+  const oneLength = props.char?.one?.length || 0
+  const index = toneCharLocation.value - oneLength
+  // replace i with dot less for tone symbol
+  if (!useNumberTone.value && pingyin.value[toneCharLocation.value] === 'i')
+    return `${two.slice(0, index - 1)}ı${two.slice(index + 1)}`
+  return two
+})
 </script>
 
 <template>
@@ -55,8 +78,8 @@ const blockColor = computed(() => {
               {{ char.three }}
             </span>
           </div>
-          <span :class="getColor(answer?.tone)" text-xl font-light w="12px" h="12px" mt--3>
-            {{ zhuyinToneMap[char.tone] }}
+          <span :class="getColor(answer?.tone)" font-mono font-light w="10px" h="10px" mt--1>
+            {{ toneMap[char.tone] }}
           </span>
         </div>
       </template>
@@ -65,16 +88,31 @@ const blockColor = computed(() => {
         <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
           {{ char.char }}
         </div>
-        <div absolute top="2.5" text-center left-0 right-0 flex="~ x-center gap-0.5" items-start font-light>
-          <div :class="getColor(answer?.one)">
-            {{ char.one }}
-          </div>
-          <div :class="getColor(answer?.two)">
-            {{ char.two }}
-          </div>
-          <div>
-            <div :class="getColor(answer?.tone)" text-xs leading-1em mr--2 mt--1>
-              {{ char.tone }}
+        <div absolute font-mono top="2.5" text-center left-0 right-0 font-100 flex flex-col items-center>
+          <div relative flex="~ x-center gap-2px" items-start ma>
+            <div :class="getColor(answer?.one)">
+              {{ char.one }}
+            </div>
+            <div :class="getColor(answer?.two)">
+              {{ partTwo }}
+            </div>
+            <div v-if="useNumberTone">
+              <div :class="getColor(answer?.tone)" text-xs leading-1em mr--2 mt--1>
+                {{ char.tone }}
+              </div>
+            </div>
+            <div
+              v-else
+              :class="getColor(answer?.tone)"
+              text-lg leading-1em
+              w="10px" h="10px"
+              absolute
+              :style="{
+                left: toneCharLocation * 9.5 + 2 + 'px',
+                top: useMask ? '-4px' : '-1.8px'
+              }"
+            >
+              {{ toneMap[char.tone] }}
             </div>
           </div>
         </div>

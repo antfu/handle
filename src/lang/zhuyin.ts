@@ -1,4 +1,4 @@
-export const zhuyinToneMap: Record<number, string> = {
+export const toneMap: Record<number, string> = {
   0: '˙',
   1: 'ˉ',
   2: 'ˊ',
