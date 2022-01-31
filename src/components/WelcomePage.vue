@@ -33,6 +33,12 @@ function variantButton() {
     <div mt--1 op50 text-sm>
       {{ t('description') }}
     </div>
+    <div
+      pl4 py1 tracking-2 text-white shadow
+      style="background:linear-gradient(339deg, #e52626, #efbf0e);"
+    >
+      {{ t('happy-new-year-2022') }}
+    </div>
 
     <div h-1px w-10 border="b base" m4 />
 
