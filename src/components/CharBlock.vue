@@ -10,14 +10,8 @@ const props = defineProps<{
 }>()
 
 const PINYIN_CHAR_WIDTH = 9.64
-const PINYIN_CHAR_GAP = 2
-const PINYIN_CHAR_INIT = 0.6
-
-const colors = {
-  exact: 'text-ok',
-  misplaced: 'text-mis',
-  none: 'op80',
-}
+const PINYIN_CHAR_GAP = 2.1
+const PINYIN_CHAR_INIT = 0.5
 
 const exact = computed(() => Object.values(props.answer || {}).every(i => i === 'exact'))
 
@@ -27,6 +21,12 @@ function getColor(result?: MatchType, isChar = false) {
     : ''
   if (!result || exact.value)
     return pre
+
+  const colors = {
+    exact: 'text-ok',
+    misplaced: 'text-mis',
+    none: isChar ? 'op80' : 'op40',
+  }
   return `${pre} ${colors[result]}`
 }
 
