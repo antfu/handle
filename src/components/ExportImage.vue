@@ -13,14 +13,14 @@ async function save() {
   await nextTick()
   await nextTick()
   const datauri = await toPng(el.value!)
-  saveAs(datauri, `Handle D${dayNo.value}.png`)
+  saveAs(datauri, `${t('name')} D${dayNo.value}.png`)
   show.value = false
 }
 </script>
 
 <template>
   <button icon-btn text-sm pb2 gap-1 flex="~ center" @click="save()">
-    <div i-carbon-download /> 下载为图片
+    <div i-carbon-download /> {{ t('download-as-image') }}
   </button>
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
     <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base>
