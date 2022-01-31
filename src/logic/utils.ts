@@ -3,7 +3,7 @@ import Pinyin from 'pinyin'
 import DATA from '../../data/data.json'
 import { RANDOM_SEED } from './constants'
 import type { MatchResult, ParsedChar } from './types'
-import { pinyin2zhuyin, pinyinOne, pinyinTwo, toSimplified } from './lang'
+import { pinyin2zhuyin, pinyinOne, pinyinThree, pinyinTwo, toSimplified } from './lang'
 
 export function parsePinyin(pinyin: string, toZhuyin = false) {
   let parts: string[] = []
@@ -13,13 +13,17 @@ export function parsePinyin(pinyin: string, toZhuyin = false) {
     }
     else {
       let rest = pinyin
+      let two = ''
+      let three: string | undefined
       const one = pinyinOne.find(i => rest.startsWith(i))
       if (one)
         rest = rest.slice(one.length)
-      const two = pinyinTwo.find(i => rest.startsWith(i))
-      if (two)
-        rest = rest.slice(two.length)
-      parts = [one, two, rest].filter(Boolean) as string[]
+      three = pinyinThree.find(i => rest.endsWith(i))
+      if (three)
+        two = rest.slice(0, -three.length)
+      else
+        three = rest
+      parts = [one, two, three].filter(Boolean) as string[]
     }
   }
   return parts
@@ -32,12 +36,15 @@ export function parseChar(char: string, pinyin?: string, toZhuyin = false): Pars
   if (tone)
     pinyin = pinyin.slice(0, -tone.length).trim()
 
-  const [one, two, three] = parsePinyin(pinyin, toZhuyin)
+  const parts = parsePinyin(pinyin, toZhuyin)
+  const [one, two, three] = parts
   return {
     char,
-    one,
-    two,
-    three,
+    _1: one,
+    _2: two,
+    _3: three,
+    parts,
+    yin: pinyin,
     tone: +tone || 0,
   }
 }
@@ -57,32 +64,55 @@ export function parseWord(word: string, answer?: string, toZhuyin = false) {
 }
 
 export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
-  const keys = ['char', 'one', 'two', 'three', 'tone'] as const
-  const unmatched = Object.fromEntries(
-    keys.map(key => [
-      key,
-      answer
-        .map((a, i) => toSimplified(input[i][key]) === toSimplified(a[key]) ? undefined : toSimplified(a[key]))
-        .filter(i => i != null),
-    ]),
-  )
+  const unmatched = {
+    char: answer
+      .map((a, i) => toSimplified(input[i].char) === toSimplified(a.char) ? undefined : toSimplified(a.char))
+      .filter(i => i != null),
+    tone: answer
+      .map((a, i) => input[i].tone === a.tone ? undefined : a.tone)
+      .filter(i => i != null),
+    parts: answer
+      .flatMap((a, i) => a.parts.filter(p => !input[i].parts.includes(p)))
+      .filter(i => i != null) as string[],
+  }
+
+  function includesAndRemove<T>(arr: T[], v: T) {
+    if (arr.includes(v)) {
+      arr.splice(arr.indexOf(v), 1)
+      return true
+    }
+    return false
+  }
 
   return input.map((a, i): MatchResult => {
-    return Object.fromEntries(
-      keys.map((key) => {
-        const value = toSimplified(a[key])
-        if (answer[i][key] === value)
-          return [key, 'exact']
-        if (unmatched[key].includes(value)) {
-          const index = unmatched[key].indexOf(value)
-          unmatched[key].splice(index, 1)
-          return [key, 'misplaced']
-        }
-        else {
-          return [key, 'none']
-        }
-      }),
-    ) as any as MatchResult
+    const char = toSimplified(a.char)
+    return {
+      char: answer[i].char === char
+        ? 'exact'
+        : includesAndRemove(unmatched.char, char)
+          ? 'misplaced'
+          : 'none',
+      tone: answer[i].tone === a.tone
+        ? 'exact'
+        : includesAndRemove(unmatched.tone, a.tone)
+          ? 'misplaced'
+          : 'none',
+      _1: !a._1 || answer[i].parts.includes(a._1)
+        ? 'exact'
+        : includesAndRemove(unmatched.parts, a._1)
+          ? 'misplaced'
+          : 'none',
+      _2: !a._2 || answer[i].parts.includes(a._2)
+        ? 'exact'
+        : includesAndRemove(unmatched.parts, a._2)
+          ? 'misplaced'
+          : 'none',
+      _3: !a._3 || answer[i].parts.includes(a._3)
+        ? 'exact'
+        : includesAndRemove(unmatched.parts, a._3)
+          ? 'misplaced'
+          : 'none',
+    }
   })
 }
 

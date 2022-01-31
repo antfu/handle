@@ -1,0 +1,101 @@
+// Vitest Snapshot v1
+
+exports[`parseChar 1`] = `
+{
+  "_1": "h",
+  "_2": "u",
+  "_3": undefined,
+  "char": "虎",
+  "parts": [
+    "h",
+    "u",
+  ],
+  "tone": 3,
+  "yin": "hu",
+}
+`;
+
+exports[`parseChar 2`] = `
+{
+  "_1": "w",
+  "_2": "ei",
+  "_3": undefined,
+  "char": "微",
+  "parts": [
+    "w",
+    "ei",
+  ],
+  "tone": 1,
+  "yin": "wei",
+}
+`;
+
+exports[`parseChar 3`] = `
+{
+  "_1": "j",
+  "_2": "i",
+  "_3": "ang",
+  "char": "姜",
+  "parts": [
+    "j",
+    "i",
+    "ang",
+  ],
+  "tone": 1,
+  "yin": "jiang",
+}
+`;
+
+exports[`parseChar 4`] = `
+{
+  "_1": "sh",
+  "_2": "ou",
+  "_3": undefined,
+  "char": "寿",
+  "parts": [
+    "sh",
+    "ou",
+  ],
+  "tone": 4,
+  "yin": "shou",
+}
+`;
+
+exports[`parseChar 5`] = `
+{
+  "_1": "w",
+  "_2": "eng",
+  "_3": undefined,
+  "char": "翁",
+  "parts": [
+    "w",
+    "eng",
+  ],
+  "tone": 1,
+  "yin": "weng",
+}
+`;
+
+exports[`testAnswer 1`] = `
+[
+  {
+    "_1": "exact",
+    "_2": "exact",
+    "_3": "exact",
+    "char": "exact",
+    "tone": "exact",
+  },
+]
+`;
+
+exports[`testAnswer 2`] = `
+[
+  {
+    "_1": "none",
+    "_2": "exact",
+    "_3": "exact",
+    "char": "none",
+    "tone": "exact",
+  },
+]
+`;

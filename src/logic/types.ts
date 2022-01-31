@@ -2,17 +2,19 @@ export type MatchType = 'exact' | 'misplaced' | 'none'
 
 export interface ParsedChar {
   char: string
-  one: string
-  two?: string
-  three?: string
+  _1: string
+  _2?: string
+  _3?: string
+  parts: string[]
+  yin: string
   tone: number
 }
 
 export interface MatchResult {
   char: MatchType
-  one: MatchType
-  two: MatchType
-  three: MatchType
+  _1: MatchType
+  _2: MatchType
+  _3: MatchType
   tone: MatchType
 }
 

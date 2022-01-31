@@ -9,6 +9,10 @@ const props = defineProps<{
   answer?: MatchResult
 }>()
 
+const PINYIN_CHAR_WIDTH = 9.64
+const PINYIN_CHAR_GAP = 2
+const PINYIN_CHAR_INIT = 0.6
+
 const colors = {
   exact: 'text-ok',
   misplaced: 'text-mis',
@@ -34,10 +38,8 @@ const blockColor = computed(() => {
   return 'border-transparent bg-gray-400/8'
 })
 
-const pingyin = computed(() => (props.char?.one || '') + (props.char?.two || '') + (props.char?.three || ''))
-
 const toneCharLocation = computed(() => {
-  const part = pingyin.value
+  const part = props.char?.yin || ''
   return [
     part.lastIndexOf('a'),
     part.lastIndexOf('e'),
@@ -47,12 +49,24 @@ const toneCharLocation = computed(() => {
   ].find(i => i !== null && i >= 0) || 0
 })
 
+const toneCharLeft = computed(() => {
+  const char = props.char
+  if (!char)
+    return 0
+  let gaps = 0
+  if (char._2 && toneCharLocation.value >= char._1.length + char._2.length)
+    gaps = 2
+  else if (toneCharLocation.value >= char._1.length)
+    gaps = 1
+  return PINYIN_CHAR_INIT + toneCharLocation.value * PINYIN_CHAR_WIDTH + gaps * PINYIN_CHAR_GAP
+})
+
 const partTwo = computed(() => {
-  const two = props.char?.two || ''
-  const oneLength = props.char?.one?.length || 0
+  const two = props.char?._2 || ''
+  const oneLength = props.char?._1?.length || 0
   const index = toneCharLocation.value - oneLength
   // replace i with dot less for tone symbol
-  if (!useNumberTone.value && pingyin.value[toneCharLocation.value] === 'i')
+  if (!useNumberTone.value && props.char?.yin[toneCharLocation.value] === 'i')
     return `${two.slice(0, index)}ı${two.slice(index + 1)}`
   return two
 })
@@ -68,14 +82,14 @@ const partTwo = computed(() => {
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
           <div flex="~ center" text-xs style="writing-mode: vertical-rl;">
-            <span :class="getColor(answer?.one)">
-              {{ char.one }}
+            <span :class="getColor(answer?._1)">
+              {{ char._1 }}
             </span>
-            <span :class="getColor(answer?.two)">
-              {{ char.two }}
+            <span :class="getColor(answer?._2)">
+              {{ char._2 }}
             </span>
-            <span :class="getColor(answer?.three)">
-              {{ char.three }}
+            <span :class="getColor(answer?._3)">
+              {{ char._3 }}
             </span>
           </div>
           <ToneSymbol :tone="char.tone" :class="getColor(answer?.tone)" mt--1 />
@@ -88,11 +102,14 @@ const partTwo = computed(() => {
         </div>
         <div absolute font-mono top="2.7" text-center left-0 right-0 font-100 flex flex-col items-center>
           <div relative flex="~ x-center gap-2px" items-start ma>
-            <div :class="getColor(answer?.one)">
-              {{ char.one }}
+            <div :class="getColor(answer?._1)">
+              {{ char._1 }}
             </div>
-            <div :class="getColor(answer?.two)">
+            <div :class="getColor(answer?._2)">
               {{ partTwo }}
+            </div>
+            <div :class="getColor(answer?._3)">
+              {{ char._3 }}
             </div>
             <div v-if="useNumberTone">
               <div :class="getColor(answer?.tone)" text-xs leading-1em mr--2 mt--1>
@@ -104,7 +121,7 @@ const partTwo = computed(() => {
               :tone="char.tone" :class="getColor(answer?.tone)"
               absolute
               :style="{
-                left: toneCharLocation * 9.64 + 2.6 + 'px',
+                left: toneCharLeft + 'px',
                 top: useMask ? '-5px' : '-1.2px'
               }"
               mt--1
