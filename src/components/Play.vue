@@ -101,11 +101,14 @@ watchEffect(() => {
       </template>
       <template v-else>
         <Countdown />
-        <div border="~ base" flex="~ gap-2" p="x2 y1">
-          <button :class="useMask ? 'text-orange' : 'op50'" flex="~ center gap-1" @click="useMask = !useMask">
+        <div border="~ base" flex="~ gap-2" p="x2 y1" mt5>
+          <button :class="useMask ? 'text-primary' : 'op50'" flex="~ center gap-1" @click="useMask = !useMask">
             <div :i="useMask ? 'carbon-view-off' : 'carbon-view'" />
             {{ useMask ? t('mask-on') : t('mask-off') }}
           </button>
+        </div>
+        <div text-sm op50>
+          {{ t('dont-spoiler') }}
         </div>
       </template>
 
