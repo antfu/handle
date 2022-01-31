@@ -14,7 +14,7 @@ const formatted = computed(() => {
 
 <template>
   <div flex gap-5 py-5>
-    <div>
+    <div flex="~ col center">
       <div op80>
         {{ t('next-note') }}
       </div>
@@ -25,8 +25,9 @@ const formatted = computed(() => {
 
     <div w-1px border="l base" />
 
-    <div flex items-center>
+    <div flex="~ col gap-2" items-center>
       <ShareButton />
+      <ExportImage />
     </div>
   </div>
 </template>

@@ -2,11 +2,16 @@
 import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '~/state'
 import { WORD_LENGTH } from '~/logic'
 
-const props = defineProps<{
-  word: string
-  revealed?: boolean
-  answer?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    word: string
+    revealed?: boolean
+    answer?: string
+    animate?: boolean
+  }>(), {
+    animate: true,
+  },
+)
 
 const result = computed(() => {
   if (props.revealed) {
@@ -37,20 +42,25 @@ watchEffect(() => {
       h-20
       :class="['tile', flip ? 'revealed': '']"
     >
-      <CharBlock
-        class="front"
-        :char="c"
-        :style="{ transitionDelay: `${i * (300 + Math.random() * 50)}ms` }"
-      />
-      <CharBlock
-        class="back"
-        :char="c"
-        :answer="result[i]"
-        :style="{
-          transitionDelay: `${i * (300 + Math.random() * 50)}ms`,
-          animationDelay: `${i * (100 + Math.random() * 50)}ms`
-        }"
-      />
+      <template v-if="animate">
+        <CharBlock
+          class="front"
+          :char="c"
+          :style="{ transitionDelay: `${i * (300 + Math.random() * 50)}ms` }"
+        />
+        <CharBlock
+          class="back"
+          :char="c"
+          :answer="result[i]"
+          :style="{
+            transitionDelay: `${i * (300 + Math.random() * 50)}ms`,
+            animationDelay: `${i * (100 + Math.random() * 50)}ms`
+          }"
+        />
+      </template>
+      <template v-else>
+        <CharBlock :char="c" :answer="result[i]" />
+      </template>
     </div>
   </div>
 </template>
