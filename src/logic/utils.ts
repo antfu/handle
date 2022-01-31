@@ -1,9 +1,9 @@
 import seedrandom from 'seedrandom'
 import Pinyin from 'pinyin'
-import DATA from '../../data/data.json'
+import DATA from '../data/idioms.json'
 import { RANDOM_SEED } from './constants'
 import type { MatchResult, ParsedChar } from './types'
-import { pinyin2zhuyin, pinyinOne, pinyinThree, pinyinTwo, toSimplified } from './lang'
+import { pinyin2zhuyin, pinyinOne, pinyinThree, toSimplified } from './lang'
 
 export function parsePinyin(pinyin: string, toZhuyin = false) {
   let parts: string[] = []

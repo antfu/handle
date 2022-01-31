@@ -1,5 +1,5 @@
 import seedrandom from 'seedrandom'
-import DATA from '../data/data.json'
+import DATA from './data/idioms.json'
 import { getHint, seedShuffle } from './logic'
 import { RANDOM_SEED } from '~/logic'
 

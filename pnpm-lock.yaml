@@ -12,6 +12,7 @@ specifiers:
   '@vue/test-utils': ^2.0.0-rc.18
   '@vueuse/core': ^7.5.3
   eslint: ^8.6.0
+  html-to-image: ^1.9.0
   jsdom: ^19.0.0
   pinyin: ^2.10.2
   pnpm: ^6.26.1
@@ -39,6 +40,7 @@ devDependencies:
   '@vitejs/plugin-vue': 2.0.1_vite@2.7.12+vue@3.2.26
   '@vue/test-utils': 2.0.0-rc.18_vue@3.2.26
   eslint: 8.6.0
+  html-to-image: 1.9.0
   jsdom: 19.0.0
   pinyin: 2.10.2
   pnpm: 6.26.1
@@ -2048,6 +2050,10 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       whatwg-encoding: 2.0.0
+    dev: true
+
+  /html-to-image/1.9.0:
+    resolution: {integrity: sha512-9gaDCIYg62Ek07F2pBk76AHgYZ2gxq2YALU7rK3gNCqXuhu6cWzsOQqM7qGbjZiOzxGzrU1deDqZpAod2NEwbA==}
     dev: true
 
   /htmlparser2/7.1.2:
