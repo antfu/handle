@@ -2,7 +2,7 @@
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint, useMask } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
-import { TRIES_LIMIT, WORD_LENGTH } from '~/constants'
+import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')

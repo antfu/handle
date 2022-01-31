@@ -28,11 +28,11 @@ import { locale, t } from '~/i18n'
     <div flex="~ gap-4 center wrap">
       <div border="~ base" flex="~ gap-2" p="x2 y1" :class="useZhuyin ? 'op50 pointer-events-none' : ''">
         <button :class="!useNumberTone || useZhuyin ? 'text-primary' : 'op80' " @click="useNumberTone = false">
-          符号声调
+          {{ t('tone-symbol') }}
         </button>
         <div w-1px border="r base" />
         <button :class="useNumberTone && !useZhuyin ? 'text-primary' : 'op80' " @click="useNumberTone = true">
-          数字声调
+          {{ t('tone-number') }}
         </button>
       </div>
       <div border="~ base" flex="~ gap-2" p="x2 y1">

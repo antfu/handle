@@ -1,11 +1,48 @@
 import seedrandom from 'seedrandom'
-import { getPinyin, pinyin2zhuyin, pinyingInitials, toSimplified } from './lang'
-import type { MatchResult, ParsedChar } from './types'
-import { useZhuyin } from './storage'
-import { parsedAnswer } from './state'
+import Pinyin from 'pinyin'
+import DATA from '../../data/data.json'
 import { RANDOM_SEED } from './constants'
+import type { MatchResult, ParsedChar } from './types'
+import { pinyin2zhuyin, pinyinOne, pinyinTwo, toSimplified } from './lang'
 
-export function parseWord(word: string, answer?: string) {
+export function parsePinyin(pinyin: string, toZhuyin = false) {
+  let parts: string[] = []
+  if (pinyin) {
+    if (toZhuyin) {
+      parts = Array.from(pinyin2zhuyin[pinyin] || '')
+    }
+    else {
+      let rest = pinyin
+      const one = pinyinOne.find(i => rest.startsWith(i))
+      if (one)
+        rest = rest.slice(one.length)
+      const two = pinyinTwo.find(i => rest.startsWith(i))
+      if (two)
+        rest = rest.slice(two.length)
+      parts = [one, two, rest].filter(Boolean) as string[]
+    }
+  }
+  return parts
+}
+
+export function parseChar(char: string, pinyin?: string, toZhuyin = false): ParsedChar {
+  if (!pinyin)
+    pinyin = getPinyin(char)[0]
+  const tone = pinyin.match(/[\d]$/)?.[0] || ''
+  if (tone)
+    pinyin = pinyin.slice(0, -tone.length).trim()
+
+  const [one, two, three] = parsePinyin(pinyin, toZhuyin)
+  return {
+    char,
+    one,
+    two,
+    three,
+    tone: +tone || 0,
+  }
+}
+
+export function parseWord(word: string, answer?: string, toZhuyin = false) {
   const pinyins = getPinyin(word)
   const chars = Array.from(word)
   const answerPinyin = answer ? getPinyin(answer) : undefined
@@ -15,39 +52,11 @@ export function parseWord(word: string, answer?: string) {
     // try match the pinyin from the answer word
     if (answerPinyin && answer && answer.includes(char))
       pinyin = answerPinyin[answer.indexOf(char)] || pinyin
-    const tone = pinyin.match(/[\d]$/)?.[0] || ''
-    if (tone)
-      pinyin = pinyin.slice(0, -tone.length).trim()
-
-    let parts: string[] = []
-    if (pinyin) {
-      if (useZhuyin.value) {
-        parts = Array.from(pinyin2zhuyin[pinyin] || '')
-      }
-      else {
-        const t = pinyingInitials.find(i => pinyin.startsWith(i))
-        if (t) {
-          parts.push(t)
-          parts.push(pinyin.slice(t.length))
-        }
-        else {
-          parts = [pinyin]
-        }
-      }
-    }
-
-    const [one = '', two = '', three = ''] = parts
-    return {
-      char,
-      one,
-      two,
-      three,
-      tone: +tone || 0,
-    }
+    return parseChar(char, pinyin, toZhuyin)
   })
 }
 
-export function testAnswer(input: ParsedChar[], answer = parsedAnswer.value) {
+export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
   const keys = ['char', 'one', 'two', 'three', 'tone'] as const
   const unmatched = Object.fromEntries(
     keys.map(key => [
@@ -98,4 +107,18 @@ export function seedShuffle<T>(array: T[], seed = RANDOM_SEED): T[] {
   }
 
   return array
+}
+
+export function getHint(word: string) {
+  return word[Math.floor(seedrandom(word)() * word.length)]
+}
+
+export function getPinyin(word: string) {
+  word = toSimplified(word)
+  const data = DATA.find(d => d.word === word)
+  if (data)
+    return data.pinyin.split(/\s+/g)
+  return Pinyin(word, {
+    style: Pinyin.STYLE_TONE2,
+  }).map(i => i[0])
 }

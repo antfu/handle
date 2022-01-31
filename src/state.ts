@@ -1,7 +1,7 @@
-import { getAnswerOfDay, getHint } from './lang'
-import { meta, tries } from './storage'
-import { checkPass, parseWord, testAnswer } from './utils'
-import { START_DATE, TRIES_LIMIT } from './constants'
+import type { ParsedChar } from './logic'
+import { START_DATE, TRIES_LIMIT, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint } from './logic'
+import { meta, tries, useZhuyin } from './storage'
+import { getAnswerOfDay } from './answers'
 
 export const now = useNow({ interval: 1000 })
 export const isDark = useDark()
@@ -26,9 +26,18 @@ export const answer = computed(() =>
     }
     : getAnswerOfDay(dayNo.value),
 )
-export const isPassed = computed(() => tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1], answer.value.word))))
-export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
-export const isFinished = computed(() => isPassed.value || meta.value.answer)
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))
+
+export const isPassed = computed(() => meta.value.passed || (tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1])))))
+export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
+export const isFinished = computed(() => isPassed.value || meta.value.answer)
+
+export function parseWord(word: string, _ans = answer.value.word, toZhuyin = useZhuyin.value) {
+  return _parseWord(word, _ans, toZhuyin)
+}
+
+export function testAnswer(word: ParsedChar[], ans = parsedAnswer.value) {
+  return _testAnswer(word, ans)
+}

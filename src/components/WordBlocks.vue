@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { parsedAnswer, answer as todayAnswer } from '~/state'
-import { parseWord, testAnswer } from '~/utils'
-import { WORD_LENGTH } from '~/constants'
+import { parseWord, parsedAnswer, testAnswer, answer as todayAnswer } from '~/state'
+import { WORD_LENGTH } from '~/logic'
 
 const props = defineProps<{
   word: string
@@ -10,8 +9,12 @@ const props = defineProps<{
 }>()
 
 const result = computed(() => {
-  if (props.revealed)
-    return testAnswer(parseWord(props.word), props.answer ? parseWord(props.answer) : parsedAnswer.value)
+  if (props.revealed) {
+    return testAnswer(
+      parseWord(props.word),
+      props.answer ? parseWord(props.answer) : parsedAnswer.value,
+    )
+  }
   return []
 })
 

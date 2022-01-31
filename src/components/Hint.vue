@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { answer, dayNo, hint } from '~/state'
-import { parseWord } from '~/utils'
+import { answer, dayNo, hint, parseWord } from '~/state'
 import { t } from '~/i18n'
 </script>
 

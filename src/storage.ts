@@ -1,6 +1,6 @@
 import { preferZhuyin } from './i18n'
 import { dayNo } from './state'
-import type { TriesMeta } from './types'
+import type { TriesMeta } from './logic'
 
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 

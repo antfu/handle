@@ -1,4 +1,7 @@
-import { seedShuffle } from './utils'
+import seedrandom from 'seedrandom'
+import DATA from '../data/data.json'
+import { getHint, seedShuffle } from './logic'
+import { RANDOM_SEED } from '~/logic'
 
 function prepare<T>(len: number, arr: T[]) {
   if (arr.length !== len)
@@ -88,3 +91,21 @@ export const answers: string[][] = [
   ..._2022_FEB,
   ..._2022_MARCH,
 ]
+
+const DATA_SET = DATA.length
+
+export function getAnswerOfDay(day: number) {
+  let [word = '', hint = ''] = answers[day] || []
+  if (!word) {
+    const rng = seedrandom(RANDOM_SEED)
+    for (let i = 0; i <= day; i++)
+      rng()
+    word = DATA[Math.floor(rng() * DATA_SET - 1)].word
+  }
+  if (!hint)
+    hint = getHint(word)
+  return {
+    word,
+    hint,
+  }
+}

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { answer, dayNo } from '~/state'
+import { answer, dayNo, parseWord, parsedAnswer, testAnswer } from '~/state'
 import { meta, tries } from '~/storage'
-import { parseWord, testAnswer } from '~/utils'
 import { t } from '~/i18n'
 
 const text = computed(() =>
   `${t('name')} ${dayNo.value} ${meta.value.answer ? 'X' : tries.value.length}/10\n\n${
     tries.value
-      .map(word => testAnswer(parseWord(word, answer.value.word))
+      .map(word => testAnswer(parseWord(word, answer.value.word), parsedAnswer.value)
         .map((i) => {
           if (i.char === 'exact')
             return '🟩'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ToneSymbol from './ToneSymbol.vue'
-import type { MatchResult, MatchType, ParsedChar } from '~/types'
+import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
 import { useNumberTone, useZhuyin } from '~/storage'
 import { useMask } from '~/state'
 

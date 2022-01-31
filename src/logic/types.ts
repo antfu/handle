@@ -3,8 +3,8 @@ export type MatchType = 'exact' | 'misplaced' | 'none'
 export interface ParsedChar {
   char: string
   one: string
-  two: string
-  three: string
+  two?: string
+  three?: string
   tone: number
 }
 
