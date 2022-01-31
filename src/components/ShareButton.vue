@@ -1,22 +1,29 @@
 <script setup lang="ts">
-import { answer, dayNo, parseWord, parsedAnswer, testAnswer } from '~/state'
+import { answer, dayNo, parseWord, testAnswer } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 
 const text = computed(() =>
   `${t('name')} ${dayNo.value} ${meta.value.answer ? 'X' : tries.value.length}/10\n\n${
     tries.value
-      .map(word => testAnswer(parseWord(word, answer.value.word), parsedAnswer.value)
-        .map((i) => {
-          if (i.char === 'exact')
-            return '🟩'
-          if (i.char === 'misplaced')
-            return '🟧'
-          if ([i.one, i.two].includes('exact'))
-            return '🟡'
-          return '⬜️'
-        })
-        .join(''))
+      .map((word) => {
+        const parsed = parseWord(word, answer.value.word)
+        return testAnswer(parsed)
+          .map((i, idx) => {
+            if (i.char === 'exact')
+              return '🟩'
+            if (i.char === 'misplaced')
+              return '🟧'
+            if (parsed[idx]._1 && i._1 === 'exact')
+              return '🟡'
+            if (parsed[idx]._2 && i._2 === 'exact')
+              return '🟡'
+            if (parsed[idx]._3 && i._3 === 'exact')
+              return '🟡'
+            return '⬜️'
+          })
+          .join('')
+      })
       .join('\n')}\n\nhandle.antfu.me`,
 )
 const share = useShare(computed(() => ({

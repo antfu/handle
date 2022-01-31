@@ -1,4 +1,4 @@
-import data from './data/data.json'
+import data from './src/data/idioms.json'
 
 const len = data.length
 
