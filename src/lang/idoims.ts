@@ -2,7 +2,7 @@ import seedrandom from 'seedrandom'
 import Pinyin from 'pinyin'
 import DATA from '../../data/data.json'
 import { toSimplified } from './t2s'
-import { overrides } from '~/answers'
+import { answers } from '~/answers'
 import { RANDOM_SEED } from '~/constants'
 
 const DATA_SET = DATA.length
@@ -12,7 +12,7 @@ export function getHint(word: string) {
 }
 
 export function getAnswerOfDay(day: number) {
-  let [word = '', hint = ''] = overrides[day] || []
+  let [word = '', hint = ''] = answers[day] || []
   if (!word) {
     const rng = seedrandom(RANDOM_SEED)
     for (let i = 0; i <= day; i++)
