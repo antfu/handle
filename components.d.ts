@@ -16,6 +16,7 @@ declare module 'vue' {
     Play: typeof import('./src/components/Play.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     ShareButton: typeof import('./src/components/ShareButton.vue')['default']
+    ToggleMask: typeof import('./src/components/ToggleMask.vue')['default']
     ToneSymbol: typeof import('./src/components/ToneSymbol.vue')['default']
     VariantLinks: typeof import('./src/components/VariantLinks.vue')['default']
     WelcomePage: typeof import('./src/components/WelcomePage.vue')['default']

@@ -1,19 +1,35 @@
 <script setup lang="ts">
-import { dayNo } from '~/state'
+import { dayNo, useMask } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 
+const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+
 const el = ref<HTMLDivElement>()
 const show = ref(false)
+const showDialog = ref(false)
+const dataUrl = ref('')
+const dataUrlMasked = ref('')
 
 async function save() {
   show.value = true
-  const { toPng } = await import('html-to-image')
-  const { saveAs } = await import('file-saver')
+  const { exportImage, toPng } = await import('~/async/exportImage')
   await nextTick()
   await nextTick()
-  const datauri = await toPng(el.value!)
-  saveAs(datauri, `${t('name')} D${dayNo.value}.png`)
+  if (isIOS) {
+    showDialog.value = true
+    const p = useMask.value
+    useMask.value = false
+    await nextTick()
+    dataUrl.value = await toPng(el.value!)
+    useMask.value = true
+    await nextTick()
+    dataUrlMasked.value = await toPng(el.value!)
+    useMask.value = p
+  }
+  else {
+    await exportImage(el.value!, `${t('name')} D${dayNo.value}.png`)
+  }
   show.value = false
 }
 </script>
@@ -22,6 +38,23 @@ async function save() {
   <button icon-btn text-sm pb2 gap-1 flex="~ center" @click="save()">
     <div i-carbon-download /> {{ t('download-as-image') }}
   </button>
+  <Modal v-model="showDialog" direction="top">
+    <div flex="~ col center gap-4" p6 relative>
+      <div absolute top-4 right-4 flex="~ gap-3">
+        <button icon-btn @click="showDialog = false">
+          <div i-carbon-close />
+        </button>
+      </div>
+      <p text-xl font-serif>
+        <b>{{ t('download-as-image') }}</b>
+      </p>
+      <div op50>
+        {{ t('press-and-download-image') }}
+      </div>
+      <img :src="useMask ? dataUrlMasked : dataUrl" w-100 border="~ base rounded" shadow>
+      <ToggleMask />
+    </div>
+  </Modal>
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
     <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base>
       <div text-2xl mb2 font-serif tracking-widest>

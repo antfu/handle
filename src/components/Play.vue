@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint, useMask } from '~/state'
+import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
@@ -101,15 +101,7 @@ watchEffect(() => {
       </template>
       <template v-else>
         <Countdown />
-        <div border="~ base" flex="~ gap-2" p="x2 y1" mt5>
-          <button :class="useMask ? 'text-primary' : 'op50'" flex="~ center gap-1" @click="useMask = !useMask">
-            <div :i="useMask ? 'carbon-view-off' : 'carbon-view'" />
-            {{ useMask ? t('mask-on') : t('mask-off') }}
-          </button>
-        </div>
-        <div text-sm op50>
-          {{ t('dont-spoiler') }}
-        </div>
+        <ToggleMask />
       </template>
 
       <template v-if="isDev">
