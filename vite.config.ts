@@ -47,6 +47,10 @@ export default defineConfig({
         [/^(flex|grid)-x-center/g, () => 'justify-center'],
         [/^(flex|grid)-y-center/g, () => 'items-center'],
       ],
+      rules: [
+        ['max-h-screen', { 'max-height': 'calc(var(--vh, 1vh) * 100)' }],
+        ['h-screen', { height: 'calc(var(--vh, 1vh) * 100)' }],
+      ],
       theme: <Theme>{
         colors: {
           'ok': 'var(--c-ok)',

@@ -17,7 +17,7 @@ function variantButton() {
 </script>
 
 <template>
-  <div p="x5 y10" flex="~ col gap-2 y-center" max-h-screen h-screen overflow-auto relative>
+  <div p="x5 y10" flex="~ col gap-2 y-center" relative>
     <div absolute top-4 right-4 flex="~ gap-3">
       <button v-if="!initialized" icon-btn @click="isDark = !isDark">
         <div i-carbon-sun dark:i-carbon-moon />

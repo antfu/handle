@@ -9,7 +9,7 @@
       @click="$emit('update:modelValue', false)"
     />
     <div
-      class="bg-base border-base absolute transition-all duration-200 ease-out"
+      class="bg-base border-base absolute transition-all duration-200 ease-out max-w-screen max-h-screen overflow-auto"
       :class="[positionClass, 'scrolls']"
       :style="modelValue ? {}: {transform}"
     >
