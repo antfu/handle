@@ -1,7 +1,47 @@
-import seedrandom from 'seedrandom'
-import DATA from './data/idioms.json'
-import { getHint, seedShuffle } from './logic'
-import { RANDOM_SEED } from '~/logic'
+/**
+ * SPOILERS
+ *
+ * This file contains the list of answers for the game. It's not recommended to continue reading this file.
+ *
+ * 剧透警告
+ *
+ * 该文件包含了游戏的答案列表。不建议继续阅读。
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+import { seedShuffle } from './utils'
 
 function prepare<T>(len: number, arr: T[]) {
   if (arr.length !== len)
@@ -91,21 +131,3 @@ export const answers: string[][] = [
   ..._2022_FEB,
   ..._2022_MARCH,
 ]
-
-const DATA_SET = DATA.length
-
-export function getAnswerOfDay(day: number) {
-  let [word = '', hint = ''] = answers[day] || []
-  if (!word) {
-    const rng = seedrandom(RANDOM_SEED)
-    for (let i = 0; i <= day; i++)
-      rng()
-    word = DATA[Math.floor(rng() * DATA_SET - 1)].word
-  }
-  if (!hint)
-    hint = getHint(word)
-  return {
-    word,
-    hint,
-  }
-}

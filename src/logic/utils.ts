@@ -1,7 +1,6 @@
 import seedrandom from 'seedrandom'
 import Pinyin from 'pinyin'
-import DATA from '../data/idioms.json'
-import { RANDOM_SEED } from './constants'
+import IDIOMS from '../data/idioms.json'
 import type { MatchResult, ParsedChar } from './types'
 import { pinyin2zhuyin, pinyinOne, toSimplified } from './lang'
 
@@ -113,32 +112,13 @@ export function checkPass(result: MatchResult[]) {
   return result.every(r => r.char === 'exact')
 }
 
-export function seedShuffle<T>(array: T[], seed = RANDOM_SEED): T[] {
-  const rng = seedrandom(seed)
-  let currentIndex = array.length
-  let randomIndex
-
-  // While there remain elements to shuffle...
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(rng() * currentIndex)
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]]
-  }
-
-  return array
-}
-
 export function getHint(word: string) {
   return word[Math.floor(seedrandom(word)() * word.length)]
 }
 
 export function getPinyin(word: string) {
   word = toSimplified(word)
-  const data = DATA.find(d => d.word === word)
+  const data = IDIOMS.find(d => d.word === word)
   if (data)
     return data.pinyin.split(/\s+/g)
   return Pinyin(word, {
