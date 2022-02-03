@@ -33,13 +33,12 @@ exports[`parseChar 2`] = `
 exports[`parseChar 3`] = `
 {
   "_1": "j",
-  "_2": "i",
-  "_3": "ang",
+  "_2": "iang",
+  "_3": undefined,
   "char": "姜",
   "parts": [
     "j",
-    "i",
-    "ang",
+    "iang",
   ],
   "tone": 1,
   "yin": "jiang",

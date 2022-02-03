@@ -3,7 +3,7 @@ import Pinyin from 'pinyin'
 import DATA from '../data/idioms.json'
 import { RANDOM_SEED } from './constants'
 import type { MatchResult, ParsedChar } from './types'
-import { pinyin2zhuyin, pinyinOne, pinyinThree, toSimplified } from './lang'
+import { pinyin2zhuyin, pinyinOne, toSimplified } from './lang'
 
 export function parsePinyin(pinyin: string, toZhuyin = false) {
   let parts: string[] = []
@@ -13,17 +13,10 @@ export function parsePinyin(pinyin: string, toZhuyin = false) {
     }
     else {
       let rest = pinyin
-      let two = ''
-      let three: string | undefined
       const one = pinyinOne.find(i => rest.startsWith(i))
       if (one)
         rest = rest.slice(one.length)
-      three = pinyinThree.find(i => rest.endsWith(i))
-      if (three)
-        two = rest.slice(0, -three.length)
-      else
-        three = rest
-      parts = [one, two, three].filter(Boolean) as string[]
+      parts = [one, rest].filter(Boolean) as string[]
     }
   }
   return parts
