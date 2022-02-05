@@ -50,7 +50,6 @@ function start() {
 <template>
   <button
     btn flex items-center justify-center gap-3 text-xl font-serif p="x4 y2"
-    style="filter: hue-rotate(176deg) saturate(1.3);"
     @click="start()"
   >
     <div i-carbon-share />

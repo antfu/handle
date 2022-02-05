@@ -21,7 +21,6 @@ const formatted = computed(() => {
       <div text-2xl font-serif w-45>
         {{ formatted }}
       </div>
-      <img src="/tiger.svg" w="1.5em" absolute right-0 top-1 rotate-15>
     </div>
 
     <div w-1px border="l base" />
