@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '~/i18n'
-import { gamesCount, historyTriesCount, passedCount } from '~/storage'
+import { averageDurations, gamesCount, historyTriesCount, noHintPassedCount, passedCount } from '~/storage'
 </script>
 
 <template>
@@ -22,6 +22,12 @@ import { gamesCount, historyTriesCount, passedCount } from '~/storage'
         {{ passedCount }}
       </div>
       <div text-right op50>
+        {{ t('win-no-hint-count') }}
+      </div>
+      <div text-left>
+        {{ noHintPassedCount }}
+      </div>
+      <div text-right op50>
         {{ t('win-rate') }}
       </div>
       <div text-left>
@@ -32,6 +38,12 @@ import { gamesCount, historyTriesCount, passedCount } from '~/storage'
       </div>
       <div text-left>
         {{ (historyTriesCount / gamesCount).toFixed(1) }}
+      </div>
+      <div text-right op50>
+        {{ t('average-durations') }}
+      </div>
+      <div text-left>
+        {{ averageDurations || '-' }}
       </div>
     </div>
   </div>

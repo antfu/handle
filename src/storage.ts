@@ -34,6 +34,19 @@ export const tries = computed<string[]>({
 
 export const gamesCount = computed(() => Object.values(history.value).filter(m => m.passed || m.answer || m.failed).length)
 export const passedCount = computed(() => Object.values(history.value).filter(m => m.passed).length)
+export const noHintPassedCount = computed(() => Object.values(history.value).filter(m => m.passed && !m.hint).length)
 export const historyTriesCount = computed(() => Object.values(history.value).filter(m => m.passed || m.answer || m.failed).map(m => m.tries?.length || 0).reduce((a, b) => a + b, 0))
 
 export const triesCount = computed(() => tries.value.length)
+export const averageDurations = computed(() => {
+  const items = Object.values(history.value).filter(m => m.passed && m.end && m.start && m.end > m.start)
+  if (!items.length)
+    return 0
+  const durations = items.map(m => m.end! - m.start!).reduce((a, b) => a + b, 0)
+  const ts = durations / items.length / 1000
+  const m = Math.floor(ts / 60)
+  const s = Math.round(ts % 60)
+  if (m)
+    return `${m}m${s}s`
+  return `${s}s`
+})
