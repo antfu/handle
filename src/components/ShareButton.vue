@@ -15,10 +15,12 @@ const text = computed(() =>
             if (i.char === 'misplaced')
               return '🟧'
             if (parsed[idx]._1 && i._1 === 'exact')
-              return '🟡'
+              return '🟠'
             if (parsed[idx]._2 && i._2 === 'exact')
-              return '🟡'
+              return '🟠'
             if (parsed[idx]._3 && i._3 === 'exact')
+              return '🟠'
+            if (i._1 === 'misplaced' || i._2 === 'misplaced' || i._3 === 'misplaced')
               return '🟡'
             return '⬜️'
           })
