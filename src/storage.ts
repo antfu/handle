@@ -32,6 +32,38 @@ export const tries = computed<string[]>({
   },
 })
 
+export function markStart() {
+  if (meta.value.end)
+    return
+  if (!meta.value.start)
+    meta.value.start = Date.now()
+}
+
+export function markEnd() {
+  if (meta.value.end)
+    return
+
+  if (!meta.value.duration)
+    meta.value.duration = 0
+
+  meta.value.end = Date.now()
+  if (meta.value.start)
+    meta.value.duration += meta.value.end - meta.value.start
+}
+
+export function onPause() {
+  if (meta.value.end)
+    return
+
+  if (!meta.value.duration)
+    meta.value.duration = 0
+
+  if (meta.value.start) {
+    meta.value.duration += Date.now() - meta.value.start
+    meta.value.start = undefined
+  }
+}
+
 export const gamesCount = computed(() => Object.values(history.value).filter(m => m.passed || m.answer || m.failed).length)
 export const passedCount = computed(() => Object.values(history.value).filter(m => m.passed).length)
 export const noHintPassedCount = computed(() => Object.values(history.value).filter(m => m.passed && !m.hint).length)
@@ -39,10 +71,10 @@ export const historyTriesCount = computed(() => Object.values(history.value).fil
 
 export const triesCount = computed(() => tries.value.length)
 export const averageDurations = computed(() => {
-  const items = Object.values(history.value).filter(m => m.passed && m.end && m.start && m.end > m.start)
+  const items = Object.values(history.value).filter(m => m.passed && m.duration)
   if (!items.length)
     return 0
-  const durations = items.map(m => m.end! - m.start!).reduce((a, b) => a + b, 0)
+  const durations = items.map(m => m.duration!).reduce((a, b) => a + b, 0)
   const ts = durations / items.length / 1000
   const m = Math.floor(ts / 60)
   const s = Math.round(ts % 60)

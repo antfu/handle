@@ -1,4 +1,4 @@
-import { initialized, meta } from './storage'
+import { initialized, markEnd, markStart, meta, onPause } from './storage'
 import { answer, dayNo, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
 
@@ -18,12 +18,19 @@ watchEffect(() => {
     meta.value.passed = true
 })
 
-watch([initialized, meta], () => {
-  if (initialized.value && !meta.value.start)
-    meta.value.start = Date.now()
-})
-
 watch([isFinished, meta], () => {
-  if (isFinished.value && !meta.value.end)
-    meta.value.end = Date.now()
-})
+  if (isFinished.value)
+    markEnd()
+}, { flush: 'post' })
+
+const visible = useDocumentVisibility()
+
+watchEffect(() => {
+  if (visible.value === 'visible') {
+    if (meta.value.duration)
+      markStart()
+  }
+  else if (visible.value === 'hidden') {
+    onPause()
+  }
+}, { flush: 'post' })

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { isDark, showHelp, showVariants, useMask } from '~/state'
-import { initialized, meta, useZhuyin } from '~/storage'
+import { initialized, useZhuyin } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
   showHelp.value = false
   useMask.value = false
   initialized.value = true
-  if (!meta.value.start)
-    meta.value.start = Date.now()
 }
 
 function variantButton() {

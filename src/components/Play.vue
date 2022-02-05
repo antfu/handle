@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
-import { meta, tries } from '~/storage'
+import { markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 
@@ -27,6 +27,7 @@ function handleInput(e: Event) {
     .filter(i => /\p{Script=Han}/u.test(i))
     .slice(0, 4)
     .join('')
+  markStart()
 }
 function focus() {
   el.value?.focus()
