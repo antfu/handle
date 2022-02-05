@@ -118,10 +118,8 @@ export function getHint(word: string) {
 
 export function getPinyin(word: string) {
   word = toSimplified(word)
-  const data = IDIOMS.find(d => d.word === word)
-  if (data)
-    return data.pinyin.split(/\s+/g)
-  return Pinyin(word, {
-    style: Pinyin.STYLE_TONE2,
-  }).map(i => i[0])
+  const data = IDIOMS.find(d => d[0] === word)
+  if (data && data[1])
+    return data[1].split(/\s+/g)
+  return Pinyin(word, { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
 }

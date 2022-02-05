@@ -12,7 +12,7 @@ export function getAnswerOfDay(day: number) {
     const rng = seedrandom(RANDOM_SEED)
     for (let i = 0; i <= day; i++)
       rng()
-    word = DATA[Math.floor(rng() * DATA_SET - 1)].word
+    word = DATA[Math.floor(rng() * DATA_SET - 1)][0]
   }
   if (!hint)
     hint = getHint(word)
