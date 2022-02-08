@@ -41,11 +41,13 @@ const blockColor = computed(() => {
 const toneCharLocation = computed(() => {
   const part = props.char?.yin || ''
   return [
+    part.lastIndexOf('iu') > -1 ? part.lastIndexOf('iu') + 1 : -1,
     part.lastIndexOf('a'),
     part.lastIndexOf('e'),
     part.lastIndexOf('i'),
-    part.lastIndexOf('o'),
     part.lastIndexOf('u'),
+    part.lastIndexOf('o'),
+    part.lastIndexOf('v'),
   ].find(i => i !== null && i >= 0) || 0
 })
 
