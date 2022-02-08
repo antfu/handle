@@ -53,12 +53,12 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div flex="~ col gap-2" items-center @click="focus()">
+    <div flex="~ col gap-2" items-center>
       <button icon-btn text-base pb2 gap-1 flex="~ center" :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
         <div i-carbon-idea /> {{ t('hint') }}
       </button>
 
-      <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" />
+      <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
         <div my4>
@@ -70,7 +70,7 @@ watchEffect(() => {
       </template>
 
       <template v-if="!isFinished">
-        <WordBlocks :word="input" />
+        <WordBlocks :word="input" @click="focus()" />
         <input
           ref="el"
           v-model="inputValue"
