@@ -45,8 +45,8 @@ const toneCharLocation = computed(() => {
     part.lastIndexOf('a'),
     part.lastIndexOf('e'),
     part.lastIndexOf('i'),
-    part.lastIndexOf('u'),
     part.lastIndexOf('o'),
+    part.lastIndexOf('u'),
     part.lastIndexOf('v'),
   ].find(i => i !== null && i >= 0) || 0
 })
