@@ -17,7 +17,7 @@ const exact = computed(() => Object.values(props.answer || {}).every(i => i === 
 
 function getColor(result?: MatchType, isChar = false) {
   const pre = useMask.value
-    ? `bg-current ${isChar ? ' !op70' : '!op40'}`
+    ? `bg-current ${isChar ? ' !op70' : '!op40'} border border-current`
     : ''
   if (!result || exact.value)
     return pre
@@ -75,7 +75,7 @@ const partTwo = computed(() => {
 </script>
 
 <template>
-  <div h-20 w-20 border-2 font-serif leading-1em :class="blockColor" flex="~ center" relative>
+  <div h-20 w-20 border-2 font-serif leading-1em flex="~ center" relative>
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="useZhuyin">
@@ -84,19 +84,20 @@ const partTwo = computed(() => {
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
           <div flex="~ center" text-xs style="writing-mode: vertical-rl;">
-            <span :class="getColor(answer?._1)">
+            <span v-if="char._1" :class="getColor(answer?._1)">
               {{ char._1 }}
             </span>
-            <span :class="getColor(answer?._2)">
+            <span v-if="char._2" :class="getColor(answer?._2)">
               {{ char._2 }}
             </span>
-            <span :class="getColor(answer?._3)">
+            <span v-if="char._3" :class="getColor(answer?._3)">
               {{ char._3 }}
             </span>
           </div>
           <ToneSymbol :tone="char.tone" :class="getColor(answer?.tone)" mt--1 />
         </div>
       </template>
+
       <!-- Pinyin -->
       <template v-else>
         <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
@@ -104,13 +105,13 @@ const partTwo = computed(() => {
         </div>
         <div absolute font-mono top="2.7" text-center left-0 right-0 font-100 flex flex-col items-center>
           <div relative flex="~ x-center gap-2px" items-start ma>
-            <div :class="getColor(answer?._1)">
+            <div v-if="char._1" :class="getColor(answer?._1)">
               {{ char._1 }}
             </div>
-            <div :class="getColor(answer?._2)">
+            <div v-if="partTwo" :class="getColor(answer?._2)">
               {{ partTwo }}
             </div>
-            <div :class="getColor(answer?._3)">
+            <div v-if="char._3" :class="getColor(answer?._3)">
               {{ char._3 }}
             </div>
             <div v-if="useNumberTone">
