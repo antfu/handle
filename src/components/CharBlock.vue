@@ -75,7 +75,7 @@ const partTwo = computed(() => {
 </script>
 
 <template>
-  <div h-20 w-20 border-2 font-serif leading-1em flex="~ center" relative>
+  <div h-20 w-20 border-2 font-serif leading-1em flex="~ center" relative :class="blockColor">
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="useZhuyin">
