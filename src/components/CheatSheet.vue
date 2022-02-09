@@ -51,19 +51,19 @@ function close() {
       </div>
     </div>
     <!-- Pinyin -->
-    <div v-else my4 grid="~ cols-[1fr_3fr] gap-x-10 gap-y-4" font-mono font-light>
+    <div v-else mb4 grid="~ cols-[1fr_3fr] gap-x-10 gap-y-4" font-mono font-light>
       <div text-center>
         {{ t('initials') }}
       </div>
       <div text-center>
         {{ t('finals') }}
       </div>
-      <div grid="~ cols-2 gap-3" justify-start>
+      <div grid="~ cols-2 gap-3" h-min>
         <div v-for="s of pinyinInitials" :key="s" :class="getSymbolState(s)">
           {{ s }}
         </div>
       </div>
-      <div grid="~ cols-3 gap-3" justify-start>
+      <div grid="~ cols-3 gap-3" h-min>
         <div v-for="s of pinyinFinals" :key="s" :class="getSymbolState(s)">
           {{ s }}
         </div>
