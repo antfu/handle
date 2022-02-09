@@ -19,9 +19,10 @@
   "failed-3": "你也可以隨時嘗試並查看答案",
   "finals": "韻母",
   "games-count": "遊戲次數",
+  "hanzi": "漢字",
   "happy-new-year-2022": "虎年快樂！",
   "hint": "提示",
-  "hint-note": "答案包含以下漢字",
+  "hint-note": "答案包含以下",
   "initials": "聲母",
   "input-placeholder": "輸入四字詞語...",
   "intro-1": "你有十次的機會猜一個",
@@ -45,6 +46,7 @@
   "intro-9": "為橙色，表示其出現在答案中，但並不是第一個字。",
   "mask-off": "遮罩關閉",
   "mask-on": "遮罩開啟",
+  "more-hint": "進一步提示",
   "name": "漢兜",
   "next-note": "距離下一題更新還有",
   "no-future-play": "Ops，這道題目來自未來，還不能玩哦！",
@@ -65,5 +67,6 @@
   "win-count": "獲勝次數",
   "win-no-hint-count": "無提示獲勝次數",
   "win-rate": "獲勝機率",
-  "zhuyin": "注音"
+  "zhuyin": "注音",
+  "ziyin": "字音"
 }

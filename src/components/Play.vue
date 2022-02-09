@@ -34,6 +34,8 @@ function focus() {
 }
 function hint() {
   meta.value.hint = true
+  if (!meta.value.hintLevel)
+    meta.value.hintLevel = 1
   showHint.value = true
 }
 function sheet() {

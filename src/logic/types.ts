@@ -19,7 +19,6 @@ export interface MatchResult {
 }
 
 export interface TriesMeta {
-  hint?: boolean
   answer?: boolean
   start?: number
   end?: number
@@ -27,4 +26,6 @@ export interface TriesMeta {
   failed?: boolean
   passed?: boolean
   tries?: string[]
+  hint?: boolean
+  hintLevel?: number
 }
