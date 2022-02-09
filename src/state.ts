@@ -13,6 +13,7 @@ export const showFailed = ref(false)
 export const showDashboard = ref(false)
 export const showVariants = ref(false)
 export const useMask = ref(false)
+export const showCheatSheet = ref(false)
 
 const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
@@ -41,3 +42,12 @@ export function parseWord(word: string, _ans = answer.value.word, toZhuyin = use
 export function testAnswer(word: ParsedChar[], ans = parsedAnswer.value) {
   return _testAnswer(word, ans)
 }
+
+export const parsedTries = computed(() => tries.value.map((i) => {
+  const word = parseWord(i)
+  const result = testAnswer(word)
+  return {
+    word,
+    result,
+  }
+}))

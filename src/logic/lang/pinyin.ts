@@ -1,1 +1,10 @@
-export const pinyinOne = 'b p m f d t n l g k h j q x zh ch sh r z c x s w y'.split(/\s/g)
+export const pinyinInitials = 'b p m f d t n l g k h j q r x w y z c s zh ch sh'.split(/\s/g)
+
+export const pinyinFinals = 'a o e ai ei ao ou an en ang eng ong er i ia io ie iao iu ian in iang ing iong u ua uo uai ui uan un uang ueng v ve van vn'
+  .split(/\s/g)
+  .sort((a, b) => {
+    const i = a.length - b.length
+    if (i === 0)
+      return a.localeCompare(b)
+    return i
+  })

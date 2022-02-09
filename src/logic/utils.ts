@@ -2,7 +2,7 @@ import seedrandom from 'seedrandom'
 import Pinyin from 'pinyin'
 import IDIOMS from '../data/idioms.json'
 import type { MatchResult, ParsedChar } from './types'
-import { pinyin2zhuyin, pinyinOne, toSimplified } from './lang'
+import { pinyin2zhuyin, pinyinInitials, toSimplified } from './lang'
 
 export function parsePinyin(pinyin: string, toZhuyin = false) {
   let parts: string[] = []
@@ -12,7 +12,7 @@ export function parsePinyin(pinyin: string, toZhuyin = false) {
     }
     else {
       let rest = pinyin
-      const one = pinyinOne.find(i => rest.startsWith(i))
+      const one = pinyinInitials.find(i => rest.startsWith(i))
       if (one)
         rest = rest.slice(one.length)
       parts = [one, rest].filter(Boolean) as string[]

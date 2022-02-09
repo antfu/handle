@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showFailed, showHelp, showHint } from '~/state'
+import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
 import { markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
@@ -36,6 +36,9 @@ function hint() {
   meta.value.hint = true
   showHint.value = true
 }
+function sheet() {
+  showCheatSheet.value = true
+}
 
 watchEffect(() => {
   if (!showHelp.value)
@@ -54,9 +57,14 @@ watchEffect(() => {
 <template>
   <div>
     <div flex="~ col gap-2" items-center>
-      <button icon-btn text-base pb2 gap-1 flex="~ center" :class="isFinished ? 'op0! pointer-events-none' : ''" @click="hint()">
-        <div i-carbon-idea /> {{ t('hint') }}
-      </button>
+      <div flex="~ center gap-4" :class="isFinished ? 'op0! pointer-events-none' : ''">
+        <button icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+          <div i-carbon-idea /> {{ t('hint') }}
+        </button>
+        <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
+          <div i-carbon-grid /> {{ t('cheatsheet') }}
+        </button>
+      </div>
 
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 

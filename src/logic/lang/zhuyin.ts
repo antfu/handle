@@ -419,3 +419,5 @@ export const pinyin2zhuyin: Record<string, string> = {
   zun: 'ㄗㄨㄣ',
   zuo: 'ㄗㄨㄛ',
 }
+
+export const zhuyinSymbols = 'ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ'.split('')

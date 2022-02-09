@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDark, showDashboard, showFailed, showHelp, showHint, showSettings, showVariants, useMask } from '~/state'
+import { isDark, showCheatSheet, showDashboard, showFailed, showHelp, showHint, showSettings, showVariants, useMask } from '~/state'
 import { gamesCount } from '~/storage'
 import { t } from '~/i18n'
 
@@ -57,5 +57,8 @@ function openHelp() {
   </Modal>
   <Modal v-model="showVariants" direction="top">
     <VariantLinks />
+  </Modal>
+  <Modal v-model="showCheatSheet" direction="top">
+    <CheatSheet />
   </Modal>
 </template>
