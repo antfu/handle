@@ -3,12 +3,17 @@ import Pinyin from 'pinyin'
 import IDIOMS from '../data/idioms.json'
 import type { MatchResult, ParsedChar } from './types'
 import { pinyin2zhuyin, pinyinInitials, toSimplified } from './lang'
+import { toShuangpin } from './lang/shuangpin'
+import type { InputMode } from '.'
 
-export function parsePinyin(pinyin: string, toZhuyin = false) {
+export function parsePinyin(pinyin: string, mode: InputMode = 'py') {
   let parts: string[] = []
   if (pinyin) {
-    if (toZhuyin) {
+    if (mode === 'zy') {
       parts = Array.from(pinyin2zhuyin[pinyin] || '')
+    }
+    else if (mode === 'sp') {
+      parts = Array.from(toShuangpin(pinyin))
     }
     else {
       let rest = pinyin
@@ -21,14 +26,14 @@ export function parsePinyin(pinyin: string, toZhuyin = false) {
   return parts
 }
 
-export function parseChar(char: string, pinyin?: string, toZhuyin = false): ParsedChar {
+export function parseChar(char: string, pinyin?: string, mode?: InputMode): ParsedChar {
   if (!pinyin)
     pinyin = getPinyin(char)[0]
   const tone = pinyin.match(/[\d]$/)?.[0] || ''
   if (tone)
     pinyin = pinyin.slice(0, -tone.length).trim()
 
-  const parts = parsePinyin(pinyin, toZhuyin)
+  const parts = parsePinyin(pinyin, mode)
   const [one, two, three] = parts
   return {
     char,
@@ -41,7 +46,7 @@ export function parseChar(char: string, pinyin?: string, toZhuyin = false): Pars
   }
 }
 
-export function parseWord(word: string, answer?: string, toZhuyin = false) {
+export function parseWord(word: string, answer?: string, mode?: InputMode) {
   const pinyins = getPinyin(word)
   const chars = Array.from(word)
   const answerPinyin = answer ? getPinyin(answer) : undefined
@@ -51,7 +56,7 @@ export function parseWord(word: string, answer?: string, toZhuyin = false) {
     // try match the pinyin from the answer word
     if (answerPinyin && answer && answer.includes(char))
       pinyin = answerPinyin[answer.indexOf(char)] || pinyin
-    return parseChar(char, pinyin, toZhuyin)
+    return parseChar(char, pinyin, mode)
   })
 }
 

@@ -1,6 +1,6 @@
 import type { ParsedChar } from './logic'
 import { START_DATE, TRIES_LIMIT, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint } from './logic'
-import { meta, tries, useZhuyin } from './storage'
+import { useNumberTone as _useNumberTone, inputMode, meta, tries } from './storage'
 import { getAnswerOfDay } from './answers'
 
 export const now = useNow({ interval: 1000 })
@@ -14,6 +14,14 @@ export const showDashboard = ref(false)
 export const showVariants = ref(false)
 export const useMask = ref(false)
 export const showCheatSheet = ref(false)
+
+export const useNumberTone = computed(() => {
+  if (inputMode.value === 'sp')
+    return true
+  if (inputMode.value === 'zy')
+    return false
+  return _useNumberTone.value
+})
 
 const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
@@ -35,8 +43,8 @@ export const isPassed = computed(() => meta.value.passed || (tries.value.length 
 export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
 export const isFinished = computed(() => isPassed.value || meta.value.answer)
 
-export function parseWord(word: string, _ans = answer.value.word, toZhuyin = useZhuyin.value) {
-  return _parseWord(word, _ans, toZhuyin)
+export function parseWord(word: string, _ans = answer.value.word, mode = inputMode.value) {
+  return _parseWord(word, _ans, mode)
 }
 
 export function testAnswer(word: ParsedChar[], ans = parsedAnswer.value) {

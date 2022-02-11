@@ -1,5 +1,7 @@
 export type MatchType = 'exact' | 'misplaced' | 'none'
 
+export type InputMode = 'py' | 'zy' | 'sp'
+
 export interface ParsedChar {
   char: string
   _1: string

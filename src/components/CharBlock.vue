@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ToneSymbol from './ToneSymbol.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
-import { useNumberTone, useZhuyin } from '~/storage'
-import { useMask } from '~/state'
+import { inputMode } from '~/storage'
+import { useMask, useNumberTone } from '~/state'
 
 const props = defineProps<{
   char?: ParsedChar
@@ -78,7 +78,7 @@ const partTwo = computed(() => {
   <div h-20 w-20 border-2 font-serif leading-1em flex="~ center" relative :class="blockColor">
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
-      <template v-if="useZhuyin">
+      <template v-if="inputMode === 'zy'">
         <div text-3xl leading-1em mr-3 :class="getColor(answer?.char, true)">
           {{ char.char }}
         </div>
@@ -98,7 +98,7 @@ const partTwo = computed(() => {
         </div>
       </template>
 
-      <!-- Pinyin -->
+      <!-- Pinyin or Shuangpin -->
       <template v-else>
         <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
           {{ char.char }}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isDark, showHelp, showVariants, useMask } from '~/state'
-import { initialized, useZhuyin } from '~/storage'
+import { initialized, inputMode } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
@@ -12,6 +12,8 @@ function start() {
 function variantButton() {
   showVariants.value = true
 }
+
+const final = computed(() => ({ py: 'ou', zy: 'ㄨㄛ', sp: 'b' }[inputMode.value]))
 </script>
 
 <template>
@@ -52,7 +54,7 @@ function variantButton() {
     <p max-w-130>
       {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}
       {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
-      {{ t('intro-17') }} <b text-mis>{{ useZhuyin ? 'ㄨㄛ' : 'uo' }}</b> {{ t('intro-19') }}
+      {{ t('intro-17') }} <b text-mis>{{ final }}</b> {{ t('intro-19') }}
     </p>
 
     <WordBlocks my2 :word="t('example-4')" :revealed="true" answer="武运昌隆" />

@@ -1,12 +1,12 @@
 import { preferZhuyin } from './i18n'
 import { dayNo } from './state'
-import type { TriesMeta } from './logic'
+import type { InputMode, TriesMeta } from './logic'
 
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 
 export const initialized = useStorage('handle-initialized', false)
 export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
-export const useZhuyin = useStorage('handle-zhuyin', preferZhuyin)
+export const inputMode = useStorage<InputMode>('handle-mode', preferZhuyin ? 'zy' : 'py')
 export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
 
