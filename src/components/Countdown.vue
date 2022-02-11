@@ -13,7 +13,7 @@ const formatted = computed(() => {
 </script>
 
 <template>
-  <div flex gap-5 py-5>
+  <div flex gap-5 py8>
     <div flex="~ col center" relative>
       <div op80>
         {{ t('next-note') }}

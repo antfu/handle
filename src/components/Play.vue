@@ -58,16 +58,7 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div flex="~ col gap-2" items-center>
-      <div flex="~ center gap-4" :class="isFinished ? 'op0! pointer-events-none' : ''">
-        <button icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
-          <div i-carbon-idea /> {{ t('hint') }}
-        </button>
-        <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
-          <div i-carbon-grid /> {{ t('cheatsheet') }}
-        </button>
-      </div>
-
+    <div flex="~ col gap-2" pt4 items-center>
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
@@ -97,11 +88,12 @@ watchEffect(() => {
         >
         <button
           v-if="!isPassed"
-          class="btn"
+          mt3
+          btn p="x6 y2"
           :disabled="input.length !== WORD_LENGTH"
           @click="go"
         >
-          {{ t('ok') }}
+          {{ t('ok-spaced') }}
         </button>
         <div v-if="tries.length > 4 && !isFailed" op50>
           {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
@@ -109,6 +101,15 @@ watchEffect(() => {
         <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
           <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
         </button>
+
+        <div flex="~ center gap-4" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
+          <button icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+            <div i-carbon-idea /> {{ t('hint') }}
+          </button>
+          <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
+            <div i-carbon-grid /> {{ t('cheatsheet') }}
+          </button>
+        </div>
       </template>
       <template v-else>
         <Countdown />
