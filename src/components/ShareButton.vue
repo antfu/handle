@@ -3,6 +3,8 @@ import { answer, dayNo, parseWord, testAnswer } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 
+const isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)
+
 const text = computed(() =>
   `${t('name')} ${dayNo.value} ${meta.value.answer ? 'X' : tries.value.length}/10\n\n${
     tries.value
@@ -37,7 +39,7 @@ const clipboard = useClipboard()
 const shareDialog = ref(false)
 
 function start() {
-  if (share.isSupported) {
+  if (share.isSupported && isMobile) {
     share.share()
   }
   else {
