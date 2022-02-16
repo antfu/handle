@@ -122,9 +122,9 @@ export function getHint(word: string) {
 }
 
 export function getPinyin(word: string) {
-  word = toSimplified(word)
-  const data = IDIOMS.find(d => d[0] === word)
+  const simplifiedWord = toSimplified(word)
+  const data = IDIOMS.find(d => d[0] === simplifiedWord || d[0] === word)
   if (data && data[1])
     return data[1].split(/\s+/g)
-  return Pinyin(word, { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
+  return Pinyin(simplifiedWord, { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
 }
