@@ -74,18 +74,18 @@ export const _2022_FEB = prepare(28, [
     ['吃里扒外'],
     ['井然有条'],
     ['本性难移'],
-    ['不破不立'],
+    ['口是心非', '是'],
     ['雄心勃勃'],
     ['各有千秋'],
     ['异口同声', '声'],
-    ['因噎废食'],
-    ['惊世骇俗'],
+    ['因噎废食', '食'],
+    ['惊世骇俗', '世'],
     ['同甘共苦', '同'],
     ['见风使舵'],
     ['地北天南'],
     ['日久天长'],
     ['应对如流'],
-    ['欣然自得'],
+    ['夸父逐日'],
     ['瓜田李下', '下'],
     ['语不投机'],
   ], '2022-02'),
@@ -94,7 +94,7 @@ export const _2022_FEB = prepare(28, [
 export const _2022_MARCH = prepare(31, seedShuffle([
   ['孜孜不倦', '不'],
   ['胆战心惊'],
-  ['本性难移'],
+  ['水枯石烂', '石'],
   ['寄人篱下'],
   ['行尸走肉'],
   ['延年益寿'],
@@ -131,3 +131,16 @@ export const answers: string[][] = [
   ..._2022_FEB,
   ..._2022_MARCH,
 ]
+
+// duplicated check
+if (import.meta.hot) {
+  const map = new Map<string, number>()
+  answers.forEach((a, i) => {
+    if (!a[0])
+      return
+    if (!map.has(a[0]))
+      map.set(a[0], i)
+    else
+      throw new Error(`Word ${a[0]} is duplicated at ${map.get(a[0])}`)
+  })
+}
