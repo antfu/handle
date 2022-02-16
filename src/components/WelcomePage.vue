@@ -13,7 +13,7 @@ function variantButton() {
   showVariants.value = true
 }
 
-const final = computed(() => ({ py: 'ou', zy: 'ㄨㄛ', sp: 'b' }[inputMode.value]))
+const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.value]))
 </script>
 
 <template>
