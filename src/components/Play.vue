@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { markStart, meta, tries } from '~/storage'
+import { markStart, meta, tries, triesFrequency } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 
@@ -133,6 +133,8 @@ watchEffect(() => {
         >
           下一天
         </a>
+        <div>常用词</div>
+        {{ triesFrequency }}
       </template>
     </div>
   </div>

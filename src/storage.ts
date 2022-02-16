@@ -82,3 +82,23 @@ export const averageDurations = computed(() => {
     return `${m}m${s}s`
   return `${s}s`
 })
+
+export const triesFrequency = computed(() => {
+  const map = new Map<string, number>()
+
+  for (const item of Object.values(history.value)) {
+    for (const t of item.tries || []) {
+      if (!t)
+        continue
+      if (!map.has(t))
+        map.set(t, 0)
+      map.set(t, map.get(t)! + 1)
+    }
+  }
+
+  const items = Array.from(map.entries())
+    .filter(([, count]) => count > 1)
+    .sort((a, b) => b[1] - a[1])
+
+  return items
+})
