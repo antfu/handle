@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { analyticSetting, hardMode, markStart, meta, tries } from '~/storage'
+import { accpetCollecting, hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 import { sendHistoryAnalytics } from '~/analytics'
@@ -43,7 +43,7 @@ function sheet() {
   showCheatSheet.value = true
 }
 function devSendAnalytics() {
-  analyticSetting.value = 1
+  accpetCollecting.value = true
   sendHistoryAnalytics()
 }
 

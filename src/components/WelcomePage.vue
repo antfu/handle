@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDark, showHelp, showVariants, useMask } from '~/state'
+import { isDark, showHelp, showPrivacyNotes, showVariants, useMask } from '~/state'
 import { initialized, inputMode } from '~/storage'
 import { t } from '~/i18n'
 
@@ -11,6 +11,10 @@ function start() {
 
 function variantButton() {
   showVariants.value = true
+}
+
+function privacyButton() {
+  showPrivacyNotes.value = true
 }
 
 const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.value]))
@@ -78,6 +82,9 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
     </button>
 
     <div h-1px w-10 border="b base" m4 />
+    <div op50 hover:op80 @click="privacyButton()">
+      {{ t('privacy-notes') }}
+    </div>
     <div>
       <span op40>inspired by </span><a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" op50 hover:op80>Wordle</a>
       <span op40>, made by </span>

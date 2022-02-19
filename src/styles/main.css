@@ -29,3 +29,7 @@ p {
   --c-mis: #ff46ff;
   --c-primary:#a8b443;
 }
+
+ul {
+  list-style: disc;
+}

@@ -1,7 +1,7 @@
-import { initialized, markEnd, markStart, meta, pauseTimer } from './storage'
+import { accpetCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
-import { sendAnalytics } from './analytics'
+import { sendAnalytics, sendHistoryAnalytics } from './analytics'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
@@ -45,3 +45,8 @@ watchEffect(() => {
     pauseTimer()
   }
 }, { flush: 'post' })
+
+nextTick(() => {
+  if (accpetCollecting.value)
+    sendHistoryAnalytics()
+})

@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import axios from 'axios'
 import { dayNo } from './state'
-import { analyticSetting, history, inputMode } from './storage'
+import { accpetCollecting, history, inputMode } from './storage'
 import type { TriesMeta } from './logic'
 
 const NETLIFY_FUNCTION_HOST = '/.netlify/functions'
@@ -33,7 +33,7 @@ export function preparePayload(day: number, meta: TriesMeta) {
 }
 
 export async function sendAnalytics(day = dayNo.value) {
-  if (!analyticSetting.value)
+  if (!accpetCollecting.value)
     return
 
   const meta = history.value[day]
@@ -56,18 +56,19 @@ export async function uploadPayloads(payloads: ReturnType<typeof preparePayload>
   }
 
   // mark as sent
-  // if (!error) {
-  //   items.forEach((i) => {
-  //     if (history.value[i.day])
-  //       history.value[i.day].sent = true
-  //   })
-  // }
+  if (!error) {
+    items.forEach((i) => {
+      if (history.value[i.day])
+        history.value[i.day].sent = true
+    })
+  }
+
   if (error)
-    alert(JSON.stringify({ error }, null, 2))
+    console.error(error)
 }
 
 export async function sendHistoryAnalytics() {
-  if (!analyticSetting.value)
+  if (!accpetCollecting.value)
     return
 
   const payloads = Object.entries(history.value)
