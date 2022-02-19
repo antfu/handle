@@ -8,6 +8,7 @@ specifiers:
   '@netlify/functions': ^1.0.0
   '@supabase/supabase-js': ^1.30.3
   '@types/file-saver': ^2.0.5
+  '@types/lru-cache': ^5.1.1
   '@types/node': ^17.0.13
   '@types/pinyin': ^2.10.0
   '@types/seedrandom': ^3.0.1
@@ -15,10 +16,12 @@ specifiers:
   '@vitejs/plugin-vue': ^2.1.0
   '@vue/test-utils': ^2.0.0-rc.18
   '@vueuse/core': ^7.5.5
+  axios: ^0.26.0
   eslint: ^8.8.0
   file-saver: ^2.0.5
   html-to-image: ^1.9.0
   jsdom: ^19.0.0
+  lru-cache: ^7.3.1
   nanoid: ^3.3.1
   pinyin: ^2.10.2
   pnpm: ^6.29.1
@@ -34,7 +37,9 @@ specifiers:
 dependencies:
   '@supabase/supabase-js': 1.30.3
   '@vueuse/core': 7.5.5_vue@3.2.29
+  axios: 0.26.0
   html-to-image: 1.9.0
+  lru-cache: 7.3.1
   nanoid: 3.3.1
   pinyin: 2.10.2
   seedrandom: 3.0.5
@@ -47,6 +52,7 @@ devDependencies:
   '@iconify-json/noto-v1': 1.0.1
   '@netlify/functions': 1.0.0
   '@types/file-saver': 2.0.5
+  '@types/lru-cache': 5.1.1
   '@types/node': 17.0.13
   '@types/pinyin': 2.10.0
   '@types/seedrandom': 3.0.1
@@ -394,6 +400,10 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
+    dev: true
+
+  /@types/lru-cache/5.1.1:
+    resolution: {integrity: sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==}
     dev: true
 
   /@types/node/17.0.13:
@@ -936,6 +946,14 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: true
+
+  /axios/0.26.0:
+    resolution: {integrity: sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==}
+    dependencies:
+      follow-redirects: 1.14.9
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -2009,6 +2027,16 @@ packages:
         optional: true
     dev: true
 
+  /follow-redirects/1.14.9:
+    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -2595,6 +2623,11 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lru-cache/7.3.1:
+    resolution: {integrity: sha512-nX1x4qUrKqwbIAhv4s9et4FIUVzNOpeY07bsjGUy8gwJrXH/wScImSQqXErmo/b2jZY2r0mohbLA9zVj7u1cNw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /magic-string/0.25.7:
     resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
