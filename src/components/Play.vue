@@ -144,6 +144,7 @@ watchEffect(() => {
         >
           下一天
         </a>
+        <WorldCompare />
       </template>
     </div>
   </div>

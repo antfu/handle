@@ -75,3 +75,8 @@ export async function sendHistoryAnalytics() {
 
   await uploadPayloads(payloads)
 }
+
+export async function getReport() {
+  const { data } = await axios.get(`${NETLIFY_FUNCTION_HOST}/report?day=${dayNo.value}`)
+  return data
+}

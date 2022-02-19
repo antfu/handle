@@ -22,6 +22,7 @@ declare module 'vue' {
     VariantLinks: typeof import('./src/components/VariantLinks.vue')['default']
     WelcomePage: typeof import('./src/components/WelcomePage.vue')['default']
     WordBlocks: typeof import('./src/components/WordBlocks.vue')['default']
+    WorldCompare: typeof import('./src/components/WorldCompare.vue')['default']
   }
 }
 

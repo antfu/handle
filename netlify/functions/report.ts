@@ -10,8 +10,8 @@ const cache = new LRU<number, Report>({
 const START_DATE = new Date(2022, 0, 0)
 const dayNo = Math.floor((Date.now() - +START_DATE) / 86400000)
 
-export const handler: Handler = async() => {
-  const day = dayNo
+export const handler: Handler = async(event) => {
+  const day = +(new URLSearchParams(event.rawQuery).get('d') || dayNo)
   let payload: Report
 
   if (!cache.has(day)) {
