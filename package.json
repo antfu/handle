@@ -21,6 +21,7 @@
     "@iconify-json/carbon": "^1.0.14",
     "@iconify-json/mdi": "^1.0.14",
     "@iconify-json/noto-v1": "^1.0.1",
+    "@netlify/functions": "^1.0.0",
     "@types/file-saver": "^2.0.5",
     "@types/node": "^17.0.13",
     "@types/pinyin": "^2.10.0",
