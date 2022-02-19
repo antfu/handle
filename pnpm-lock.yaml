@@ -17,6 +17,7 @@ specifiers:
   file-saver: ^2.0.5
   html-to-image: ^1.9.0
   jsdom: ^19.0.0
+  nanoid: ^3.3.1
   pinyin: ^2.10.2
   pnpm: ^6.29.1
   seedrandom: ^3.0.5
@@ -31,6 +32,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 7.5.5_vue@3.2.29
   html-to-image: 1.9.0
+  nanoid: 3.3.1
   pinyin: 2.10.2
   seedrandom: 3.0.5
   vue: 3.2.29
@@ -2578,8 +2580,8 @@ packages:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: true
 
-  /nanoid/3.1.30:
-    resolution: {integrity: sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==}
+  /nanoid/3.3.1:
+    resolution: {integrity: sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -2900,7 +2902,7 @@ packages:
     resolution: {integrity: sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.1.30
+      nanoid: 3.3.1
       picocolors: 1.0.0
       source-map-js: 1.0.1
 

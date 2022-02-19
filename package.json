@@ -10,6 +10,7 @@
   "dependencies": {
     "@vueuse/core": "^7.5.5",
     "html-to-image": "^1.9.0",
+    "nanoid": "^3.3.1",
     "pinyin": "^2.10.2",
     "seedrandom": "^3.0.5",
     "vue": "^3.2.29"

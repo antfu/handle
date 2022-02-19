@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { colorblind, inputMode, useNumberTone as useNumberToneRaw } from '~/storage'
+import { colorblind, hardMode, inputMode, useNumberTone as useNumberToneRaw } from '~/storage'
 import { useNumberTone } from '~/state'
 import { locale, t } from '~/i18n'
 </script>
@@ -44,6 +44,12 @@ import { locale, t } from '~/i18n'
         <button :class="colorblind ? 'text-primary' : 'op80' " relative @click="colorblind = !colorblind">
           {{ t('colorblind-mode') }}
           <div v-if="colorblind" h-2 w-2 bg-primary absolute style="right:-0.75rem;top:-0.5rem" />
+        </button>
+      </div>
+      <div border="~ base" flex="~ gap-2" p="x2 y1">
+        <button :class="hardMode ? 'text-primary' : 'op80' " relative @click="hardMode = !hardMode">
+          {{ t('hard-mode') }}
+          <div v-if="hardMode" h-2 w-2 bg-primary absolute style="right:-0.75rem;top:-0.5rem" />
         </button>
       </div>
     </div>

@@ -9,6 +9,7 @@ export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta'
 export const inputMode = useStorage<InputMode>('handle-mode', preferZhuyin ? 'zy' : 'py')
 export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
+export const hardMode = useStorage('handle-hard-mode', false)
 
 export const meta = computed<TriesMeta>({
   get() {
@@ -51,7 +52,7 @@ export function markEnd() {
     meta.value.duration += meta.value.end - meta.value.start
 }
 
-export function onPause() {
+export function pauseTimer() {
   if (meta.value.end)
     return
 

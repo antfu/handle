@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { markStart, meta, tries } from '~/storage'
+import { hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 
@@ -103,7 +103,7 @@ watchEffect(() => {
         </button>
 
         <div flex="~ center gap-4" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
-          <button icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+          <button v-if="!hardMode" icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
             <div i-carbon-idea /> {{ t('hint') }}
           </button>
           <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
@@ -133,7 +133,6 @@ watchEffect(() => {
         >
           下一天
         </a>
-        <div>常用词</div>
       </template>
     </div>
   </div>
