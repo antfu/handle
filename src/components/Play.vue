@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { accpetCollecting, hardMode, markStart, meta, tries } from '~/storage'
+import { hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
-import { sendHistoryAnalytics } from '~/analytics'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
@@ -41,10 +40,6 @@ function hint() {
 }
 function sheet() {
   showCheatSheet.value = true
-}
-function devSendAnalytics() {
-  accpetCollecting.value = true
-  sendHistoryAnalytics()
 }
 
 watchEffect(() => {
@@ -131,12 +126,6 @@ watchEffect(() => {
           @click="reset"
         >
           重置
-        </button>
-        <button
-          class="btn"
-          @click="devSendAnalytics"
-        >
-          Analytics
         </button>
         <a
           class="btn"

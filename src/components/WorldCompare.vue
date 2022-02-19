@@ -7,6 +7,11 @@ const data = asyncComputed(() => getReport())
 <template>
   <div>
     World Compare
-    <pre text-left>{{ JSON.stringify(data, null, 2) }}</pre>
+    <div v-if="!data">
+      加载中...
+    </div>
+    <div v-else>
+      <pre text-left>{{ JSON.stringify(data, null, 2) }}</pre>
+    </div>
   </div>
 </template>
