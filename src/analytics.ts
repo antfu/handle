@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { createClient } from '@supabase/supabase-js'
 import { dayNo } from './state'
-import { history, inputMode } from './storage'
+import { analyticSetting, history, inputMode } from './storage'
 import type { TriesMeta } from './logic'
 
 const SUPABASE_URL = 'https://lxmqadkqgpcewmfffyig.supabase.co'
@@ -23,8 +23,6 @@ export async function getSupabase() {
   return _supabase
 }
 
-export const analyticSetting = useStorage<number>('handle-accept-analytics', 0) // 0: not sure, 1: ok, -1: no
-
 export function preparePayload(day: number, meta: TriesMeta) {
   if (!meta || (!meta.passed && !meta.failed) || meta.sent)
     return
@@ -43,7 +41,7 @@ export function preparePayload(day: number, meta: TriesMeta) {
 }
 
 export async function sendAnalytics(day = dayNo.value) {
-  if (analyticSetting.value < 0)
+  if (!analyticSetting.value)
     return
 
   const meta = history.value[day]
@@ -66,12 +64,11 @@ export async function uploadPayloads(payloads: ReturnType<typeof preparePayload>
   //       history.value[i.day].sent = true
   //   })
   // }
-
-  console.log({ data, error })
+  alert(JSON.stringify({ data, error }, null, 2))
 }
 
 export async function sendHistoryAnalytics() {
-  if (analyticSetting.value < 0)
+  if (!analyticSetting.value)
     return
 
   const payloads = Object.entries(history.value)

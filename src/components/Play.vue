@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { hardMode, markStart, meta, tries } from '~/storage'
+import { analyticSetting, hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
 import { sendHistoryAnalytics } from '~/analytics'
@@ -41,6 +41,10 @@ function hint() {
 }
 function sheet() {
   showCheatSheet.value = true
+}
+function devSendAnalytics() {
+  analyticSetting.value = 1
+  sendHistoryAnalytics()
 }
 
 watchEffect(() => {
@@ -130,9 +134,9 @@ watchEffect(() => {
         </button>
         <button
           class="btn"
-          @click="sendHistoryAnalytics"
+          @click="devSendAnalytics"
         >
-          Analytic
+          Analytics
         </button>
         <a
           class="btn"

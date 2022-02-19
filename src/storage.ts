@@ -10,6 +10,7 @@ export const inputMode = useStorage<InputMode>('handle-mode', preferZhuyin ? 'zy
 export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
 export const hardMode = useStorage('handle-hard-mode', false)
+export const analyticSetting = useStorage<number>('handle-accept-analytics', 0) // 0: not sure, 1: ok, -1: no
 
 export const meta = computed<TriesMeta>({
   get() {
