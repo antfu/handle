@@ -16,7 +16,7 @@ catch {}
 
 export const analyticSetting = useStorage<number>('handle-accept-analytics', 0) // 0: not sure, 1: ok, -1: no
 
-export function sendAnalytics(day = dayNo.value) {
+export async function sendAnalytics(day = dayNo.value) {
   if (analyticSetting.value < 0)
     return
 
@@ -25,17 +25,23 @@ export function sendAnalytics(day = dayNo.value) {
   if (!meta || (!meta.passed && !meta.failed) || meta.sent)
     return
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { start, end, ...rest } = toRaw(meta)
   const payload = {
     uid: _uid,
     day,
-    inputMode,
-    ...meta,
+    inputMode: inputMode.value,
+    ...rest,
     ts: Date.now(),
     timezone,
   }
 
-  meta.sent = true
-
   // TODO:
+  // meta.sent = true
   console.log({ payload })
+}
+
+export async function sendHistoryAnalytics() {
+  for (const day of Object.keys(history.value))
+    await sendAnalytics(+day)
 }

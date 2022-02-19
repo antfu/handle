@@ -3,6 +3,7 @@ import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, s
 import { hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
+import { sendHistoryAnalytics } from '~/analytics'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
@@ -126,6 +127,12 @@ watchEffect(() => {
           @click="reset"
         >
           重置
+        </button>
+        <button
+          class="btn"
+          @click="sendHistoryAnalytics"
+        >
+          Analytic
         </button>
         <a
           class="btn"
