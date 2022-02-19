@@ -35,7 +35,7 @@ async function save() {
 </script>
 
 <template>
-  <button icon-btn text-sm pb2 gap-1 flex="~ center" @click="save()">
+  <button icon-btn text-sm pb2 gap-1 flex="~ wrap center" @click="save()">
     <div i-carbon-download /> {{ t('download-as-image') }}
   </button>
   <Modal v-model="showDialog" direction="top">

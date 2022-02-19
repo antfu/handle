@@ -27,5 +27,6 @@
         "t('{key}')",
       ],
     }
-  ]
+  ],
+  "i18n-ally.sourceLanguage": "zh-cn"
 }

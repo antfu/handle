@@ -51,7 +51,7 @@ function start() {
 
 <template>
   <button
-    btn flex items-center justify-center gap-3 text-xl font-serif p="x4 y2"
+    btn flex="~ wrap gap-x-3" items-center justify-center ws-nowrap text-xl font-serif p="x4 y2"
     @click="start()"
   >
     <div i-carbon-share />

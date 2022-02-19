@@ -14,11 +14,11 @@ const formatted = computed(() => {
 
 <template>
   <div flex gap-5 py8>
-    <div flex="~ col center" relative>
+    <div flex="~ col center" relative w-38>
       <div op80>
         {{ t('next-note') }}
       </div>
-      <div text-2xl font-serif w-45>
+      <div text-2xl font-serif>
         {{ formatted }}
       </div>
     </div>
