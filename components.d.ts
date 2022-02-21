@@ -14,6 +14,8 @@ declare module 'vue' {
     Modal: typeof import('./src/components/Modal.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NoFuturePlay: typeof import('./src/components/NoFuturePlay.vue')['default']
+    NoPastPlay: typeof import('./src/components/NoPastPlay.vue')['default']
+    NotTodayBanner: typeof import('./src/components/NotTodayBanner.vue')['default']
     Play: typeof import('./src/components/Play.vue')['default']
     PrivacyNotes: typeof import('./src/components/PrivacyNotes.vue')['default']
     ResultFooter: typeof import('./src/components/ResultFooter.vue')['default']
