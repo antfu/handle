@@ -1,4 +1,4 @@
-import { preferZhuyin } from './i18n'
+import { preferZhuyin, t } from './i18n'
 import { dayNo } from './state'
 import type { InputMode, TriesMeta } from './logic'
 
@@ -77,10 +77,14 @@ export const averageDurations = computed(() => {
   if (!items.length)
     return 0
   const durations = items.map(m => m.duration!).reduce((a, b) => a + b, 0)
-  const ts = durations / items.length / 1000
+  return formatDuration(durations / items.length)
+})
+
+export function formatDuration(duration: number) {
+  const ts = duration / 1000
   const m = Math.floor(ts / 60)
   const s = Math.round(ts % 60)
   if (m)
-    return `${m}m${s}s`
-  return `${s}s`
-})
+    return m + t('minutes') + s + t('seconds')
+  return s + t('seconds')
+}

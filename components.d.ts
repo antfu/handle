@@ -16,6 +16,7 @@ declare module 'vue' {
     NoFuturePlay: typeof import('./src/components/NoFuturePlay.vue')['default']
     Play: typeof import('./src/components/Play.vue')['default']
     PrivacyNotes: typeof import('./src/components/PrivacyNotes.vue')['default']
+    ResultFooter: typeof import('./src/components/ResultFooter.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     ShareButton: typeof import('./src/components/ShareButton.vue')['default']
     ToggleMask: typeof import('./src/components/ToggleMask.vue')['default']

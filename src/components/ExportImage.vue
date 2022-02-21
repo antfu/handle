@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { dayNo, useMask } from '~/state'
-import { meta, tries } from '~/storage'
+import { tries } from '~/storage'
 import { t } from '~/i18n'
-
-const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 
 const el = ref<HTMLDivElement>()
 const show = ref(false)
@@ -13,24 +11,24 @@ const dataUrlMasked = ref('')
 
 async function save() {
   show.value = true
-  const { exportImage, toPng } = await import('~/async/exportImage')
+  const { toPng } = await import('~/async/exportImage')
   await nextTick()
   await nextTick()
-  if (isIOS) {
-    showDialog.value = true
-    const p = useMask.value
-    useMask.value = false
-    await nextTick()
-    dataUrl.value = await toPng(el.value!)
-    useMask.value = true
-    await nextTick()
-    dataUrlMasked.value = await toPng(el.value!)
-    useMask.value = p
-  }
-  else {
-    await exportImage(el.value!, `${t('name')} D${dayNo.value}.png`)
-  }
+  showDialog.value = true
+  const p = useMask.value
+  useMask.value = false
+  await nextTick()
+  dataUrl.value = await toPng(el.value!)
+  useMask.value = true
+  await nextTick()
+  dataUrlMasked.value = await toPng(el.value!)
+  useMask.value = p
   show.value = false
+}
+
+async function download() {
+  const { saveAs } = await import('~/async/exportImage')
+  await saveAs(dataUrl.value, `${t('name')} D${dayNo.value}.png`)
 }
 </script>
 
@@ -48,29 +46,25 @@ async function save() {
       <p text-xl font-serif>
         <b>{{ t('download-as-image') }}</b>
       </p>
-      <div op50>
-        {{ t('press-and-download-image') }}
-      </div>
       <img :src="useMask ? dataUrlMasked : dataUrl" w-100 border="~ base rounded" shadow>
+      <button flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
+        <div i-carbon-download />
+        {{ t('download') }}
+      </button>
       <ToggleMask />
     </div>
   </Modal>
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
     <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base>
-      <div text-2xl mb2 font-serif tracking-widest>
+      <div text-2xl font-serif tracking-widest>
         {{ t('name') }}
+      </div>
+      <div text-sm mb2 op50 mt--1>
+        handle.antfu.me
       </div>
 
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
-      <div relative w-full op50 my1 text-sm>
-        <div absolute text-sm left-0 bottom-0>
-          D{{ dayNo }}
-        </div>
-        <div>handle.antfu.me</div>
-        <div absolute text-sm right-0 bottom-0>
-          {{ meta.answer ? 'X' : tries.length }}/10
-        </div>
-      </div>
+      <ResultFooter w-344px />
     </div>
   </div>
 </template>
