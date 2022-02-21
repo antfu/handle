@@ -30,7 +30,7 @@ async function save() {
 
 async function download() {
   const { saveAs } = await import('~/async/exportImage')
-  saveAs(dataUrl.value, `${t('name')} D${dayNo.value}.png`)
+  saveAs(useMask.value ? dataUrlMasked.value : dataUrl.value, `${t('name')} D${dayNo.value}.png`)
 }
 </script>
 
@@ -51,7 +51,7 @@ async function download() {
       <div v-if="isIOS" op50>
         {{ t('press-and-download-image') }}
       </div>
-      <img :src="useMask ? dataUrlMasked : dataUrl" w-100 border="~ base rounded" shadow>
+      <img :src="useMask ? dataUrlMasked : dataUrl" sm:w-80 border="~ base rounded" shadow>
       <button v-if="!isIOS" flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
         <div i-carbon-download />
         {{ t('download') }}

@@ -51,10 +51,11 @@ function start() {
 
 <template>
   <button
-    btn flex="~ wrap gap-x-3" items-center justify-center ws-nowrap text-xl font-serif p="x4 y2"
+    btn flex="~ wrap gap-x-2" items-center justify-center ws-nowrap text-lg font-serif
+    p="x3 y1"
     @click="start()"
   >
-    <div i-carbon-share />
+    <div i-carbon-share text-base />
     {{ t('share') }}
   </button>
   <Modal v-model="shareDialog" direction="top">

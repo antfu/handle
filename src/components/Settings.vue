@@ -8,15 +8,6 @@ import { locale, t } from '~/i18n'
   <div p6 flex="~ col gap-4">
     <div flex="~ gap-4 center wrap">
       <div border="~ base" flex="~ gap-2" p="x2 y1">
-        <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
-          简体
-        </button>
-        <div w-1px border="r base" />
-        <button :class="locale === 'hant' ? 'text-primary' : 'op80' " @click="locale = 'hant'">
-          繁體
-        </button>
-      </div>
-      <div border="~ base" flex="~ gap-2" p="x2 y1">
         <button :class="inputMode === 'py' ? 'text-primary' : 'op80' " @click="inputMode = 'py'">
           {{ t('pinyin') }}
         </button>
@@ -29,8 +20,6 @@ import { locale, t } from '~/i18n'
           {{ t('shuangpin') }}
         </button>
       </div>
-    </div>
-    <div flex="~ gap-4 center wrap">
       <div border="~ base" flex="~ gap-2" p="x2 y1" :class="inputMode !== 'py' ? 'op50 pointer-events-none' : ''">
         <button :class="!useNumberTone ? 'text-primary' : 'op80' " @click="useNumberToneRaw = false">
           {{ t('tone-symbol') }}
@@ -38,6 +27,17 @@ import { locale, t } from '~/i18n'
         <div w-1px border="r base" />
         <button :class="useNumberTone ? 'text-primary' : 'op80' " @click="useNumberToneRaw = true">
           {{ t('tone-number') }}
+        </button>
+      </div>
+    </div>
+    <div flex="~ gap-4 center wrap">
+      <div border="~ base" flex="~ gap-2" p="x2 y1">
+        <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
+          简体
+        </button>
+        <div w-1px border="r base" />
+        <button :class="locale === 'hant' ? 'text-primary' : 'op80' " @click="locale = 'hant'">
+          繁體
         </button>
       </div>
       <div border="~ base" flex="~ gap-2" p="x2 y1">
