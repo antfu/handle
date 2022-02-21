@@ -3,6 +3,8 @@ import { dayNo, useMask } from '~/state'
 import { tries } from '~/storage'
 import { t } from '~/i18n'
 
+const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+
 const el = ref<HTMLDivElement>()
 const show = ref(false)
 const showDialog = ref(false)
@@ -28,7 +30,7 @@ async function save() {
 
 async function download() {
   const { saveAs } = await import('~/async/exportImage')
-  await saveAs(dataUrl.value, `${t('name')} D${dayNo.value}.png`)
+  saveAs(dataUrl.value, `${t('name')} D${dayNo.value}.png`)
 }
 </script>
 
@@ -46,8 +48,11 @@ async function download() {
       <p text-xl font-serif>
         <b>{{ t('download-as-image') }}</b>
       </p>
+      <div v-if="isIOS" op50>
+        {{ t('press-and-download-image') }}
+      </div>
       <img :src="useMask ? dataUrlMasked : dataUrl" w-100 border="~ base rounded" shadow>
-      <button flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
+      <button v-if="!isIOS" flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
         <div i-carbon-download />
         {{ t('download') }}
       </button>
