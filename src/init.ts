@@ -1,7 +1,7 @@
 import { accpetCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, daySince, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
-import { sendAnalytics, sendHistoryAnalytics } from './analytics'
+import { sendAnalytics } from './analytics'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
@@ -54,5 +54,5 @@ watchEffect(() => {
 
 nextTick(() => {
   if (accpetCollecting.value)
-    sendHistoryAnalytics()
+    sendAnalytics()
 })
