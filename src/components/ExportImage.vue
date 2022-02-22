@@ -61,10 +61,10 @@ async function download() {
   </Modal>
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
     <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base>
-      <div text-2xl font-serif tracking-widest>
+      <div text-2xl font-serif tracking-widest ws-nowrap>
         {{ t('name') }}
       </div>
-      <div text-sm mb2 op50 mt--1>
+      <div text-sm mb2 op50 mt--1 ws-nowrap>
         handle.antfu.me
       </div>
 
