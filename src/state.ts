@@ -27,7 +27,7 @@ export const useNumberTone = computed(() => {
 const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
 export const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
-export const dayNo = computed(() => +(params.get('d') || daySince.value))
+export const dayNo = ref(+(params.get('d') || daySince.value))
 export const answer = computed(() =>
   params.get('word')
     ? {

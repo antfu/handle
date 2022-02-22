@@ -1,5 +1,5 @@
 import { accpetCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
-import { answer, dayNo, isFinished, isPassed, showHelp } from './state'
+import { answer, dayNo, daySince, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
 import { sendAnalytics, sendHistoryAnalytics } from './analytics'
 
@@ -17,6 +17,12 @@ if (!initialized.value)
 watchEffect(() => {
   if (isPassed.value)
     meta.value.passed = true
+})
+
+watch(daySince, (n, o) => {
+  // on day changed
+  if (o === dayNo.value && isFinished.value)
+    dayNo.value = n
 })
 
 watch([isFinished, meta], () => {
