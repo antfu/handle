@@ -25,9 +25,9 @@ p {
 }
 
 .colorblind {
-  --c-ok:#5bc419;
+  --c-ok:#5ba554;
   --c-mis: #ff46ff;
-  --c-primary:#a8b443;
+  --c-primary:#5ba554;
 }
 
 ul {
