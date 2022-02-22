@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import confetti from 'canvas-confetti'
-import { def } from '.pnpm/@vue+shared@3.2.29/node_modules/@vue/shared'
 import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
 import { hardMode, markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
