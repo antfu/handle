@@ -15,10 +15,10 @@ const formatted = computed(() => {
 <template>
   <div flex gap-5 py8>
     <div flex="~ col center" relative w-38>
-      <div op80>
+      <div op80 ws-nowrap>
         {{ t('next-note') }}
       </div>
-      <div text-2xl font-serif>
+      <div text-2xl font-serif ws-nowrap style="font-variant-numeric: tabular-nums;">
         {{ formatted }}
       </div>
     </div>
