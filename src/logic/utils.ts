@@ -84,7 +84,7 @@ export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
   return input.map((a, i): MatchResult => {
     const char = toSimplified(a.char)
     return {
-      char: answer[i].char === char
+      char: answer[i].char === char || answer[i].char === a.char
         ? 'exact'
         : includesAndRemove(unmatched.char, char)
           ? 'misplaced'
