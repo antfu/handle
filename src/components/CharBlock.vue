@@ -79,7 +79,10 @@ const partTwo = computed(() => {
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="inputMode === 'zy'">
-        <div text-3xl leading-1em mr-3 :class="getColor(answer?.char, true)">
+        <div
+          text-3xl leading-1em
+          :class="[getColor(answer?.char, true), useMask ? 'mr4': 'mr3']"
+        >
           {{ char.char }}
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
@@ -100,10 +103,17 @@ const partTwo = computed(() => {
 
       <!-- Pinyin or Shuangpin -->
       <template v-else>
-        <div text-3xl leading-1em mt-4 :class="getColor(answer?.char, true)">
+        <div
+          text-3xl leading-1em
+          :class="[getColor(answer?.char, true), useMask ? 'mt6': 'mt4']"
+        >
           {{ char.char }}
         </div>
-        <div absolute font-mono top="2.7" text-center left-0 right-0 font-100 flex flex-col items-center>
+        <div
+          absolute font-mono
+          text-center left-0 right-0 font-100 flex flex-col items-center
+          :class="[useMask ? 'top-14px': 'top-11px']"
+        >
           <div relative flex="~ x-center gap-2px" items-start ma>
             <div v-if="char._1" :class="getColor(answer?._1)">
               {{ char._1 }}
@@ -114,18 +124,21 @@ const partTwo = computed(() => {
             <div v-if="char._3" :class="getColor(answer?._3)">
               {{ char._3 }}
             </div>
-            <div v-if="useNumberTone">
-              <div :class="getColor(answer?.tone)" text-xs leading-1em mr--2 mt--1>
-                {{ char.tone }}
-              </div>
+            <div
+              v-if="useNumberTone"
+              :class="getColor(answer?.tone)"
+              text-xs leading-1em mr--3 mt--1
+            >
+              {{ char.tone }}
             </div>
             <ToneSymbol
               v-else
-              :tone="char.tone" :class="getColor(answer?.tone)"
+              :tone="char.tone"
+              :class="getColor(answer?.tone)"
               absolute
               :style="{
                 left: toneCharLeft + 'px',
-                top: useMask ? '-5px' : '-1.2px'
+                top: useMask ? '-8px' : '-1.2px'
               }"
               mt--1
             />
