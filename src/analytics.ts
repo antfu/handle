@@ -6,7 +6,6 @@ import type { TriesMeta } from './logic'
 
 const NETLIFY_FUNCTION_HOST = '/.netlify/functions'
 
-// TODO:
 let _uid = localStorage.getItem('handle-uid')!
 if (!_uid) {
   _uid = nanoid()

@@ -2,13 +2,12 @@ import type { Handler } from '@netlify/functions'
 import LRU from 'lru-cache'
 import { supabase } from '../supabase'
 import type { Report } from '../../shared'
+import { dayNo } from '../date'
 
 const cache = new LRU<number, Report>({
   max: 100,
   maxAge: 1000 * 60 * 15, // 15 minutes
 })
-const START_DATE = new Date(2022, 0, 0)
-const dayNo = Math.floor((Date.now() - +START_DATE) / 86400000)
 
 export const handler: Handler = async(event) => {
   const day = +(new URLSearchParams(event.rawQuery).get('d') || dayNo)
