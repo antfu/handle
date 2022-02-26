@@ -1,6 +1,6 @@
 {
   "average-durations": "平均用时",
-  "average-tries-count": "平均尝试次数",
+  "average-tries-count": "平均尝试",
   "back-today": "回到今天",
   "cheatsheet": "速查表",
   "colorblind-mode": "色彩增强",
@@ -80,8 +80,8 @@
   "update-tip": "* 新题目每日零时更新",
   "view-answer": "查看答案",
   "win-count": "获胜次数",
-  "win-no-hint-count": "无提示获胜次数",
-  "win-rate": "获胜几率",
+  "win-no-hint-count": "无提示",
+  "win-rate": "胜率",
   "zhuyin": "注音",
   "ziyin": "字音"
 }

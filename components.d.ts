@@ -8,6 +8,7 @@ declare module 'vue' {
     CheatSheet: typeof import('./src/components/CheatSheet.vue')['default']
     Countdown: typeof import('./src/components/Countdown.vue')['default']
     Dashboard: typeof import('./src/components/Dashboard.vue')['default']
+    DashboardItem: typeof import('./src/components/DashboardItem.vue')['default']
     ExportImage: typeof import('./src/components/ExportImage.vue')['default']
     FailedPage: typeof import('./src/components/FailedPage.vue')['default']
     Hint: typeof import('./src/components/Hint.vue')['default']

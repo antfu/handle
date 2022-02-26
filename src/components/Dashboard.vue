@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DashboardItem from './DashboardItem.vue'
 import { t } from '~/i18n'
 import { showDashboard } from '~/state'
 import { averageDurations, gamesCount, historyTriesCount, noHintPassedCount, passedCount, passedTries } from '~/storage'
@@ -6,12 +7,21 @@ import { averageDurations, gamesCount, historyTriesCount, noHintPassedCount, pas
 const triesMap = computed(() => {
   const map = new Map<number, number>()
   passedTries.value.forEach((i) => {
-    const count = i.tries!.length
+    let count = i.tries!.length
     if (count > 10)
-      return
+      count = 10
     map.set(count, (map.get(count) || 0) + 1)
   })
   return map
+})
+
+const triesMax = computed(() => {
+  let max = 0
+  Array.from(triesMap.value.keys()).forEach((i) => {
+    if (i > max)
+      max = i
+  })
+  return max
 })
 
 const tiresMaxCount = computed(() => {
@@ -36,63 +46,33 @@ function close() {
       </button>
     </div>
 
-    <p text-xl font-serif mb4>
+    <p text-xl font-serif mb2>
       <b>{{ t('dashboard') }}</b>
     </p>
-    <div grid="~ cols-[max-content_1fr] gap-2" min-w-100px py4>
-      <div text-right op50>
-        {{ t('games-count') }}
-      </div>
-      <div text-left>
-        {{ gamesCount }}
-      </div>
-      <div text-right op50>
-        {{ t('win-count') }}
-      </div>
-      <div text-left>
-        {{ passedCount }}
-      </div>
-      <div text-right op50>
-        {{ t('win-no-hint-count') }}
-      </div>
-      <div text-left>
-        {{ noHintPassedCount }}
-      </div>
-      <div text-right op50>
-        {{ t('win-rate') }}
-      </div>
-      <div text-left>
-        {{ Math.round(passedCount / gamesCount * 100) }}%
-      </div>
-      <div text-right op50>
-        {{ t('average-tries-count') }}
-      </div>
-      <div text-left>
-        {{ (historyTriesCount / gamesCount).toFixed(1) }}
-      </div>
-      <div text-right op50>
-        {{ t('average-durations') }}
-      </div>
-      <div text-left>
-        {{ averageDurations || '-' }}
-      </div>
-    </div>
-    <div v-if="passedTries.length >= 3" w-full max-w-100 pt4>
-      <p text-lg font-serif mb4 text-center>
-        <b>{{ t('guess-dist') }}</b>
+    <div v-if="passedTries.length >= 3 && triesMax" w-full max-w-100 bg-gray:5 p4 my4>
+      <p text-lg font-serif mb2 mt--1 text-center tracking-widest>
+        {{ t('guess-dist') }}
       </p>
-      <div bg-gray:5 p4>
-        <div v-for="i of 10" :key="i" flex="~" items-center gap-2>
-          <div w-4 flex-none text-right op50>
-            {{ i }}
-          </div>
-          <div bg-primary h-5 text-white text-right flex justify-end :style="{width: (triesMap.get(i) || 0) / tiresMaxCount * 100 + '%' }">
-            <div text-sm mya mr1>
-              {{ triesMap.get(i) }}
-            </div>
+      <div v-for="i of triesMax" :key="i" flex="~" items-center gap-2>
+        <div w-4 flex-none text-right op50>
+          {{ i === 10 ? '10+' : i }}
+        </div>
+        <div bg-primary h-5 text-white text-right flex justify-end :style="{ width: triesMap.get(i) ? (triesMap.get(i)! / tiresMaxCount * 100) + '%' : '1%' }">
+          <div text-sm mya mr1>
+            {{ triesMap.get(i) }}
           </div>
         </div>
       </div>
+    </div>
+    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+      <DashboardItem :value="gamesCount" :text="t('games-count')" />
+      <DashboardItem :value="passedCount" :text="t('win-count')" />
+      <DashboardItem :value="noHintPassedCount" :text="t('win-no-hint-count')" />
+      <DashboardItem :value="Math.round(passedCount / gamesCount * 100) + '%'" :text="t('win-rate')" />
+    </div>
+    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+      <DashboardItem :value="(historyTriesCount / gamesCount).toFixed(1)" :text="t('average-tries-count')" />
+      <DashboardItem :value="averageDurations || '-'" :text="t('average-durations')" />
     </div>
   </div>
 </template>
