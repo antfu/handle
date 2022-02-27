@@ -2,9 +2,10 @@ import { nanoid } from 'nanoid'
 import axios from 'axios'
 import { dayNo } from './state'
 import { accpetCollecting, history, inputMode } from './storage'
+import { DEPLOY_HOST, NETLIFY_FUNCTION_HOST } from './logic/constants'
 import type { TriesMeta } from './logic'
 
-const NETLIFY_FUNCTION_HOST = '/.netlify/functions'
+const isDeploy = DEPLOY_HOST === location.host
 
 let _uid = localStorage.getItem('handle-uid')!
 if (!_uid) {
@@ -32,7 +33,7 @@ export function preparePayload(day: number, meta: TriesMeta) {
 }
 
 export async function sendAnalytics(day = dayNo.value) {
-  if (!accpetCollecting.value)
+  if (!accpetCollecting.value || !isDeploy)
     return
 
   const meta = history.value[day]
@@ -40,7 +41,7 @@ export async function sendAnalytics(day = dayNo.value) {
   uploadPayloads([preparePayload(day, meta)])
 }
 
-export async function uploadPayloads(payloads: ReturnType<typeof preparePayload>[]) {
+async function uploadPayloads(payloads: ReturnType<typeof preparePayload>[]) {
   const items = payloads.filter(<T>(i: T | undefined): i is T => !!i)
   if (!items.length)
     return
@@ -67,7 +68,7 @@ export async function uploadPayloads(payloads: ReturnType<typeof preparePayload>
 }
 
 export async function sendHistoryAnalytics() {
-  if (!accpetCollecting.value)
+  if (!accpetCollecting.value || !isDeploy)
     return
 
   const payloads = Object.entries(history.value)
