@@ -156,6 +156,7 @@ watchEffect(() => {
         </div>
       </template>
       <template v-else>
+        <ResultFooter />
         <Countdown />
         <ToggleMask />
       </template>
