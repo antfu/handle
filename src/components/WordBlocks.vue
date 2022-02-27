@@ -8,6 +8,7 @@ const props = withDefaults(
     revealed?: boolean
     answer?: string
     animate?: boolean
+    active?: boolean
   }>(), {
     animate: true,
   },
@@ -46,6 +47,7 @@ watchEffect(() => {
         <CharBlock
           class="front"
           :char="c"
+          :active="active"
           :style="{ transitionDelay: `${i * (300 + Math.random() * 50)}ms` }"
         />
         <CharBlock
@@ -59,7 +61,11 @@ watchEffect(() => {
         />
       </template>
       <template v-else>
-        <CharBlock :char="c" :answer="result[i]" />
+        <CharBlock
+          :char="c"
+          :answer="result[i]"
+          :active="active"
+        />
       </template>
     </div>
   </div>

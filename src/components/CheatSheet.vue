@@ -1,37 +1,18 @@
 <script setup lang="ts">
 import { inputMode } from '~/storage'
 import { t } from '~/i18n'
-import type { MatchType } from '~/logic'
-import { WORD_LENGTH, pinyinFinals, pinyinInitials, shuangpinFinals, shuangpinInitials, zhuyinSymbols } from '~/logic'
-import { parsedTries, showCheatSheet } from '~/state'
+import { pinyinFinals, pinyinInitials, shuangpinFinals, shuangpinInitials, zhuyinSymbols } from '~/logic'
+import { getSymbolState, showCheatSheet } from '~/state'
 
-function getSymbolState(symbol: string, key?: '_1' | '_2') {
-  const results: MatchType[] = []
-  for (const t of parsedTries.value) {
-    for (let i = 0; i < WORD_LENGTH; i++) {
-      const w = t.word[i]
-      const r = t.result[i]
-      if (key) {
-        if (w[key] === symbol)
-          results.push(r[key])
-      }
-      else {
-        if (w._1 === symbol)
-          results.push(r._1)
-        if (w._2 === symbol)
-          results.push(r._2)
-        if (w._3 === symbol)
-          results.push(r._3)
-      }
-    }
-  }
-  if (results.includes('exact'))
-    return 'text-ok'
-  if (results.includes('misplaced'))
-    return 'text-mis'
-  if (results.includes('none'))
-    return 'op30'
-  return ''
+function getSymbolClass(symbol: string, key?: '_1' | '_2') {
+  const state = getSymbolState(symbol, key)
+  if (!state)
+    return ''
+  return ({
+    exact: 'text-ok',
+    misplaced: 'test-mis',
+    none: 'op30',
+  })[state]
 }
 
 function close() {
@@ -58,7 +39,7 @@ const modeText = computed(() => ({
     </p>
     <!-- Zhuyin -->
     <div v-if="inputMode === 'zy'" mt4 grid="~ cols-6 center">
-      <div v-for="s of zhuyinSymbols" :key="s" text-2xl font-serif w-12 h-12 :class="getSymbolState(s)">
+      <div v-for="s of zhuyinSymbols" :key="s" text-2xl font-serif w-12 h-12 :class="getSymbolClass(s)">
         {{ s }}
       </div>
     </div>
@@ -71,12 +52,12 @@ const modeText = computed(() => ({
         {{ t('finals') }}
       </div>
       <div grid="~ cols-4 gap-3" h-min>
-        <div v-for="s of shuangpinInitials" :key="s" :class="getSymbolState(s, '_1')">
+        <div v-for="s of shuangpinInitials" :key="s" :class="getSymbolClass(s, '_1')">
           {{ s }}
         </div>
       </div>
       <div grid="~ cols-4 gap-3" h-min>
-        <div v-for="s of shuangpinFinals" :key="s" :class="getSymbolState(s, '_2')">
+        <div v-for="s of shuangpinFinals" :key="s" :class="getSymbolClass(s, '_2')">
           {{ s }}
         </div>
       </div>
@@ -90,12 +71,12 @@ const modeText = computed(() => ({
         {{ t('finals') }}
       </div>
       <div grid="~ cols-2 gap-3" h-min>
-        <div v-for="s of pinyinInitials" :key="s" :class="getSymbolState(s)">
+        <div v-for="s of pinyinInitials" :key="s" :class="getSymbolClass(s)">
           {{ s }}
         </div>
       </div>
       <div grid="~ cols-3 gap-3" h-min>
-        <div v-for="s of pinyinFinals" :key="s" :class="getSymbolState(s)">
+        <div v-for="s of pinyinFinals" :key="s" :class="getSymbolClass(s)">
           {{ s }}
         </div>
       </div>

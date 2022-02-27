@@ -1,4 +1,4 @@
-export type MatchType = 'exact' | 'misplaced' | 'none'
+export type MatchType = 'exact' | 'misplaced' | 'none' | 'deleted'
 
 export type InputMode = 'py' | 'zy' | 'sp'
 

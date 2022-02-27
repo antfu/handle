@@ -1,24 +1,41 @@
 <script setup lang="ts">
 import ToneSymbol from './ToneSymbol.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
-import { inputMode } from '~/storage'
-import { useMask, useNumberTone } from '~/state'
+import { checkAssist, inputMode } from '~/storage'
+import { getSymbolState, useMask, useNumberTone } from '~/state'
 
 const props = defineProps<{
   char?: ParsedChar
   answer?: MatchResult
+  active?: boolean
 }>()
 
 const PINYIN_CHAR_WIDTH = 9.64
 const PINYIN_CHAR_GAP = 2.1
 const PINYIN_CHAR_INIT = 0.5
 
-const exact = computed(() => Object.values(props.answer || {}).every(i => i === 'exact'))
+const exact = computed(() => props.answer && Object.values(props.answer).every(i => i === 'exact'))
+
+const parsed = computed(() => {
+  if (props.answer)
+    return props.answer
+  if (!props.char || !checkAssist.value || !props.active)
+    return
+
+  // Assist coloring
+  return {
+    _1: getSymbolState(props.char._1, inputMode.value === 'sp' ? '_1' : undefined) === 'none' ? 'deleted' : undefined,
+    _2: getSymbolState(props.char._2, inputMode.value === 'sp' ? '_2' : undefined) === 'none' ? 'deleted' : undefined,
+    _3: getSymbolState(props.char._3) === 'none' ? 'deleted' : undefined,
+    tone: getSymbolState(props.char.tone, 'tone') === 'none' ? 'deleted' : undefined,
+  } as MatchResult
+})
 
 function getColor(result?: MatchType, isChar = false) {
   const pre = useMask.value
     ? `bg-current ${isChar ? ' !op70' : '!op40'} border border-current`
     : ''
+
   if (!result || exact.value)
     return pre
 
@@ -26,6 +43,7 @@ function getColor(result?: MatchType, isChar = false) {
     exact: 'text-ok',
     misplaced: 'text-mis',
     none: isChar ? 'op80' : 'op40',
+    deleted: inputMode.value === 'zy' ? 'op30' : 'line-through op30',
   }
   return `${pre} ${colors[result]}`
 }
@@ -81,23 +99,23 @@ const partTwo = computed(() => {
       <template v-if="inputMode === 'zy'">
         <div
           text-3xl leading-1em
-          :class="[getColor(answer?.char, true), useMask ? 'mr4': 'mr3']"
+          :class="[getColor(parsed?.char, true), useMask ? 'mr4': 'mr3']"
         >
           {{ char.char }}
         </div>
         <div absolute text-center top-0 bottom-0 right="2.5" w-5 flex items-center>
           <div flex="~ center" text-xs style="writing-mode: vertical-rl;">
-            <span v-if="char._1" :class="getColor(answer?._1)">
+            <span v-if="char._1" :class="getColor(parsed?._1)">
               {{ char._1 }}
             </span>
-            <span v-if="char._2" :class="getColor(answer?._2)">
+            <span v-if="char._2" :class="getColor(parsed?._2)">
               {{ char._2 }}
             </span>
-            <span v-if="char._3" :class="getColor(answer?._3)">
+            <span v-if="char._3" :class="getColor(parsed?._3)">
               {{ char._3 }}
             </span>
           </div>
-          <ToneSymbol :tone="char.tone" :class="getColor(answer?.tone)" mt--1 />
+          <ToneSymbol :tone="char.tone" :class="getColor(parsed?.tone)" mt--1 />
         </div>
       </template>
 
@@ -105,7 +123,7 @@ const partTwo = computed(() => {
       <template v-else>
         <div
           text-3xl leading-1em
-          :class="[getColor(answer?.char, true), useMask ? 'mt6': 'mt4']"
+          :class="[getColor(parsed?.char, true), useMask ? 'mt6': 'mt4']"
         >
           {{ char.char }}
         </div>
@@ -115,18 +133,18 @@ const partTwo = computed(() => {
           :class="[useMask ? 'top-14px': 'top-11px']"
         >
           <div relative flex="~ x-center gap-2px" items-start ma>
-            <div v-if="char._1" :class="getColor(answer?._1)">
+            <div v-if="char._1" :class="getColor(parsed?._1)">
               {{ char._1 }}
             </div>
-            <div v-if="partTwo" :class="getColor(answer?._2)">
+            <div v-if="partTwo" :class="getColor(parsed?._2)">
               {{ partTwo }}
             </div>
-            <div v-if="char._3" :class="getColor(answer?._3)">
+            <div v-if="char._3" :class="getColor(parsed?._3)">
               {{ char._3 }}
             </div>
             <div
               v-if="useNumberTone"
-              :class="getColor(answer?.tone)"
+              :class="getColor(parsed?.tone)"
               text-xs leading-1em mr--3 mt--1
             >
               {{ char.tone }}
@@ -134,7 +152,7 @@ const partTwo = computed(() => {
             <ToneSymbol
               v-else
               :tone="char.tone"
-              :class="getColor(answer?.tone)"
+              :class="getColor(parsed?.tone)"
               absolute
               :style="{
                 left: toneCharLeft + 'px',

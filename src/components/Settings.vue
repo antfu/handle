@@ -1,11 +1,30 @@
 <script setup lang="ts">
-import { colorblind, hardMode, inputMode, useNumberTone as useNumberToneRaw } from '~/storage'
+import { checkAssist, colorblind, hardMode, inputMode, useNumberTone as useNumberToneRaw } from '~/storage'
 import { useNumberTone } from '~/state'
 import { locale, t } from '~/i18n'
 </script>
 
 <template>
   <div p6 flex="~ col gap-4">
+    <div flex="~ gap-4 center wrap">
+      <div border="~ base" flex="~ gap-2" p="x2 y1">
+        <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
+          简体
+        </button>
+        <div w-1px border="r base" />
+        <button :class="locale === 'hant' ? 'text-primary' : 'op80' " @click="locale = 'hant'">
+          繁體
+        </button>
+      </div>
+      <button
+        border="~ base" flex="~ gap-2" p="x2 y1" relative
+        :class="colorblind ? 'text-primary' : 'op80' "
+        @click="colorblind = !colorblind"
+      >
+        {{ t('colorblind-mode') }}
+        <div v-if="colorblind" h-2 w-2 bg-primary absolute style="right:-0.2rem;top:-0.2rem" />
+      </button>
+    </div>
     <div flex="~ gap-4 center wrap">
       <div border="~ base" flex="~ gap-2" p="x2 y1">
         <button :class="inputMode === 'py' ? 'text-primary' : 'op80' " @click="inputMode = 'py'">
@@ -30,28 +49,24 @@ import { locale, t } from '~/i18n'
         </button>
       </div>
     </div>
+
     <div flex="~ gap-4 center wrap">
-      <div border="~ base" flex="~ gap-2" p="x2 y1">
-        <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
-          简体
-        </button>
-        <div w-1px border="r base" />
-        <button :class="locale === 'hant' ? 'text-primary' : 'op80' " @click="locale = 'hant'">
-          繁體
-        </button>
-      </div>
-      <div border="~ base" flex="~ gap-2" p="x2 y1">
-        <button :class="colorblind ? 'text-primary' : 'op80' " relative @click="colorblind = !colorblind">
-          {{ t('colorblind-mode') }}
-          <div v-if="colorblind" h-2 w-2 bg-primary absolute style="right:-0.75rem;top:-0.5rem" />
-        </button>
-      </div>
-      <div border="~ base" flex="~ gap-2" p="x2 y1">
-        <button :class="hardMode ? 'text-primary' : 'op80' " relative @click="hardMode = !hardMode">
-          {{ t('hard-mode') }}
-          <div v-if="hardMode" h-2 w-2 bg-primary absolute style="right:-0.75rem;top:-0.5rem" />
-        </button>
-      </div>
+      <button
+        border="~ base" flex="~ gap-2" p="x2 y1" relative
+        :class="hardMode ? 'text-primary' : 'op80' "
+        @click="hardMode = !hardMode"
+      >
+        {{ t('hard-mode') }}
+        <div v-if="hardMode" h-2 w-2 bg-primary absolute style="right:-0.2rem;top:-0.2rem" />
+      </button>
+      <button
+        border="~ base" flex="~ gap-2" p="x2 y1" relative
+        :class="checkAssist ? 'text-primary' : 'op80' "
+        @click="checkAssist = !checkAssist"
+      >
+        {{ t('check-assist') }}
+        <div v-if="checkAssist" h-2 w-2 bg-primary absolute style="right:-0.2rem;top:-0.2rem" />
+      </button>
     </div>
     <a
       v-if="inputMode === 'sp'"

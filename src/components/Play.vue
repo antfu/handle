@@ -115,7 +115,7 @@ watchEffect(() => {
       </template>
 
       <template v-if="!isFinished">
-        <WordBlocks :word="input" @click="focus()" />
+        <WordBlocks :word="input" :active="true" @click="focus()" />
         <input
           ref="el"
           v-model="inputValue"
