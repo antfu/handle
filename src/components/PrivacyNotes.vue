@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '~/i18n'
-import { accpetCollecting } from '~/storage'
+import { acceptCollecting } from '~/storage'
 import { showPrivacyNotes } from '~/state'
 
 function close() {
@@ -43,10 +43,10 @@ function close() {
         <button
           relative
           border="~ base" flex="inline center gap-2" p="x2 y1"
-          :class="accpetCollecting ? 'text-primary' : 'op80' "
-          @click="accpetCollecting = !accpetCollecting"
+          :class="acceptCollecting ? 'text-primary' : 'op80' "
+          @click="acceptCollecting = !acceptCollecting"
         >
-          <div :class="accpetCollecting ? 'i-carbon-checkbox-checked': 'i-carbon-checkbox'" />
+          <div :class="acceptCollecting ? 'i-carbon-checkbox-checked': 'i-carbon-checkbox'" />
           {{ t('send-game-data-button') }}
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { accpetCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
+import { acceptCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, daySince, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
 import { sendAnalytics } from './analytics'
@@ -53,6 +53,6 @@ watchEffect(() => {
 }, { flush: 'post' })
 
 nextTick(() => {
-  if (accpetCollecting.value)
+  if (acceptCollecting.value)
     sendAnalytics()
 })
