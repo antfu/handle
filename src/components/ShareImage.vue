@@ -32,7 +32,7 @@ onMounted(() => render())
 
 async function download() {
   const { saveAs } = await import('~/async/exportImage')
-  saveAs(dataUrl.value, `${t('name')} ${dayNoHanzi.value}.png`)
+  saveAs(dataUrl.value, `${t('name')} ${dayNoHanzi.value}${useMask.value ? ' 遮罩' : ''}.png`)
 }
 </script>
 

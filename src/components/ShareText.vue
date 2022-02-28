@@ -3,30 +3,36 @@ import { t } from '~/i18n'
 import { answer, dayNoHanzi, isMobile, parseWord, testAnswer } from '~/state'
 import { meta, tries } from '~/storage'
 
-const text = computed(() =>
-  `${t('name')} ${dayNoHanzi.value.slice(0, -1)} ${meta.value.answer ? 'X' : tries.value.length}/10\n\n${
-    tries.value.map((word) => {
-      const parsed = parseWord(word, answer.value.word)
-      return testAnswer(parsed)
-        .map((i, idx) => {
-          if (i.char === 'exact')
-            return '🟩'
-          if (i.char === 'misplaced')
-            return '🟧'
-          if (parsed[idx]._1 && i._1 === 'exact')
-            return '🟠'
-          if (parsed[idx]._2 && i._2 === 'exact')
-            return '🟠'
-          if (parsed[idx]._3 && i._3 === 'exact')
-            return '🟠'
-          if (i._1 === 'misplaced' || i._2 === 'misplaced' || i._3 === 'misplaced')
-            return '🟡'
-          return '⬜️'
-        })
-        .join('')
-    })
-      .join('\n')}\n\nhandle.antfu.me`,
-)
+const text = computed(() => {
+  const table = tries.value.map((word) => {
+    const parsed = parseWord(word, answer.value.word)
+    return testAnswer(parsed)
+      .map((i, idx) => {
+        if (i.char === 'exact')
+          return '🟩'
+        if (i.char === 'misplaced')
+          return '🟧'
+        if (parsed[idx]._1 && i._1 === 'exact')
+          return '🟠'
+        if (parsed[idx]._2 && i._2 === 'exact')
+          return '🟠'
+        if (parsed[idx]._3 && i._3 === 'exact')
+          return '🟠'
+        if (i._1 === 'misplaced' || i._2 === 'misplaced' || i._3 === 'misplaced')
+          return '🟡'
+        return '⬜️'
+      })
+      .join('')
+  })
+
+  return [
+    [t('name'), dayNoHanzi.value.slice(0, -1), !meta.value.hint ? t('hint-level-none') : ''].filter(Boolean).join(' · '),
+    '',
+    ...table,
+    '',
+    'handle.antfu.me',
+  ].join('\n')
+})
 
 const share = useShare(computed(() => ({
   title: t('name'),
@@ -55,7 +61,7 @@ onMounted(async() => {
   <p text-center mb4 w-80>
     {{ copied ? t('share-copied'): t('share-not-copied') }}
   </p>
-  <pre text-left bg-gray-500:5 rounded p5 select-text style="line-height: 18px;letter-spacing: 1px;">{{ text }}</pre>
+  <pre text-left bg-gray-500:5 rounded p5 select-text style="line-height: 19px;letter-spacing: 1px;">{{ text }}</pre>
   <button v-if="share.isSupported" my4 square-btn @click="shareSystem()">
     <div i-carbon-share />
     {{ t('share-with-system-api') }}
