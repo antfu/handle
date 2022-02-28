@@ -41,8 +41,7 @@ function close() {
       </p>
       <div>
         <button
-          relative
-          border="~ base" flex="inline center gap-2" p="x2 y1"
+          square-btn relative
           :class="acceptCollecting ? 'text-primary' : 'op80' "
           @click="acceptCollecting = !acceptCollecting"
         >

@@ -46,7 +46,7 @@ async function download() {
   </div>
 
   <div flex="~ gap-2" py4>
-    <button v-if="!isIOS" flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
+    <button v-if="!isIOS" square-btn flex-gap-1 @click="download()">
       <div i-carbon-download />
       {{ t('download') }}
     </button>

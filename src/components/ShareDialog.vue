@@ -42,7 +42,7 @@ watch(showShareDialog, (v) => {
           w-30 h-30
           @click="shareType = 'text'"
         >
-          <div i-carbon-text-creation text-10 op80 />
+          <div i-ep-tickets text-10 op70 mb1 />
           <div>{{ t('share-with-text') }}</div>
         </button>
         <button
@@ -50,7 +50,7 @@ watch(showShareDialog, (v) => {
           w-30 h-30
           @click="shareType = 'image'"
         >
-          <div i-carbon-image text-10 op80 />
+          <div i-ep-picture text-10 op70 mb1 />
           <div>{{ t('download-as-image') }}</div>
         </button>
       </div>
