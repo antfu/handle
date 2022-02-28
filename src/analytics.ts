@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import axios from 'axios'
 import { dayNo } from './state'
-import { accpetCollecting, history, inputMode } from './storage'
+import { acceptCollecting, history, inputMode } from './storage'
 import { DEPLOY_HOST, NETLIFY_FUNCTION_HOST } from './logic/constants'
 import type { TriesMeta } from './logic'
 
@@ -33,7 +33,7 @@ export function preparePayload(day: number, meta: TriesMeta) {
 }
 
 export async function sendAnalytics(day = dayNo.value) {
-  if (!accpetCollecting.value || !isDeploy)
+  if (!acceptCollecting.value || !isDeploy)
     return
 
   const meta = history.value[day]
@@ -68,7 +68,7 @@ async function uploadPayloads(payloads: ReturnType<typeof preparePayload>[]) {
 }
 
 export async function sendHistoryAnalytics() {
-  if (!accpetCollecting.value || !isDeploy)
+  if (!acceptCollecting.value || !isDeploy)
     return
 
   const payloads = Object.entries(history.value)
