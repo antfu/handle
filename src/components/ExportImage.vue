@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMask } from '~/state'
+import { dayNoHanzi, useMask } from '~/state'
 import { tries } from '~/storage'
 import { t } from '~/i18n'
 
@@ -33,7 +33,7 @@ onMounted(() => render())
 
 async function download() {
   const { saveAs } = await import('~/async/exportImage')
-  saveAs(useMask.value ? dataUrlMasked.value : dataUrl.value, `${t('name')} D${dayNo.value}.png`)
+  saveAs(useMask.value ? dataUrlMasked.value : dataUrl.value, `${t('name')} ${dayNoHanzi.value}.png`)
 }
 </script>
 
