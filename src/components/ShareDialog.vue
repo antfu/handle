@@ -115,7 +115,7 @@ async function shareSystem() {
       <p text-center mb4 w-80>
         {{ copied ? t('share-copied'): t('share-not-copied') }}
       </p>
-      <pre text-left bg-gray-500:5 rounded p5 select-text mb4 style="line-height: 18px;letter-spacing: 1px;">{{ text }}</pre>
+      <pre text-left bg-gray-500:5 rounded p5 select-text style="line-height: 18px;letter-spacing: 1px;">{{ text }}</pre>
       <button v-if="share.isSupported" my4 flex="~ center gap-1" border="~ base" p="x2 y1" @click="shareSystem()">
         <div i-carbon-share />
         {{ t('share-with-system-api') }}

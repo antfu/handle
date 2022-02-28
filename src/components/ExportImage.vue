@@ -9,8 +9,10 @@ const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone/i.test(navigator.userA
 const el = ref<HTMLDivElement>()
 const show = ref(false)
 const showDialog = ref(false)
-const dataUrl = ref('')
+const dataUrlUnmasked = ref('')
 const dataUrlMasked = ref('')
+
+const dataUrl = computed(() => useMask.value ? dataUrlMasked.value : dataUrlUnmasked.value)
 
 async function render() {
   show.value = true
@@ -21,7 +23,7 @@ async function render() {
   const p = useMask.value
   useMask.value = false
   await nextTick()
-  dataUrl.value = await toPng(el.value!)
+  dataUrlUnmasked.value = await toPng(el.value!)
   useMask.value = true
   await nextTick()
   dataUrlMasked.value = await toPng(el.value!)
@@ -33,7 +35,7 @@ onMounted(() => render())
 
 async function download() {
   const { saveAs } = await import('~/async/exportImage')
-  saveAs(useMask.value ? dataUrlMasked.value : dataUrl.value, `${t('name')} ${dayNoHanzi.value}.png`)
+  saveAs(dataUrl.value, `${t('name')} ${dayNoHanzi.value}.png`)
 }
 </script>
 
@@ -41,10 +43,13 @@ async function download() {
   <div v-if="isMobile" op50 mb4>
     {{ t('press-and-download-image') }}
   </div>
-  <img :src="useMask ? dataUrlMasked : dataUrl" w-80 min-h-10 border="~ base rounded" shadow>
+  <img v-if="dataUrl" :src="dataUrl" w-80 min-h-10 border="~ base rounded" shadow>
+  <div v-else w-80 border="~ base rounded" p4 animate-pulse>
+    {{ t('rendering') }}
+  </div>
 
-  <div flex="~ gap-2">
-    <button v-if="!isIOS" my4 flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
+  <div flex="~ gap-2" py4>
+    <button v-if="!isIOS" flex="~ center gap-1" border="~ base" p="x2 y1" @click="download()">
       <div i-carbon-download />
       {{ t('download') }}
     </button>
