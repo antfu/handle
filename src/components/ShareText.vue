@@ -3,7 +3,7 @@ import { t } from '~/i18n'
 import { answer, dayNoHanzi, isMobile, parseWord, testAnswer } from '~/state'
 import { meta, tries } from '~/storage'
 
-const text = computed(() => {
+const lines = computed(() => {
   const table = tries.value.map((word) => {
     const parsed = parseWord(word, answer.value.word)
     return testAnswer(parsed)
@@ -31,8 +31,10 @@ const text = computed(() => {
     ...table,
     '',
     'handle.antfu.me',
-  ].join('\n')
+  ]
 })
+
+const text = computed(() => lines.value.join('\n'))
 
 const share = useShare(computed(() => ({
   title: t('name'),
@@ -61,7 +63,12 @@ onMounted(async() => {
   <p text-center mb4 w-80>
     {{ copied ? t('share-copied'): t('share-not-copied') }}
   </p>
-  <pre text-left bg-gray-500:5 rounded p5 select-text style="line-height: 19px;letter-spacing: 1px;">{{ text }}</pre>
+  <textarea
+    text-left bg-gray-500:5 rounded p5 select-text resize-none outline-none
+    style="line-height: 19px;letter-spacing: 1px;"
+    :rows="lines.length"
+    :value="text" readonly
+  />
   <button v-if="share.isSupported" my4 square-btn @click="shareSystem()">
     <div i-carbon-share />
     {{ t('share-with-system-api') }}
