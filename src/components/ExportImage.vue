@@ -69,7 +69,7 @@ async function download() {
       </div>
 
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
-      <ResultFooter w-344px />
+      <ResultFooter />
     </div>
   </div>
 </template>

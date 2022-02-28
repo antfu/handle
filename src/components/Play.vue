@@ -156,8 +156,11 @@ watchEffect(() => {
         </div>
       </template>
       <template v-else>
+        <ResultFooter />
+        <div mt-10 />
         <Countdown />
         <ToggleMask />
+        <div mt-10 />
       </template>
 
       <template v-if="isDev">
