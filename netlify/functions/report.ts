@@ -6,7 +6,7 @@ import { dayNo } from '../date'
 
 const cache = new LRU<number, Report>({
   max: 100,
-  maxAge: 1000 * 60 * 15, // 15 minutes
+  ttl: 1000 * 60 * 15, // 15 minutes
 })
 
 export const handler: Handler = async(event) => {
