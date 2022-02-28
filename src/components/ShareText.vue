@@ -26,7 +26,7 @@ const lines = computed(() => {
   })
 
   return [
-    [t('name'), dayNoHanzi.value.slice(0, -1), !meta.value.hint ? t('hint-level-none') : ''].filter(Boolean).join(' · '),
+    [t('name'), dayNoHanzi.value, !meta.value.hint ? t('hint-level-none') : ''].filter(Boolean).join(' · '),
     '',
     ...table,
     '',
