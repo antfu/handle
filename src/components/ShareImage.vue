@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { dayNoHanzi, useMask } from '~/state'
+import { dayNoHanzi, isIOS, isMobile, useMask } from '~/state'
 import { tries } from '~/storage'
 import { t } from '~/i18n'
-
-const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone/i.test(navigator.userAgent)
 
 const el = ref<HTMLDivElement>()
 const show = ref(false)
@@ -59,7 +56,7 @@ async function download() {
 
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
     <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base relative>
-      <AppName class="!text-3xl" />
+      <AppName />
       <div text-xs mt--1 mb2 op50 ws-nowrap>
         handle.antfu.me
       </div>

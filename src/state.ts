@@ -3,6 +3,9 @@ import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnsw
 import { useNumberTone as _useNumberTone, inputMode, meta, tries } from './storage'
 import { getAnswerOfDay } from './answers'
 
+export const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+export const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone|webOS/i.test(navigator.userAgent)
+
 export const now = useNow({ interval: 1000 })
 export const isDark = useDark()
 export const showHint = ref(false)

@@ -31,9 +31,7 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
       </button>
     </div>
 
-    <div text-3xl font-serif tracking-2 pl2>
-      {{ t('name') }}
-    </div>
+    <AppName h="2.5rem" />
     <div mt--1 op50 text-sm>
       {{ t('description') }}
     </div>
