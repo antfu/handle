@@ -9,6 +9,8 @@ const el = ref<HTMLInputElement>()
 const input = ref('')
 const inputValue = ref('')
 
+const isFinishedDelay = debouncedRef(isFinished, 800)
+
 function go() {
   if (input.value.length !== WORD_LENGTH)
     return
@@ -114,51 +116,56 @@ watchEffect(() => {
         </div>
       </template>
 
-      <template v-if="!isFinished">
-        <WordBlocks :word="input" :active="true" @click="focus()" />
-        <input
-          ref="el"
-          v-model="inputValue"
-          type="text"
-          autocomplete="false"
-          outline-none
-          :placeholder="t('input-placeholder')"
-          w-86 p3
-          border="2 base"
-          text="center"
-          bg="transparent"
-          :disabled="isFinished"
-          @input="handleInput"
-          @keydown.enter="go"
-        >
-        <button
-          mt3
-          btn p="x6 y2"
-          :disabled="input.length !== WORD_LENGTH"
-          @click="go"
-        >
-          {{ t('ok-spaced') }}
-        </button>
-        <div v-if="tries.length > 4 && !isFailed" op50>
-          {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
-        </div>
-        <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
-          <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
-        </button>
+      <WordBlocks v-if="!isFinished" :word="input" :active="true" @click="focus()" />
 
-        <div flex="~ center gap-4" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
-          <button v-if="!hardMode" icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
-            <div i-carbon-idea /> {{ t('hint') }}
+      <Transition name="fade-out">
+        <div v-if="!isFinished" flex="~ col gap-2" items-center>
+          <input
+            ref="el"
+            v-model="inputValue"
+            type="text"
+            autocomplete="false"
+            outline-none
+            :placeholder="t('input-placeholder')"
+            w-86 p3
+            border="2 base"
+            text="center"
+            bg="transparent"
+            :disabled="isFinished"
+            @input="handleInput"
+            @keydown.enter="go"
+          >
+          <button
+            mt3
+            btn p="x6 y2"
+            :disabled="input.length !== WORD_LENGTH"
+            @click="go"
+          >
+            {{ t('ok-spaced') }}
           </button>
-          <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
-            <div i-carbon-grid /> {{ t('cheatsheet') }}
+          <div v-if="tries.length > 4 && !isFailed" op50>
+            {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
+          </div>
+          <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
+            <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
           </button>
+
+          <div flex="~ center gap-4" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
+            <button v-if="!hardMode" icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+              <div i-carbon-idea /> {{ t('hint') }}
+            </button>
+            <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
+              <div i-carbon-grid /> {{ t('cheatsheet') }}
+            </button>
+          </div>
         </div>
-      </template>
-      <template v-else>
-        <ResultFooter />
-        <Countdown />
-      </template>
+      </Transition>
+      <Transition name="fade">
+        <div v-if="isFinishedDelay && isFinished">
+          <ResultFooter />
+          <Countdown />
+        </div>
+      </Transition>
 
       <template v-if="isDev">
         <div h-200 />
@@ -177,8 +184,22 @@ watchEffect(() => {
         >
           下一天
         </a>
-        <WorldCompare />
       </template>
     </div>
   </div>
 </template>
+
+<style>
+.fade-enter-active {
+  transition: all 1s ease;
+}
+.fade-out-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-out-leave-to,
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+</style>

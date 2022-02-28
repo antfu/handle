@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AppName: typeof import('./src/components/AppName.vue')['default']
     CharBlock: typeof import('./src/components/CharBlock.vue')['default']
     CheatSheet: typeof import('./src/components/CheatSheet.vue')['default']
     Countdown: typeof import('./src/components/Countdown.vue')['default']
@@ -22,6 +23,7 @@ declare module 'vue' {
     ResultFooter: typeof import('./src/components/ResultFooter.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     ShareButton: typeof import('./src/components/ShareButton.vue')['default']
+    ShareDialog: typeof import('./src/components/ShareDialog.vue')['default']
     ToggleMask: typeof import('./src/components/ToggleMask.vue')['default']
     ToneSymbol: typeof import('./src/components/ToneSymbol.vue')['default']
     VariantLinks: typeof import('./src/components/VariantLinks.vue')['default']

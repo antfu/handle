@@ -27,7 +27,7 @@ const formatted = computed(() => {
       <div op50 ws-nowrap>
         {{ t('next-note') }}
       </div>
-      <div text-lg ws-nowrap font-mono style="font-variant-numeric: tabular-nums;">
+      <div text-lg ws-nowrap style="font-variant-numeric: tabular-nums;">
         {{ formatted }}
       </div>
     </div>

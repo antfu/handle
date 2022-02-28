@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dayNo, useMask } from '~/state'
+import { useMask } from '~/state'
 import { tries } from '~/storage'
 import { t } from '~/i18n'
 
@@ -38,7 +38,7 @@ async function download() {
 </script>
 
 <template>
-  <div v-if="isMobile" op50>
+  <div v-if="isMobile" op50 mb4>
     {{ t('press-and-download-image') }}
   </div>
   <img :src="useMask ? dataUrlMasked : dataUrl" w-80 min-h-10 border="~ base rounded" shadow>
@@ -53,16 +53,14 @@ async function download() {
   </div>
 
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
-    <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base>
-      <div text-2xl font-serif tracking-widest ws-nowrap>
-        {{ t('name') }}
-      </div>
-      <div text-sm mb2 op50 mt--1 ws-nowrap>
+    <div ref="el" flex="~ col gap-2" items-center p="x6 y4" bg-base relative>
+      <AppName class="!text-3xl" />
+      <div text-xs mt--1 mb2 op50 ws-nowrap>
         handle.antfu.me
       </div>
 
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
-      <ResultFooter />
+      <ResultFooter :day="true" />
     </div>
   </div>
 </template>

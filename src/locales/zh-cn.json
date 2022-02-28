@@ -27,6 +27,8 @@
   "hard-mode": "禁用提示",
   "hint": "提示",
   "hint-level": "次提示",
+  "hint-level-1": "字音提示",
+  "hint-level-2": "汉字提示",
   "hint-level-none": "无提示",
   "hint-note": "答案包含以下",
   "initials": "声母",

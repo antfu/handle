@@ -1,5 +1,5 @@
 import type { MatchType, ParsedChar } from './logic'
-import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint } from './logic'
+import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, numberToHanzi } from './logic'
 import { useNumberTone as _useNumberTone, inputMode, meta, tries } from './storage'
 import { getAnswerOfDay } from './answers'
 
@@ -12,9 +12,10 @@ export const showShare = ref(false)
 export const showFailed = ref(false)
 export const showDashboard = ref(false)
 export const showVariants = ref(false)
-export const useMask = ref(false)
 export const showCheatSheet = ref(false)
 export const showPrivacyNotes = ref(false)
+export const showShareDialog = ref(false)
+export const useMask = ref(false)
 
 export const useNumberTone = computed(() => {
   if (inputMode.value === 'sp')
@@ -28,6 +29,7 @@ const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
 export const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
 export const dayNo = ref(+(params.get('d') || daySince.value))
+export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
 export const answer = computed(() =>
   params.get('word')
     ? {

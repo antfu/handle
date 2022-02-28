@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import { formatDuration, meta } from '~/storage'
-import { dayNo } from '~/state'
 import { t } from '~/i18n'
+import { dayNoHanzi } from '~/state'
+
+defineProps<{
+  day?: boolean
+}>()
+
+const hintText = computed(() => {
+  if (!meta.value.hintLevel)
+    return t('hint-level-none')
+  else if (meta.value.hintLevel === 1)
+    return t('hint-level-1')
+  else
+    return t('hint-level-2')
+})
 </script>
 
 <template>
-  <div relative op50 my2 text-sm min-h-1em w-86>
-    <div absolute text-sm left-0 bottom-0 ws-nowrap>
-      D{{ dayNo }}
-    </div>
-    <div absolute text-sm right-0 bottom-0 ws-nowrap>
-      {{ meta.hintLevel ? meta.hintLevel + t('hint-level') : t('hint-level-none') }} ·
-      {{ formatDuration(meta.duration || 0) }} ·
-      {{ meta.answer ? 'X' : meta.tries?.length || 0 }}/10
-    </div>
+  <div op50 my1 text-sm ws-nowrap text-center>
+    <template v-if="day">
+      {{ dayNoHanzi }} ·
+    </template>
+    {{ hintText }} ·
+    {{ formatDuration(meta.duration || 0) }}
   </div>
 </template>

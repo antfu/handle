@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { isDark, showCheatSheet, showDashboard, showFailed, showHelp, showHint, showPrivacyNotes, showSettings, showVariants, useMask } from '~/state'
+import { isDark, showCheatSheet, showDashboard, showFailed, showHelp, showHint, showPrivacyNotes, showSettings, showShareDialog, showVariants, useMask } from '~/state'
 import { gamesCount } from '~/storage'
-import { t } from '~/i18n'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
@@ -16,9 +15,7 @@ function openHelp() {
 <template>
   <nav border="b base" relative>
     <div absolute font-serif text-2xl left-0 right-0 top-0 bottom-0 z--1 tracking-2 flex>
-      <div ma leading-1em>
-        {{ t('name') }}
-      </div>
+      <AppName ma />
     </div>
     <div flex="~" items-center justify-between md:max-w-md ma p4>
       <div flex="~ gap-4" items-center>
@@ -63,5 +60,8 @@ function openHelp() {
   </Modal>
   <Modal v-model="showPrivacyNotes" direction="top">
     <PrivacyNotes />
+  </Modal>
+  <Modal v-model="showShareDialog" direction="top">
+    <ShareDialog />
   </Modal>
 </template>
