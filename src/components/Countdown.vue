@@ -8,26 +8,28 @@ const formatted = computed(() => {
   const h = Math.floor((ms.value % 86400000) / 3600000)
   const m = Math.floor((ms.value % 3600000) / 60000)
   const s = Math.floor((ms.value % 60000) / 1000)
-  return t('time-format', h, m, s)
+  return t('time-format', h, m.toString().padStart(2, '0'), s.toString().padStart(2, '0'))
 })
 </script>
 
 <template>
-  <div flex gap-5 pb8>
-    <div flex="~ col center" relative w-38>
-      <div op80 ws-nowrap>
-        {{ t('next-note') }}
-      </div>
-      <div text-2xl font-serif ws-nowrap style="font-variant-numeric: tabular-nums;">
-        {{ formatted }}
+  <div pt12 pb16>
+    <div flex="~ col gap-4" items-center>
+      <ShareButton />
+      <div flex="~ col gap-2">
+        <ToggleMask :hint="true" />
       </div>
     </div>
 
-    <div w-1px border="l base" />
+    <div h-1px w-10 border="t base" my6 mxa />
 
-    <div flex="~ col gap-4" items-center>
-      <ShareButton />
-      <ExportImage />
+    <div flex="~ col center" relative>
+      <div op50 ws-nowrap>
+        {{ t('next-note') }}
+      </div>
+      <div text-lg ws-nowrap font-mono style="font-variant-numeric: tabular-nums;">
+        {{ formatted }}
+      </div>
     </div>
   </div>
 </template>
