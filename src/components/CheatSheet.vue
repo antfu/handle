@@ -10,7 +10,7 @@ function getSymbolClass(symbol: string, key?: '_1' | '_2') {
     return ''
   return ({
     exact: 'text-ok',
-    misplaced: 'test-mis',
+    misplaced: 'text-mis',
     none: 'op30',
   })[state]
 }
