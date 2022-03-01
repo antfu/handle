@@ -19,6 +19,10 @@ function close() {
   showCheatSheet.value = false
 }
 
+function pinyinPostProcess(pinyin: string) {
+  return pinyin.replace("v", "ü")
+}
+
 const modeText = computed(() => ({
   py: t('pinyin'),
   sp: t('shuangpin'),
@@ -77,7 +81,7 @@ const modeText = computed(() => ({
       </div>
       <div grid="~ cols-3 gap-3" h-min>
         <div v-for="s of pinyinFinals" :key="s" :class="getSymbolClass(s)">
-          {{ s }}
+          {{ pinyinPostProcess(s) }}
         </div>
       </div>
     </div>
