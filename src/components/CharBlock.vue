@@ -10,9 +10,9 @@ const props = defineProps<{
   active?: boolean
 }>()
 
-const PINYIN_CHAR_WIDTH = 9.64
-const PINYIN_CHAR_GAP = 2.1
-const PINYIN_CHAR_INIT = 0.5
+const PINYIN_CHAR_WIDTH = 10.2
+const PINYIN_CHAR_GAP = 2.3
+const PINYIN_CHAR_INIT = 1
 
 const exact = computed(() => props.answer && Object.values(props.answer).every(i => i === 'exact'))
 
