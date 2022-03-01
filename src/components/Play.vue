@@ -104,7 +104,7 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div flex="~ col gap-2" pt4 items-center>
+    <div flex="~ col" pt4 items-center>
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
@@ -117,6 +117,8 @@ watchEffect(() => {
       </template>
 
       <WordBlocks v-if="!isFinished" :word="input" :active="true" @click="focus()" />
+
+      <div mt-1 />
 
       <Transition name="fade-out">
         <div v-if="!isFinished" flex="~ col gap-2" items-center>
@@ -146,7 +148,7 @@ watchEffect(() => {
           <div v-if="tries.length > 4 && !isFailed" op50>
             {{ t('tries-rest', TRIES_LIMIT - tries.length) }}
           </div>
-          <button v-if="isFailed" icon-btn text-base gap-1 my4 inline-flex items-center justify-center @click="showFailed = true">
+          <button v-if="isFailed" square-btn @click="showFailed = true">
             <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
           </button>
 
@@ -169,21 +171,29 @@ watchEffect(() => {
 
       <template v-if="isDev">
         <div h-200 />
-        <div op50>
+        <div op50 mb-2>
           测试用
         </div>
-        <button
-          class="btn"
-          @click="reset"
-        >
-          重置
-        </button>
-        <a
-          class="btn"
-          :href="`/?d=${dayNo + 1}`"
-        >
-          下一天
-        </a>
+        <div flex gap2>
+          <a
+            class="btn"
+            :href="`/?dev=hey&d=${dayNo - 1}`"
+          >
+            上一天
+          </a>
+          <button
+            class="btn"
+            @click="reset"
+          >
+            重置
+          </button>
+          <a
+            class="btn"
+            :href="`/?dev=hey&d=${dayNo + 1}`"
+          >
+            下一天
+          </a>
+        </div>
       </template>
     </div>
   </div>

@@ -71,6 +71,8 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
       {{ t('update-tip') }}
     </div>
 
+    <div h-1px w-10 border="b base" m4 />
+
     <Settings />
 
     <div h-1px w-10 border="b base" m4 />

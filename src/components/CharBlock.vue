@@ -132,20 +132,20 @@ const partTwo = computed(() => {
           text-center left-0 right-0 font-100 flex flex-col items-center
           :class="[useMask ? 'top-14px': 'top-11px']"
         >
-          <div relative flex="~ x-center gap-2px" items-start ma>
-            <div v-if="char._1" :class="getColor(parsed?._1)">
+          <div relative flex="~ x-center" items-start ma>
+            <div v-if="char._1" :class="getColor(parsed?._1)" mx-1px>
               {{ char._1 }}
             </div>
-            <div v-if="partTwo" :class="getColor(parsed?._2)">
+            <div v-if="partTwo" :class="getColor(parsed?._2)" mx-1px>
               {{ partTwo }}
             </div>
-            <div v-if="char._3" :class="getColor(parsed?._3)">
+            <div v-if="char._3" :class="getColor(parsed?._3)" mx-1px>
               {{ char._3 }}
             </div>
             <div
               v-if="useNumberTone"
               :class="getColor(parsed?.tone)"
-              text-xs leading-1em mr--3 mt--1
+              text-xs leading-1em mr--3 mt--1 ml-1px
             >
               {{ char.tone }}
             </div>

@@ -36,11 +36,10 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div flex gap-2>
+  <div flex>
     <div
       v-for="c,i in parseWord(word.padEnd(WORD_LENGTH, ' '), answer || todayAnswer.word)" :key="i"
-      w-20
-      h-20
+      w-20 h-20 m1
       :class="['tile', flip ? 'revealed': '']"
     >
       <template v-if="animate">

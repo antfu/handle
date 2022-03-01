@@ -5,9 +5,9 @@ import { locale, t } from '~/i18n'
 </script>
 
 <template>
-  <div p6 flex="~ col gap-4">
-    <div flex="~ gap-4 center wrap">
-      <div square-btn>
+  <div flex="~ col">
+    <div flex="~ center wrap">
+      <div square-btn m2>
         <button :class="locale === 'hans' ? 'text-primary' : 'op80' " @click="locale = 'hans'">
           简体
         </button>
@@ -17,7 +17,7 @@ import { locale, t } from '~/i18n'
         </button>
       </div>
       <button
-        square-btn
+        square-btn m2
         :class="colorblind ? 'text-primary' : 'op80' "
         @click="colorblind = !colorblind"
       >
@@ -25,8 +25,8 @@ import { locale, t } from '~/i18n'
         <div v-if="colorblind" square-btn-mark />
       </button>
     </div>
-    <div flex="~ gap-4 center wrap">
-      <div square-btn>
+    <div flex="~ center wrap">
+      <div square-btn m2>
         <button :class="inputMode === 'py' ? 'text-primary' : 'op80' " @click="inputMode = 'py'">
           {{ t('pinyin') }}
         </button>
@@ -39,7 +39,7 @@ import { locale, t } from '~/i18n'
           {{ t('shuangpin') }}
         </button>
       </div>
-      <div square-btn :class="inputMode !== 'py' ? 'op50 pointer-events-none' : ''">
+      <div square-btn m2 :class="inputMode !== 'py' ? 'op50 pointer-events-none' : ''">
         <button :class="!useNumberTone ? 'text-primary' : 'op80' " @click="useNumberToneRaw = false">
           {{ t('tone-symbol') }}
         </button>
@@ -49,10 +49,9 @@ import { locale, t } from '~/i18n'
         </button>
       </div>
     </div>
-
-    <div flex="~ gap-4 center wrap">
+    <div flex="~ center wrap">
       <button
-        square-btn
+        square-btn m2
         :class="hardMode ? 'text-primary' : 'op80' "
         @click="hardMode = !hardMode"
       >
@@ -60,7 +59,7 @@ import { locale, t } from '~/i18n'
         <div v-if="hardMode" square-btn-mark />
       </button>
       <button
-        square-btn
+        square-btn m2
         :class="checkAssist ? 'text-primary' : 'op80' "
         @click="checkAssist = !checkAssist"
       >
@@ -69,7 +68,7 @@ import { locale, t } from '~/i18n'
       </button>
     </div>
     <a
-      v-if="inputMode === 'sp'"
+      v-if="inputMode === 'sp'" mt2
       href="https://zh.wikipedia.org/wiki/%E5%8F%8C%E6%8B%BC" target="_blank" text-sm op50
     >
       {{ t('shuangpin-note') }}

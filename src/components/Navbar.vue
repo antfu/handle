@@ -17,20 +17,20 @@ function openHelp() {
     <div absolute font-serif text-2xl left-0 right-0 top-0 bottom-0 z--1 tracking-2 flex>
       <AppName ma />
     </div>
-    <div flex="~" items-center justify-between md:max-w-md ma p4>
-      <div flex="~ gap-4" items-center>
-        <button class="icon-btn" @click="openHelp()">
+    <div flex items-center justify-between md:max-w-md ma py4 px2>
+      <div flex items-center>
+        <button icon-btn mx2 @click="openHelp()">
           <div i-carbon-help />
         </button>
-        <button v-if="gamesCount" class="icon-btn" @click="toggleDashboard()">
+        <button v-if="gamesCount" icon-btn mx2 @click="toggleDashboard()">
           <div i-carbon-catalog />
         </button>
       </div>
-      <div flex="~ gap-4" items-center>
-        <button class="icon-btn" @click="toggleSettings()">
+      <div flex items-center>
+        <button icon-btn mx2 @click="toggleSettings()">
           <div i-carbon-settings />
         </button>
-        <button class="icon-btn" @click="toggleDark()">
+        <button icon-btn mx2 @click="toggleDark()">
           <div i-carbon-sun dark:i-carbon-moon />
         </button>
       </div>
