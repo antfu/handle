@@ -85,10 +85,14 @@ const partTwo = computed(() => {
   const two = props.char?._2 || ''
   const oneLength = props.char?._1?.length || 0
   const index = toneCharLocation.value - oneLength
+
+  let result = two
   // replace i with dot less for tone symbol
   if (!useNumberTone.value && props.char?.yin[toneCharLocation.value] === 'i')
-    return `${two.slice(0, index)}ı${two.slice(index + 1)}`
-  return two
+    result = `${result.slice(0, index)}ı${result.slice(index + 1)}`
+
+  // replace v with standard notation ü
+  return result.replace("v", "ü")
 })
 </script>
 
