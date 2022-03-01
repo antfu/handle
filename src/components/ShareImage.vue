@@ -45,13 +45,13 @@ async function download() {
     {{ t('rendering') }}
   </div>
 
-  <div flex="~ gap-2" py4>
-    <button v-if="!isIOS" square-btn flex-gap-1 @click="download()">
+  <div flex="~" py4>
+    <button v-if="!isIOS" mx2 square-btn flex-gap-1 @click="download()">
       <div i-carbon-download />
       {{ t('download') }}
     </button>
 
-    <ToggleMask />
+    <ToggleMask mx2 />
   </div>
 
   <div v-if="show" fixed style="left: 200vw; top: 200vh">

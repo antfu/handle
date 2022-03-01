@@ -152,11 +152,11 @@ watchEffect(() => {
             <div i-mdi-emoticon-devil-outline /> {{ t('view-answer') }}
           </button>
 
-          <div flex="~ center gap-4" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
-            <button v-if="!hardMode" icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+          <div flex="~ center" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
+            <button v-if="!hardMode" mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
               <div i-carbon-idea /> {{ t('hint') }}
             </button>
-            <button icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
+            <button mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">
               <div i-carbon-grid /> {{ t('cheatsheet') }}
             </button>
           </div>

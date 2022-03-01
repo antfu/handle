@@ -38,7 +38,7 @@ function openHelp() {
   </nav>
 
   <Modal v-model="showSettings" direction="top">
-    <Settings />
+    <Settings my6 />
   </Modal>
   <Modal v-model="showHelp" direction="top">
     <WelcomePage />

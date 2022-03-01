@@ -16,7 +16,7 @@ defineProps<{
     <div :i="useMask ? 'carbon-view-off' : 'carbon-view'" />
     {{ useMask ? t('mask-on') : t('mask-off') }}
   </button>
-  <div v-if="hint" text-sm op50>
+  <div v-if="hint" my2 op50>
     {{ t('dont-spoiler') }}
   </div>
 </template>

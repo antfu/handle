@@ -14,14 +14,12 @@ const formatted = computed(() => {
 
 <template>
   <div pt12 pb16>
-    <div flex="~ col gap-4" items-center>
-      <ShareButton />
-      <div flex="~ col gap-2">
-        <ToggleMask :hint="true" />
-      </div>
+    <div flex="~ col" items-center>
+      <ShareButton m4 />
+      <ToggleMask :hint="true" />
     </div>
 
-    <div h-1px w-10 border="t base" my6 mxa />
+    <div h-1px w-10 border="t base" mt4 mb6 mxa />
 
     <div flex="~ col center" relative>
       <div op50 ws-nowrap>
