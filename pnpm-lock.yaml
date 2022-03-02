@@ -6,6 +6,7 @@ specifiers:
   '@iconify-json/ep': ^1.1.1
   '@iconify-json/mdi': ^1.1.0
   '@iconify-json/noto-v1': ^1.1.0
+  '@iconify-json/ri': ^1.1.0
   '@netlify/functions': ^1.0.0
   '@supabase/supabase-js': ^1.30.7
   '@types/canvas-confetti': ^1.4.2
@@ -38,6 +39,7 @@ specifiers:
   vue: ^3.2.31
 
 dependencies:
+  '@iconify-json/ri': 1.1.0
   '@supabase/supabase-js': 1.30.7
   '@vueuse/core': 7.7.0_vue@3.2.31
   axios: 0.26.0
@@ -273,9 +275,14 @@ packages:
       '@iconify/types': 1.0.12
     dev: true
 
+  /@iconify-json/ri/1.1.0:
+    resolution: {integrity: sha512-9JE8dyM/4c3qrhH74X5NXVBNF5RPRQLowpldvhMv9kMSil1eq1QcwlNghiUV2SqGPzYAskTHCxXS6abiAQJwVQ==}
+    dependencies:
+      '@iconify/types': 1.0.12
+    dev: false
+
   /@iconify/types/1.0.12:
     resolution: {integrity: sha512-6er6wSGF3hgc1JEZqiGpg21CTCjHBYOUwqLmb2Idzkjiw6ogalGP0ZMLVutCzah+0WB4yP+Zd2oVPN8jvJ+Ftg==}
-    dev: true
 
   /@iconify/utils/1.0.23:
     resolution: {integrity: sha512-Ktdmpe4mkMXQAnnDUz3s6s5aY/BeVPwHC1d5IhG1bgrWVNWFQNUj8cQPMbHpNCSD9MRC5yGxm9/PGPpOWGJLAg==}
