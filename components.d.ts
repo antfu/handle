@@ -11,6 +11,7 @@ declare module 'vue' {
     Dashboard: typeof import('./src/components/Dashboard.vue')['default']
     DashboardItem: typeof import('./src/components/DashboardItem.vue')['default']
     FailedPage: typeof import('./src/components/FailedPage.vue')['default']
+    FeedbackLinks: typeof import('./src/components/FeedbackLinks.vue')['default']
     Hint: typeof import('./src/components/Hint.vue')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
