@@ -20,5 +20,6 @@ watchEffect(() => {
       <NoPastPlay v-else-if="daySince - dayNo > DAYS_PLAY_BACK && !isDev" />
       <Play v-else />
     </div>
+    <ModalsLayer />
   </main>
 </template>
