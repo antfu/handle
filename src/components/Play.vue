@@ -42,7 +42,7 @@ function hint() {
   showHint.value = true
 }
 function sheet() {
-  showCheatSheet.value = true
+  showCheatSheet.value = !showCheatSheet.value
 }
 function congrats() {
   const defaults = {
