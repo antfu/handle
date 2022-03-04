@@ -1,5 +1,5 @@
 import { acceptCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
-import { answer, dayNo, daySince, isFinished, isPassed, showHelp } from './state'
+import { answer, dayNo, daySince, isFinished, isPassed, showCheatSheet, showHelp } from './state'
 import { t } from './i18n'
 import { sendAnalytics } from './analytics'
 
@@ -30,6 +30,11 @@ watch([isFinished, meta], () => {
     markEnd()
     sendAnalytics()
   }
+}, { flush: 'post' })
+
+watch(isFinished, (v) => {
+  if (v)
+    showCheatSheet.value = false
 }, { flush: 'post' })
 
 const visible = useDocumentVisibility()

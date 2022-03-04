@@ -21,5 +21,6 @@ watchEffect(() => {
       <Play v-else />
     </div>
     <ModalsLayer />
+    <Confetti />
   </main>
 </template>
