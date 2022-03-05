@@ -88,7 +88,7 @@ const modeText = computed(() => ({
       </div>
       <div grid="~ cols-3 gap-3" h-min>
         <div v-for="s of pinyinFinals" :key="s" :class="getSymbolClass(s)">
-          {{ s }}
+          {{ s.replace('v', 'ü') }}
         </div>
       </div>
     </div>
