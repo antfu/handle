@@ -79,6 +79,8 @@ export default defineConfig({
         manualChunks: (id) => {
           if (id.includes('locale'))
             return 'locale'
+          if (id.includes('extra.json'))
+            return 'extra'
           if (id.endsWith('.json'))
             return 'data'
           if (id.includes('node_modules') && !id.endsWith('.css'))

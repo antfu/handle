@@ -1,5 +1,7 @@
+import EXTRA from '../data/extra.json'
 import { WORD_LENGTH } from './constants'
 import { getIdiom } from './idioms'
+import { toSimplified } from './lang'
 
 export function filterNonChineseChars(input: string) {
   return Array.from(input)
@@ -11,5 +13,5 @@ export function filterNonChineseChars(input: string) {
 export function checkValidIdiom(word: string, strict = false) {
   if (!strict)
     return true
-  return !!getIdiom(word)
+  return EXTRA.includes(word) || EXTRA.includes(toSimplified(word)) || !!getIdiom(word)
 }

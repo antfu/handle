@@ -7,6 +7,8 @@ import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom, filterNonChineseChars } from
 const el = ref<HTMLInputElement>()
 const input = ref('')
 const inputValue = ref('')
+const showToast = autoResetRef(false, 1500)
+const shake = autoResetRef(false, 500)
 
 const isFinishedDelay = debouncedRef(isFinished, 800)
 
@@ -14,7 +16,8 @@ function enter() {
   if (input.value.length !== WORD_LENGTH)
     return
   if (!checkValidIdiom(input.value, useStrictMode.value)) {
-    // TODO: shake and show mesage
+    showToast.value = true
+    shake.value = true
     return false
   }
   tries.value.push(input.value)
@@ -74,7 +77,13 @@ watchEffect(() => {
         </div>
       </template>
 
-      <WordBlocks v-if="!isFinished" :word="input" :active="true" @click="focus()" />
+      <WordBlocks
+        v-if="!isFinished"
+        :class="{ shake }"
+        :word="input"
+        :active="true"
+        @click="focus()"
+      />
 
       <div mt-1 />
 
@@ -92,6 +101,7 @@ watchEffect(() => {
             text="center"
             bg="transparent"
             :disabled="isFinished"
+            :class="{ shake }"
             @input="handleInput"
             @keydown.enter="enter"
           >
@@ -120,7 +130,7 @@ watchEffect(() => {
           </div>
         </div>
       </Transition>
-      <Transition name="fade">
+      <Transition name="fade-in">
         <div v-if="isFinishedDelay && isFinished">
           <ResultFooter />
           <Countdown />
@@ -154,20 +164,12 @@ watchEffect(() => {
         </div>
       </template>
     </div>
+    <Toast v-model="showToast">
+      <div bg-base border border-base px8 py4 m5 text-lg shadow font-serif>
+        <span tracking-1 pl1>
+          {{ t('invalid-idiom') }}
+        </span>
+      </div>
+    </Toast>
   </div>
 </template>
-
-<style>
-.fade-enter-active {
-  transition: all 1s ease;
-}
-.fade-out-leave-active {
-  transition: all 0.5s ease;
-}
-
-.fade-out-leave-to,
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(10px);
-}
-</style>
