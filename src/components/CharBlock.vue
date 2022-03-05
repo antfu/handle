@@ -38,7 +38,7 @@ function getColor(result?: MatchType, isChar = false) {
   const colors = {
     exact: 'text-ok',
     misplaced: 'text-mis',
-    none: isChar ? 'op80' : 'op40',
+    none: isChar ? 'op80' : 'op35',
     deleted: inputMode.value === 'zy' ? 'op30' : 'line-through op30',
   }
   return `${pre} ${colors[result]}`
@@ -128,15 +128,14 @@ const partTwo = computed(() => {
                   v-if="!useNumberTone && idx === toneCharLocation"
                   :tone="char.tone"
                   :class="getColor(parsed?.tone)"
-                  absolute left-1px right-px
+                  absolute w="86%" left="8%"
                   :style="{
                     bottom: useMask
-                      ? '1.25em'
+                      ? '1.25rem'
                       : w === 'ü'
-                        ? '1em'
-                        : '0.8em',
+                        ? '1rem'
+                        : '0.78rem',
                   }"
-                  w-auto
                 />
               </div>
             </div>
