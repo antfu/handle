@@ -73,4 +73,18 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('locale'))
+            return 'locale'
+          if (id.endsWith('.json'))
+            return 'data'
+          if (id.includes('node_modules') && !id.endsWith('.css'))
+            return 'vendor'
+        },
+      },
+    },
+  },
 })
