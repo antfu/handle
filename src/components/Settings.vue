@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { checkAssist, colorblind, hardMode, inputMode, useNumberTone as useNumberToneRaw } from '~/storage'
+import { colorblind, inputMode, meta, useCheckAssist, useNoHint, useNumberTone as useNumberToneRaw, useStrictMode } from '~/storage'
 import { useNumberTone } from '~/state'
 import { locale, t } from '~/i18n'
+
+defineProps<{
+  lite?: boolean
+}>()
 </script>
 
 <template>
@@ -49,22 +53,33 @@ import { locale, t } from '~/i18n'
         </button>
       </div>
     </div>
-    <div flex="~ center wrap">
+    <div v-if="!lite" flex="~ center wrap">
       <button
         square-btn m2
-        :class="hardMode ? 'text-primary' : 'op80' "
-        @click="hardMode = !hardMode"
+        :class="useNoHint ? 'text-primary' : 'op80' "
+        @click="useNoHint = !useNoHint"
       >
         {{ t('hard-mode') }}
-        <div v-if="hardMode" square-btn-mark />
+        <div v-if="useNoHint" square-btn-mark />
       </button>
       <button
         square-btn m2
-        :class="checkAssist ? 'text-primary' : 'op80' "
-        @click="checkAssist = !checkAssist"
+        :class="useCheckAssist ? 'text-primary' : 'op80' "
+        @click="useCheckAssist = !useCheckAssist"
       >
         {{ t('check-assist') }}
-        <div v-if="checkAssist" square-btn-mark />
+        <div v-if="useCheckAssist" square-btn-mark />
+      </button>
+      <button
+        square-btn m2
+        :class="[
+          useStrictMode ? 'text-primary' : 'op80',
+          !!meta.tries?.length ? 'op50 pointer-events-none' : ''
+        ]"
+        @click="useStrictMode = !useStrictMode"
+      >
+        {{ t('strict-mode') }}<sup op80 ml--1>实验性</sup>
+        <div v-if="useStrictMode" square-btn-mark />
       </button>
     </div>
     <a

@@ -80,6 +80,7 @@
   "shuangpin": "双拼",
   "shuangpin-note": "* 双拼使用搜狗方案",
   "start": "开始游戏",
+  "strict-mode": "严格模式",
   "time-format": "{0}时{1}分{2}秒",
   "tone-number": "数字声调",
   "tone-symbol": "符号声调",

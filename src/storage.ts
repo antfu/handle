@@ -4,13 +4,15 @@ import type { InputMode, TriesMeta } from './logic'
 
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 
-export const initialized = useStorage('handle-initialized', false)
 export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
+export const initialized = useStorage('handle-initialized', false)
+
 export const inputMode = useStorage<InputMode>('handle-mode', preferZhuyin ? 'zy' : 'py')
-export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
-export const hardMode = useStorage('handle-hard-mode', false)
-export const checkAssist = useStorage('handle-check-assist', false)
+export const useNoHint = useStorage('handle-hard-mode', false)
+export const useNumberTone = useStorage('handle-number-tone', false)
+export const useCheckAssist = useStorage('handle-check-assist', false)
+export const useStrictMode = useStorage('handle-strict', false)
 export const acceptCollecting = useStorage('handle-accept-collecting', true)
 
 export const meta = computed<TriesMeta>({

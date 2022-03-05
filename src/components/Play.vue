@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
-import { hardMode, markStart, meta, tries } from '~/storage'
+import { markStart, meta, tries, useNoHint, useStrictMode } from '~/storage'
 import { t } from '~/i18n'
-import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
+import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom, filterNonChineseChars } from '~/logic'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
@@ -10,9 +10,13 @@ const inputValue = ref('')
 
 const isFinishedDelay = debouncedRef(isFinished, 800)
 
-function go() {
+function enter() {
   if (input.value.length !== WORD_LENGTH)
     return
+  if (!checkValidIdiom(input.value, useStrictMode.value)) {
+    // TODO: shake and show mesage
+    return false
+  }
   tries.value.push(input.value)
   input.value = ''
   inputValue.value = ''
@@ -25,10 +29,7 @@ function reset() {
 }
 function handleInput(e: Event) {
   const el = (e.target! as HTMLInputElement)
-  input.value = Array.from(el.value)
-    .filter(i => /\p{Script=Han}/u.test(i))
-    .slice(0, 4)
-    .join('')
+  input.value = filterNonChineseChars(el.value)
   markStart()
 }
 function focus() {
@@ -92,13 +93,13 @@ watchEffect(() => {
             bg="transparent"
             :disabled="isFinished"
             @input="handleInput"
-            @keydown.enter="go"
+            @keydown.enter="enter"
           >
           <button
             mt3
             btn p="x6 y2"
             :disabled="input.length !== WORD_LENGTH"
-            @click="go"
+            @click="enter"
           >
             {{ t('ok-spaced') }}
           </button>
@@ -110,7 +111,7 @@ watchEffect(() => {
           </button>
 
           <div flex="~ center" mt4 :class="isFinished ? 'op0! pointer-events-none' : ''">
-            <button v-if="!hardMode" mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
+            <button v-if="!useNoHint" mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="hint()">
               <div i-carbon-idea /> {{ t('hint') }}
             </button>
             <button mx2 icon-btn text-base pb2 gap-1 flex="~ center" @click="sheet()">

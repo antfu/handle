@@ -73,7 +73,7 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
 
     <div h-1px w-10 border="b base" m4 />
 
-    <Settings />
+    <Settings :lite="true" />
 
     <div h-1px w-10 border="b base" m4 />
 

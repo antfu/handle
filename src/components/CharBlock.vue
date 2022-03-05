@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ToneSymbol from './ToneSymbol.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
-import { checkAssist, inputMode } from '~/storage'
+import { inputMode, useCheckAssist } from '~/storage'
 import { getSymbolState, useMask, useNumberTone } from '~/state'
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const exact = computed(() => props.answer && Object.values(props.answer).every(i
 const parsed = computed(() => {
   if (props.answer)
     return props.answer
-  if (!props.char || !checkAssist.value || !props.active)
+  if (!props.char || !useCheckAssist.value || !props.active)
     return
 
   // Assist coloring

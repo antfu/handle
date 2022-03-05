@@ -29,6 +29,7 @@ declare module 'vue' {
     ShareImage: typeof import('./src/components/ShareImage.vue')['default']
     ShareText: typeof import('./src/components/ShareText.vue')['default']
     SocialLinks: typeof import('./src/components/SocialLinks.vue')['default']
+    Toast: typeof import('./src/components/Toast.vue')['default']
     ToggleMask: typeof import('./src/components/ToggleMask.vue')['default']
     ToneSymbol: typeof import('./src/components/ToneSymbol.vue')['default']
     VariantLinks: typeof import('./src/components/VariantLinks.vue')['default']
