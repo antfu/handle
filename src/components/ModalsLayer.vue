@@ -31,16 +31,16 @@ const lg = breakpoints.lg
   <Modal v-model="showDashboard" direction="top">
     <Dashboard />
   </Modal>
-  <Modal v-model="showVariants" direction="top">
-    <VariantLinks />
-  </Modal>
-  <Modal v-model="showPrivacyNotes" direction="top">
-    <PrivacyNotes />
-  </Modal>
   <Modal v-model="showShareDialog" direction="top">
     <ShareDialog />
   </Modal>
   <Modal v-model="showHelp" direction="top">
     <WelcomePage />
+  </Modal>
+  <Modal v-model="showVariants" direction="top">
+    <VariantLinks />
+  </Modal>
+  <Modal v-model="showPrivacyNotes" direction="top">
+    <PrivacyNotes />
   </Modal>
 </template>
