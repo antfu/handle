@@ -29,6 +29,7 @@ specifiers:
   lru-cache: ^7.4.0
   nanoid: ^3.3.1
   ohmyfetch: ^0.4.15
+  picocolors: ^1.0.0
   pinyin: ^2.11.0
   pnpm: ^6.32.2
   seedrandom: ^3.0.5
@@ -74,6 +75,7 @@ devDependencies:
   file-saver: 2.0.5
   jsdom: 19.0.0
   ohmyfetch: 0.4.15
+  picocolors: 1.0.0
   pnpm: 6.32.2
   typescript: 4.5.5
   unocss: 0.26.4_jsdom@19.0.0

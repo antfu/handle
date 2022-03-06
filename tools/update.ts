@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import fs from 'fs'
+import c from 'picocolors'
 import _polyphones from '../src/data/polyphones.json'
 import { normalizePinyin } from './utils'
 import { getWordInfoFromZDict } from './zdict'
@@ -15,6 +16,15 @@ async function getPinyinWeb(word: string) {
   return pinyin(word, { style: pinyin.STYLE_TONE2 }).map((i: any) => i[0]).join(' ')
 }
 
+function validPinyin(word: string, pinyin: string) {
+  if (!pinyin.match(/^[a-z0-9 ]+$/))
+    return console.log(c.red(`[${word}] invalid char`), c.yellow(pinyin))
+  if (!pinyin.match(/[0-9]/))
+    return console.log(c.red(`[${word}] invalid tone`), c.magenta(pinyin))
+  if (pinyin.split(/\s+/g).length !== 4)
+    return console.log(c.red(`[${word}] invalid length`), c.blue(pinyin))
+}
+
 async function run() {
   const polyphonesKeys = Object.keys(polyphones)
 
@@ -22,17 +32,18 @@ async function run() {
   console.log(polyphonesKeys.length, 'polyphones')
   console.log(idioms.size, 'idioms')
 
-  for (const key of Object.keys(polyphones)) {
-    if (!polyphones[key])
-      polyphones[key] = await getPinyinZDict(key)
-    const pinyingComputed = await getPinyinWeb(key)
-    if (!polyphones[key] || pinyingComputed === polyphones[key]) {
-      console.log(`\n[${key}] removed from polyphones`)
-      delete polyphones[key]
-      idioms.add(key)
+  for (const word of Object.keys(polyphones)) {
+    if (!polyphones[word])
+      polyphones[word] = await getPinyinZDict(word)
+    const pinyingComputed = await getPinyinWeb(word)
+    if (!polyphones[word] || pinyingComputed === polyphones[word]) {
+      console.log(`\n[${word}] removed from polyphones`)
+      delete polyphones[word]
+      idioms.add(word)
     }
     else {
-      idioms.delete(key)
+      validPinyin(word, polyphones[word])
+      idioms.delete(word)
     }
   }
 
