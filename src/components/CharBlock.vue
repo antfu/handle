@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ToneSymbol from './ToneSymbol.vue'
+import VDots from './VDots.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
 import { inputMode, useCheckAssist } from '~/storage'
 import { getSymbolState, useMask, useNumberTone } from '~/state'
@@ -65,8 +66,13 @@ const toneCharLocation = computed(() => {
   ].find(i => i !== null && i >= 0) || 0
 })
 
+const vLocation = computed(() => {
+  const part = props.char?._2 || ''
+  return part.lastIndexOf('v')
+})
+
 const partTwo = computed(() => {
-  const two = (props.char?._2 || '').replace('v', 'ü')
+  const two = (props.char?._2 || '')
   const index = toneCharLocation.value
   // replace i with dot less for tone symbol
   if (!useNumberTone.value && two[index] === 'i')
@@ -122,8 +128,13 @@ const partTwo = computed(() => {
             <div v-if="partTwo" mx-1px flex>
               <div v-for="w,idx of partTwo" :key="idx" relative>
                 <div :class="getColor(parsed?._2)">
-                  {{ w }}
+                  {{ w.replace('v', 'u') }}
                 </div>
+                <VDots
+                  v-if="!useMask && idx === vLocation"
+                  :class="getColor(parsed?._2)"
+                  absolute w="87%" left="8%" bottom="0.79rem"
+                />
                 <ToneSymbol
                   v-if="!useNumberTone && idx === toneCharLocation"
                   :tone="char.tone"
@@ -132,8 +143,8 @@ const partTwo = computed(() => {
                   :style="{
                     bottom: useMask
                       ? '1.25rem'
-                      : w === 'ü'
-                        ? '1rem'
+                      : w === 'v'
+                        ? '0.85rem'
                         : '0.78rem',
                   }"
                 />
