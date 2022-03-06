@@ -32,7 +32,14 @@ export function parseChar(char: string, pinyin?: string, mode?: InputMode): Pars
     pinyin = pinyin.slice(0, -tone.length).trim()
 
   const parts = parsePinyin(pinyin, mode)
+  // if there is no final, actually it's no intital
+  if (parts[0] && !parts[1]) {
+    parts[1] = parts[0]
+    parts[0] = ''
+  }
+
   const [one, two, three] = parts
+
   return {
     char,
     _1: one,
