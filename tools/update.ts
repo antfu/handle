@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import fs from 'fs'
 import c from 'picocolors'
+import { pinyin2zhuyin } from '../src/logic/lang/zhuyin'
 import _polyphones from '../src/data/polyphones.json'
 import { normalizePinyin } from './utils'
 import { getWordInfoFromZDict } from './zdict'
@@ -25,8 +26,14 @@ function validPinyin(word: string, pinyin: string) {
     return console.log(c.red(`[${word}] invalid char`), c.yellow(pinyin))
   if (!pinyin.match(/[0-9]/))
     return console.log(c.red(`[${word}] invalid tone`), c.magenta(pinyin))
-  if (pinyin.split(/\s+/g).length !== 4)
+  const parts = pinyin.split(/\s+/g)
+  if (parts.length !== 4)
     return console.log(c.red(`[${word}] invalid length`), c.blue(pinyin))
+  parts.forEach(async(i, idx) => {
+    const [full, body, tone] = i.match(/^([a-z]+)([0-4])?$/) || []
+    if (!pinyin2zhuyin[body])
+      console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
+  })
 }
 
 async function run() {

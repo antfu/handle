@@ -31,12 +31,13 @@ const symbolMap: Record<string, string> = {
 export function normalizePinyin(pinyin: string) {
   return pinyin.split(/\s+/g).map((i) => {
     let tone = ''
-    return Array.from(i).map((c) => {
+    const body = Array.from(i).map((c) => {
       if (symbolMap[c]) {
         tone = symbolMap[c][1]
         return symbolMap[c][0]
       }
       return c
-    }).join('') + tone
+    }).join('')
+    return body + tone
   }).join(' ')
 }
