@@ -1,6 +1,6 @@
 # Sources
 
-## `idiom.json`
+## `idioms.txt` / `polyphones.json`
 
 Processed from https://github.com/pwxcoo/chinese-xinhua/blob/master/data/idiom.json
 
