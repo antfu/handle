@@ -2,7 +2,8 @@
 import DashboardItem from './DashboardItem.vue'
 import { t } from '~/i18n'
 import { showDashboard } from '~/state'
-import { averageDurations, gamesCount, historyTriesCount, noHintPassedCount, passedCount, passedTries } from '~/storage'
+import { averageDurations, gamesCount, history, historyTriesCount, noHintPassedCount, passedCount, passedTries } from '~/storage'
+import { checkValidIdiom } from '~/logic'
 
 const triesMap = computed(() => {
   const map = new Map<number, number>()
@@ -36,6 +37,9 @@ const tiresMaxCount = computed(() => {
 function close() {
   showDashboard.value = false
 }
+
+const allWords = computed(() => Array.from(new Set(Object.values(history.value).flatMap(i => i.tries).filter(Boolean) as string[])))
+const validWords = computed(() => allWords.value.filter(i => checkValidIdiom(i, true)))
 </script>
 
 <template>
@@ -73,6 +77,10 @@ function close() {
     <div flex="~ wrap gap-4" justify-center min-w-100px py2>
       <DashboardItem :value="(historyTriesCount / gamesCount).toFixed(1)" :text="t('average-tries-count')" />
       <DashboardItem :value="averageDurations || '-'" :text="t('average-durations')" />
+    </div>
+    <div flex="~ wrap gap-4" justify-center min-w-100px py2>
+      <DashboardItem :value="allWords.length" :text="t('used-words')" />
+      <DashboardItem :value="Math.round(validWords.length / allWords.length * 100) + '%'" :text="t('valid-words-rate')" />
     </div>
   </div>
 </template>
