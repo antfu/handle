@@ -20,6 +20,8 @@ function enter() {
     shake.value = true
     return false
   }
+  if (meta.value.strict == null)
+    meta.value.strict = useStrictMode.value
   tries.value.push(input.value)
   input.value = ''
   inputValue.value = ''
