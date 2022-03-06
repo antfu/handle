@@ -1,18 +1,27 @@
 import Pinyin from 'pinyin'
-import IDIOMS from '../data/idioms.json'
+import PolyphonesRaw from '../data/polyphones.json'
+import IdiomsRaw from '../data/idioms.txt?raw'
 import { toSimplified } from './lang'
 
-export function getIdiom(word: string) {
+export const IdiomsList = IdiomsRaw.split('\n')
+export const Polyphones = PolyphonesRaw as Record<string, string>
+
+export function getIdiom(word: string): [string, string | undefined] | undefined {
   const simplified = toSimplified(word)
-  return IDIOMS.find(d => d[0] === simplified || d[0] === word)
+  if (Polyphones[word])
+    return [word, Polyphones[word]]
+  if (Polyphones[simplified])
+    return [word, Polyphones[simplified]]
+  if (IdiomsList.includes(word))
+    return [word, undefined]
+  if (IdiomsList.includes(simplified))
+    return [simplified, undefined]
+  return undefined
 }
 
 export function getPinyin(word: string) {
-  const simplified = toSimplified(word)
-  const data = IDIOMS.find(d => d[0] === simplified || d[0] === word)
-  if (data && data[1])
+  const data = getIdiom(word)
+  if (data?.[1])
     return data[1].split(/\s+/g)
-  return Pinyin(simplified, { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
+  return Pinyin(data?.[0] || toSimplified(word), { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
 }
-
-export { IDIOMS }
