@@ -6,6 +6,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext=.ts,.vue",
+    "update": "esno tools/update.ts",
     "test": "vitest"
   },
   "dependencies": {
