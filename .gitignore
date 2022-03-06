@@ -9,3 +9,4 @@ node_modules
 *.log
 .netlify
 .env
+src/data/unknown.txt

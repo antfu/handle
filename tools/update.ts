@@ -7,6 +7,7 @@ import { getWordInfoFromZDict } from './zdict'
 const polyphones = _polyphones as Record<string, string>
 const idioms = new Set(fs.readFileSync('src/data/idioms.txt', 'utf8').split('\n').map(i => i.trim()).filter(Boolean))
 const newOnes = new Set(fs.readFileSync('src/data/new.txt', 'utf8').split('\n').map(i => i.trim()).filter(Boolean))
+const unknown = new Set<string>()
 
 async function getPinyinWeb(word: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -43,27 +44,33 @@ async function run() {
     delete polyphones[word]
     const pinyinZDict = await getPinyinZDict(word)
 
-    if (!pinyinZDict)
-      continue
-
     newOnes.delete(word)
-    const pinyingComputed = await getPinyinWeb(word)
-    if (!pinyinZDict || pinyingComputed === pinyinZDict) {
-      delete polyphones[word]
-      idioms.add(word)
-      continue
-    }
-    console.log(`[${word}] Polyphones! ${pinyingComputed} -> ${pinyinZDict}`)
-    polyphones[word] = pinyinZDict
 
-    if (idx && idx % 10 === 0)
+    if (pinyinZDict) {
+      const pinyingComputed = await getPinyinWeb(word)
+      if (!pinyinZDict || pinyingComputed === pinyinZDict) {
+        delete polyphones[word]
+        idioms.add(word)
+      }
+      else {
+        console.log(`[${word}] Polyphones! ${pinyingComputed} -> ${pinyinZDict}`)
+        polyphones[word] = pinyinZDict
+      }
+    }
+    else {
+      unknown.add(word)
+    }
+
+    if (idx && idx % 10 === 0) {
       save()
+      console.log(`${idx + 1} / ${len} ${((idx + 1) / len * 100).toFixed(1)}%`)
+    }
   }
 
   save()
 
-  if (newOnes.size)
-    console.log(newOnes.size, 'missed items, please check manully')
+  if (unknown.size)
+    console.log(unknown.size, 'missed items, please check manually')
 }
 
 function save() {
@@ -71,6 +78,7 @@ function save() {
   fs.writeFileSync('src/data/polyphones.json', JSON.stringify(Object.fromEntries(Object.entries(polyphones).sort((a, b) => a[0].localeCompare(b[0]))), null, 2), 'utf8')
   fs.writeFileSync('src/data/idioms.txt', Array.from(new Set(idioms)).sort().join('\n'), 'utf8')
   fs.writeFileSync('src/data/new.txt', Array.from(newOnes).join('\n'), 'utf8')
+  fs.writeFileSync('src/data/unknown.txt', Array.from(unknown).join('\n'), 'utf8')
 }
 
 run()
