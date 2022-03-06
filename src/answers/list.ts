@@ -42,6 +42,7 @@
  */
 
 import { seedShuffle } from './utils'
+import { checkValidIdiom } from '~/logic'
 
 function prepare<T>(len: number, arr: T[]) {
   if (arr.length !== len)
@@ -129,13 +130,13 @@ export const _2022_APRIL = prepare(30, seedShuffle([
   ['破釜沈舟', '破'],
   ['急转直下', '下'],
   ['独具匠心', '心'],
-  ['苦海无涯', '无'],
+  ['不耻下问', '下'],
   ['百折不饶', '不'],
   ['适得其反', '其'],
-  ['富贵在天', '天'],
+  ['精益求精', '精'],
   ['无往不利', '不'],
   ['百口莫辩', '口'],
-  ['荷塘月色', '月'],
+  ['与世无争', '无'],
   ['返老还童', '老'],
   ['火上浇油', '上'],
   ['志在千里', '千'],
@@ -176,8 +177,9 @@ if (import.meta.hot) {
       map.set(a[0], i)
     else
       throw new Error(`Word ${a[0]} is duplicated at ${map.get(a[0])}`)
-
     if (a[1] && !a[0].includes(a[1]))
       throw new Error(`Hint ${a[1]} is not included in ${a[0]}`)
+    if (!checkValidIdiom(a[0], true))
+      throw new Error(`${a[0]} is not a valid idiom`)
   })
 }
