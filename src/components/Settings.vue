@@ -78,7 +78,7 @@ defineProps<{
         ]"
         @click="useStrictMode = !useStrictMode"
       >
-        {{ t('strict-mode') }}<sup op80 ml--1>{{ t('experimental') }}</sup>
+        {{ t('strict-mode') }}
         <div v-if="useStrictMode" square-btn-mark />
       </button>
     </div>
