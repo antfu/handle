@@ -51,7 +51,6 @@ async function run() {
   const len = items.length
   for (let idx = 0; idx < len; idx++) {
     const word = items[idx]
-    idioms.delete(word)
     delete polyphones[word]
     const pinyinZDict = await getPinyinZDict(word)
 
