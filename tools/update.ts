@@ -30,9 +30,14 @@ function validPinyin(word: string, pinyin: string) {
   if (parts.length !== 4)
     return console.log(c.red(`[${word}] invalid length`), c.blue(pinyin))
   parts.forEach(async(i, idx) => {
-    const [full, body, tone] = i.match(/^([a-z]+)([0-4])?$/) || []
+    const match = i.match(/^([a-z]+)([0-4])?$/)
+    if (!match)
+      return console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
+    const [full, body, tone] = match
     if (!pinyin2zhuyin[body])
       console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
+  //   if (!tone)
+  //     console.error(c.red(`[${word}] no tone [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
   })
 }
 
