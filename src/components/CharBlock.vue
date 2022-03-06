@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import ToneSymbol from './ToneSymbol.vue'
-import VDots from './VDots.vue'
 import type { MatchResult, MatchType, ParsedChar } from '~/logic/types'
 import { inputMode, useCheckAssist } from '~/storage'
 import { getSymbolState, useMask, useNumberTone } from '~/state'
@@ -133,7 +131,7 @@ const partTwo = computed(() => {
                 <VDots
                   v-if="!useMask && idx === vLocation"
                   :class="getColor(parsed?._2)"
-                  absolute w="87%" left="8%" bottom="0.79rem"
+                  absolute w="87%" left="8%" bottom="0.76rem"
                 />
                 <ToneSymbol
                   v-if="!useNumberTone && idx === toneCharLocation"

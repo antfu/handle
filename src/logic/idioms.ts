@@ -26,7 +26,6 @@ export function getPinyin(word: string) {
     : Pinyin(data?.[0] || toSimplified(word), { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
   // https://baike.baidu.com/item/%E6%B1%89%E8%AF%AD%E6%8B%BC%E9%9F%B3%E6%96%B9%E6%A1%88/1884432
   return parts.map(i => i
-    .replace(/^(y|j|q|x)u([0-9]?)$/g, '$1v$2')
-    .replace(/^yu(\w+)([0-9]?)$/g, 'yv$1$2'),
+    .replace(/^(y|j|q|x)u([0-9]?)$/g, '$1v$2'),
   )
 }
