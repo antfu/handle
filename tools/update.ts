@@ -8,7 +8,11 @@ import { getWordInfoFromZDict } from './zdict'
 const polyphones = _polyphones as Record<string, string>
 const idioms = new Set(fs.readFileSync('src/data/idioms.txt', 'utf8').split('\n').map(i => i.trim()).filter(Boolean))
 const newOnes = new Set(fs.readFileSync('src/data/new.txt', 'utf8').split('\n').map(i => i.trim()).filter(Boolean))
-const unknown = new Set<string>()
+const unknown = new Set(
+  fs.existsSync('src/data/unknown.txt')
+    ? fs.readFileSync('src/data/unknown.txt', 'utf8').split('\n').map(i => i.trim()).filter(Boolean)
+    : [],
+)
 
 async function getPinyinWeb(word: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -51,24 +55,27 @@ async function run() {
   const len = items.length
   for (let idx = 0; idx < len; idx++) {
     const word = items[idx]
-    delete polyphones[word]
-    const pinyinZDict = await getPinyinZDict(word)
 
-    newOnes.delete(word)
+    if (!unknown.has(word)) {
+      delete polyphones[word]
+      const pinyinZDict = await getPinyinZDict(word)
 
-    if (pinyinZDict) {
-      const pinyingComputed = await getPinyinWeb(word)
-      if (!pinyinZDict || pinyingComputed === pinyinZDict) {
-        delete polyphones[word]
-        idioms.add(word)
+      newOnes.delete(word)
+
+      if (pinyinZDict) {
+        const pinyingComputed = await getPinyinWeb(word)
+        if (!pinyinZDict || pinyingComputed === pinyinZDict) {
+          delete polyphones[word]
+          idioms.add(word)
+        }
+        else {
+          console.log(`[${word}] Polyphones! ${pinyingComputed} -> ${pinyinZDict}`)
+          polyphones[word] = pinyinZDict
+        }
       }
       else {
-        console.log(`[${word}] Polyphones! ${pinyingComputed} -> ${pinyinZDict}`)
-        polyphones[word] = pinyinZDict
+        unknown.add(word)
       }
-    }
-    else {
-      unknown.add(word)
     }
 
     if (idx && idx % 10 === 0) {
