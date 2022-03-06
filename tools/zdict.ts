@@ -6,8 +6,9 @@ export async function getWordInfoFromZDict(word: string) {
   const html = await r.text()
 
   const $ = load(html)
-  const pinyin = $('.dicpy').first().text()
   const explain = $('.gc_sy').text()
+  const pinyin = $('.gycd rt').first().text().trim()
+    || $('.dicpy').first().text().trim()
 
   if (!pinyin)
     return
