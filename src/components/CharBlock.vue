@@ -90,7 +90,7 @@ const partTwo = computed(() => {
         >
           {{ char.char }}
         </div>
-        <div absolute text-center top-0 bottom-0 right="2.5" w="5.6" flex items-center>
+        <div absolute text-center top-0 bottom-0 right="2.5" w="5" flex items-center>
           <div flex="~ center" text-xs style="writing-mode: vertical-rl">
             <span v-if="char._1" :class="getColor(parsed?._1)">
               {{ char._1 }}
@@ -102,7 +102,7 @@ const partTwo = computed(() => {
               {{ char._3 }}
             </span>
           </div>
-          <ToneSymbol :tone="char.tone" :class="getColor(parsed?.tone)" mt--1 />
+          <ToneSymbol :tone="char.tone" :class="getColor(parsed?.tone)" mt--1 min-w-6px />
         </div>
       </template>
 
