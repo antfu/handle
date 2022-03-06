@@ -21,12 +21,7 @@ async function run() {
   console.log(polyphonesKeys.length, 'polyphones')
   console.log(idioms.size, 'idioms')
 
-  newOnes.forEach((i) => {
-    idioms.delete(i)
-    delete polyphones[i]
-  })
-
-  for (const key of polyphonesKeys) {
+  for (const key of Object.keys(polyphones)) {
     if (!polyphones[key])
       polyphones[key] = await getPinyinZDict(key)
     const pinyingComputed = await getPinyinWeb(key)
@@ -44,6 +39,8 @@ async function run() {
   const len = items.length
   for (let idx = 0; idx < len; idx++) {
     const word = items[idx]
+    idioms.delete(word)
+    delete polyphones[word]
     const pinyinZDict = await getPinyinZDict(word)
 
     if (!pinyinZDict)
@@ -59,11 +56,14 @@ async function run() {
     console.log(`[${word}] Polyphones! ${pinyingComputed} -> ${pinyinZDict}`)
     polyphones[word] = pinyinZDict
 
-    if (idx && idx % 30 === 0)
+    if (idx && idx % 10 === 0)
       save()
   }
 
   save()
+
+  if (newOnes.size)
+    console.log(newOnes.size, 'missed items, please check manully')
 }
 
 function save() {
@@ -79,7 +79,10 @@ async function getPinyinZDict(i: string) {
   console.log(`\n[${i}] fetching`)
   const data = await getWordInfoFromZDict(i)
   const pinyinZDict = normalizePinyin(data?.pinyin || '')
-  console.log(`[${i}] got ${pinyinZDict}`)
+  if (pinyinZDict)
+    console.log(`[${i}] got ${pinyinZDict}`)
+  else
+    console.log(`[${i}] missed`)
 
   return pinyinZDict
 }
