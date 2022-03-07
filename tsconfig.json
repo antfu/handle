@@ -18,7 +18,8 @@
       "vitest/importMeta"
     ],
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "@hankit/tools": ["packages/tools/src/index.ts"]
     }
   },
   "exclude": ["dist", "node_modules"]

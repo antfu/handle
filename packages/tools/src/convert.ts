@@ -1,4 +1,4 @@
-import toSimplifiedMap from './map/simplify.json'
+import toSimplifiedMap from './map/toSimplified.json'
 import { reverseMap } from './utils'
 
 export function toSimplified<T extends string | number | undefined>(text: T): T {

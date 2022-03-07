@@ -1,11 +1,11 @@
 // @ts-expect-error missing types
-import _getPinyinWeb from 'pinyin/lib/web-pinyin.js'
+import _pinyinWeb from 'pinyin/lib/web-pinyin.js'
 import { parsePinyin } from './parse'
 
-const _getPinyin = _getPinyinWeb as typeof import('pinyin')
+export const getPinyinRaw = _pinyinWeb as typeof import('pinyin')
 
 export function getPinyin(text: string) {
-  return _getPinyin(text, { style: _getPinyin.STYLE_TONE2 }).map(i => parsePinyin(i[0]))
+  return getPinyinRaw(text, { style: getPinyinRaw.STYLE_TONE2 }).map(i => parsePinyin(i[0]))
 }
 
 if (import.meta.vitest) {

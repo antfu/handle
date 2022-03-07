@@ -1,14 +1,13 @@
 import seedrandom from 'seedrandom'
+import { pinyinInitials, toShuangpin, toSimplified, toZhuyin } from '@hankit/tools'
 import type { InputMode, MatchResult, ParsedChar } from './types'
-import { pinyin2zhuyin, pinyinInitials, toSimplified } from './lang'
-import { toShuangpin } from './lang/shuangpin'
 import { getPinyin } from './idioms'
 
 export function parsePinyin(pinyin: string, mode: InputMode = 'py') {
   let parts: string[] = []
   if (pinyin) {
     if (mode === 'zy') {
-      parts = Array.from(pinyin2zhuyin[pinyin] || '')
+      parts = Array.from(pinyin.trim() ? toZhuyin(pinyin) : '')
     }
     else if (mode === 'sp') {
       parts = Array.from(toShuangpin(pinyin))

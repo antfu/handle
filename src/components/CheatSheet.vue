@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { pinyinFinals, pinyinInitials, shuangpinFinals, shuangpinInitials, zhuyinSymbols } from '@hankit/tools'
 import { inputMode } from '~/storage'
 import { t } from '~/i18n'
-import { pinyinFinals, pinyinInitials, shuangpinFinals, shuangpinInitials, zhuyinSymbols } from '~/logic'
 import { getSymbolState, showCheatSheet } from '~/state'
 
 function getSymbolClass(symbol: string, key?: '_1' | '_2') {

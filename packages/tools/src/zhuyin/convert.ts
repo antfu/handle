@@ -1,10 +1,10 @@
-import type { ParsedPinyin } from './types'
-import { parsePinyin } from './pinyin'
-import zhuyinMap from './map/zhuyin.json'
-import toneSymbols from './map/toneSymbols.json'
-import { reverseMap } from './utils'
+import { parsePinyin } from '../pinyin'
+import zhuyinMap from '../map/zhuyin.json'
+import toneSymbols from '../map/toneSymbols.json'
+import { reverseMap } from '../utils'
+import type { ParsedPinyin } from '../types'
 
-export function pinyinToZhuyin(pinyin: string | ParsedPinyin, renderTone = true) {
+export function toZhuyin(pinyin: string | ParsedPinyin, renderTone = true) {
   pinyin = parsePinyin(pinyin)
 
   const base = (zhuyinMap as any)[pinyin.base]
@@ -40,12 +40,12 @@ export function zhuyinToPinyin(zhuyin: string): ParsedPinyin {
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
-  const { getPinyin, pinyinToNumberStyle } = await import('./pinyin')
+  const { getPinyin, pinyinToNumberStyle } = await import('../pinyin')
 
   describe('zhuyin', () => {
     it('toZhuyin', () => {
       expect(getPinyin('你好世界')
-        .map(i => pinyinToZhuyin(i))
+        .map(i => toZhuyin(i))
         .join(' '),
       )
         .toMatchInlineSnapshot('"ㄋㄧˇ ㄏㄠˇ ㄕˋ ㄐㄧㄝˋ"')
@@ -53,7 +53,7 @@ if (import.meta.vitest) {
 
     it('toPinyin', () => {
       expect(getPinyin('沒有問題')
-        .map(i => pinyinToZhuyin(i))
+        .map(i => toZhuyin(i))
         .map(i => zhuyinToPinyin(i))
         .map(pinyinToNumberStyle)
         .join(' '),

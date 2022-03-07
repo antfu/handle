@@ -11,6 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
+      '@hankit/tools': path.resolve(__dirname, 'packages/tools/src/index.ts'),
     },
   },
   define: {
@@ -34,6 +35,7 @@ export default defineConfig({
     includeSource: ['packages/*/src/**/*.ts'],
   },
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
