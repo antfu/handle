@@ -8,7 +8,7 @@ import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom } from '~/logic'
 const el = ref<HTMLInputElement>()
 const input = ref('')
 const inputValue = ref('')
-const showToast = autoResetRef(false, 1500)
+const showToast = autoResetRef(false, 1000)
 const shake = autoResetRef(false, 500)
 
 const isFinishedDelay = debouncedRef(isFinished, 800)
@@ -92,22 +92,31 @@ watchEffect(() => {
 
       <Transition name="fade-out">
         <div v-if="!isFinished" flex="~ col gap-2" items-center>
-          <input
-            ref="el"
-            v-model="inputValue"
-            type="text"
-            autocomplete="false"
-            outline-none
-            :placeholder="t('input-placeholder')"
-            w-86 p3
-            border="2 base"
-            text="center"
-            bg="transparent"
-            :disabled="isFinished"
-            :class="{ shake }"
-            @input="handleInput"
-            @keydown.enter="enter"
-          >
+          <div relative border="2 base rounded-0">
+            <input
+              ref="el"
+              v-model="inputValue"
+              bg-transparent w-86 p3 outline-none text-center
+              type="text"
+              autocomplete="false"
+              :placeholder="t('input-placeholder')"
+              :disabled="isFinished"
+              :class="{ shake }"
+              @input="handleInput"
+              @keydown.enter="enter"
+            >
+            <div
+              absolute top-0 left-0 right-0 bottom-0
+              flex="~ center" bg-base
+              transition-all duration-300 text-mis
+              pointer-events-none
+              :class="showToast ? '' : 'op0 translate-y--1'"
+            >
+              <span tracking-1 pl1>
+                {{ t('invalid-idiom') }}
+              </span>
+            </div>
+          </div>
           <button
             mt3
             btn p="x6 y2"
@@ -167,12 +176,5 @@ watchEffect(() => {
         </div>
       </template>
     </div>
-    <Toast v-model="showToast">
-      <div bg-base border border-base px8 py4 m5 text-lg shadow font-serif>
-        <span tracking-1 pl1>
-          {{ t('invalid-idiom') }}
-        </span>
-      </div>
-    </Toast>
   </div>
 </template>
