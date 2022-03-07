@@ -4,6 +4,5 @@ export const pinyinFinals = 'a o e ai ei ao ou an en ang eng ong er i ia io ie i
   .split(/\s/g)
   .sort((a, b) => {
     const i = a.length - b.length
-    return a.localeCompare(b)
-    return i
+    return a.localeCompare(b) || i
   })
