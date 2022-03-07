@@ -26,7 +26,12 @@ const lines = computed(() => {
   })
 
   return [
-    [t('name'), dayNoHanzi.value, !meta.value.hint ? t('hint-level-none') : ''].filter(Boolean).join(' · '),
+    [
+      t('name'),
+      dayNoHanzi.value,
+      meta.value.strict ? t('strict-mode').slice(0, 2) : '',
+      !meta.value.hint ? t('hint-level-none') : '',
+    ].filter(Boolean).join(' · '),
     '',
     ...table,
     '',
@@ -60,11 +65,12 @@ onMounted(async() => {
 </script>
 
 <template>
-  <p text-center mb4 w-80>
+  <p text-center mb4>
     {{ copied ? t('share-copied'): t('share-not-copied') }}
   </p>
   <textarea
-    text-left bg-gray-500:5 rounded p5 select-text resize-none outline-none
+    bg-gray-500:5 rounded p5 select-text resize-none outline-none
+    w-90 text-center
     style="line-height: 19px;letter-spacing: 1px;"
     :rows="lines.length"
     :value="text" readonly

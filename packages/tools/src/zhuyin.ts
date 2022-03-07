@@ -35,8 +35,30 @@ export function zhuyinToPinyin(zhuyin: string): ParsedPinyin {
   if (!base)
     throw new Error(`Invalid zhuyin ${zhuyin}`)
 
-  return {
-    base,
-    tone,
-  }
+  return { base, tone }
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest
+  const { getPinyin, pinyinToNumberStyle } = await import('./pinyin')
+
+  describe('zhuyin', () => {
+    it('toZhuyin', () => {
+      expect(getPinyin('你好世界')
+        .map(i => pinyinToZhuyin(i))
+        .join(' '),
+      )
+        .toMatchInlineSnapshot('"ㄋㄧˇ ㄏㄠˇ ㄕˋ ㄐㄧㄝˋ"')
+    })
+
+    it('toPinyin', () => {
+      expect(getPinyin('沒有問題')
+        .map(i => pinyinToZhuyin(i))
+        .map(i => zhuyinToPinyin(i))
+        .map(pinyinToNumberStyle)
+        .join(' '),
+      )
+        .toMatchInlineSnapshot('"mei2 you3 wen4 ti2"')
+    })
+  })
 }

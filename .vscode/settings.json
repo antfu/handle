@@ -28,5 +28,6 @@
       ],
     }
   ],
-  "i18n-ally.sourceLanguage": "zh-cn"
+  "i18n-ally.sourceLanguage": "zh-cn",
+  "cSpell.enabled": false,
 }
