@@ -1,0 +1,45 @@
+{
+  "name": "@hankit/tools",
+  "version": "0.0.1",
+  "description": "Toolkits for Hanzi and Pinyin",
+  "keywords": [
+    "hanzi",
+    "chinese",
+    "chinese-character",
+    "pinyin"
+  ],
+  "homepage": "https://github.com/antfu/handle/tree/main/packages/tools#readme",
+  "bugs": {
+    "url": "https://github.com/antfu/handle/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antfu/handle.git",
+    "directory": "packages/tools"
+  },
+  "funding": "https://github.com/sponsors/antfu",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "devDependencies": {
+    "pinyin": "^2.11.0",
+    "@types/pinyin": "^2.10.0"
+  }
+}
