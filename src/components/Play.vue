@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { filterNonChineseChars } from '@hankit/tools'
 import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
 import { markStart, meta, tries, useNoHint, useStrictMode } from '~/storage'
 import { t } from '~/i18n'
-import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom, filterNonChineseChars } from '~/logic'
+import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom } from '~/logic'
 
 const el = ref<HTMLInputElement>()
 const input = ref('')
@@ -34,7 +35,7 @@ function reset() {
 }
 function handleInput(e: Event) {
   const el = (e.target! as HTMLInputElement)
-  input.value = filterNonChineseChars(el.value)
+  input.value = filterNonChineseChars(el.value).slice(0, 4)
   markStart()
 }
 function focus() {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { toPng } from 'html-to-image'
+import { saveAs } from 'file-saver'
 import { dayNoHanzi, isIOS, isMobile, useMask } from '~/state'
 import { tries } from '~/storage'
 import { t } from '~/i18n'
@@ -13,7 +15,6 @@ const dataUrl = computed(() => useMask.value ? dataUrlMasked.value : dataUrlUnma
 
 async function render() {
   show.value = true
-  const { toPng } = await import('~/async/exportImage')
   await nextTick()
   await nextTick()
   showDialog.value = true
@@ -31,7 +32,6 @@ async function render() {
 onMounted(() => render())
 
 async function download() {
-  const { saveAs } = await import('~/async/exportImage')
   saveAs(dataUrl.value, `${t('name')} ${dayNoHanzi.value}${useMask.value ? ' 遮罩' : ''}.png`)
 }
 </script>
