@@ -17,20 +17,22 @@ export default defineConfig({
   define: {
     'import.meta.vitest': 'false',
   },
-  plugins: [
-    Vue(),
-    AutoImport({
-      imports: [
-        'vue',
-        '@vueuse/core',
-      ],
-      dts: true,
-    }),
-    Components({
-      dts: true,
-    }),
-    Unocss(),
-  ],
+  plugins: process.env.TEST
+    ? []
+    : [
+      Vue(),
+      AutoImport({
+        imports: [
+          'vue',
+          '@vueuse/core',
+        ],
+        dts: true,
+      }),
+      Components({
+        dts: true,
+      }),
+      Unocss(),
+    ],
   test: {
     includeSource: ['packages/*/src/**/*.ts'],
   },

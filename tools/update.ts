@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import fs from 'fs'
 import c from 'picocolors'
-import { pinyin2zhuyin } from '../src/logic/lang/zhuyin'
+import { toZhuyin } from '@hankit/tools'
 import _polyphones from '../src/data/polyphones.json'
 import { normalizePinyin } from './utils'
 import { getWordInfoFromZDict } from './zdict'
@@ -34,7 +34,7 @@ function validPinyin(word: string, pinyin: string) {
     if (!match)
       return console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
     const [full, body, tone] = match
-    if (!pinyin2zhuyin[body])
+    if (!toZhuyin(body))
       console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))
   //   if (!tone)
   //     console.error(c.red(`[${word}] no tone [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))

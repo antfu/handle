@@ -6,7 +6,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext=.ts,.vue",
-    "update": "esno tools/update.ts",
+    "update": "TEST=true vite-node tools/update.ts",
     "test": "vitest"
   },
   "dependencies": {
@@ -51,6 +51,7 @@
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.8.6",
+    "vite-node": "^0.6.0",
     "vitest": "^0.6.0"
   }
 }

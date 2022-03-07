@@ -42,6 +42,7 @@ importers:
       unplugin-auto-import: ^0.6.1
       unplugin-vue-components: ^0.17.21
       vite: ^2.8.6
+      vite-node: ^0.6.0
       vitest: ^0.6.0
       vue: ^3.2.31
     dependencies:
@@ -85,6 +86,7 @@ importers:
       unplugin-auto-import: 0.6.1_@vueuse+core@7.7.1+vite@2.8.6
       unplugin-vue-components: 0.17.21_vite@2.8.6+vue@3.2.31
       vite: 2.8.6
+      vite-node: 0.6.0
       vitest: 0.6.0_jsdom@19.0.0
 
   packages/tools:
@@ -4554,6 +4556,22 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /vite-node/0.6.0:
+    resolution: {integrity: sha512-0Yxprr03+UFKjkD2gsI405k8HrcV/RTspTTKeZLIk6J2vpwO26FrzXmUfgf17I+z5Z0oYmrFuTej/o0R8NAXMw==}
+    engines: {node: '>=14.14.0'}
+    hasBin: true
+    dependencies:
+      kolorist: 1.5.1
+      minimist: 1.2.5
+      mlly: 0.4.3
+      pathe: 0.2.0
+      vite: 2.8.6
+    transitivePeerDependencies:
+      - less
+      - sass
+      - stylus
     dev: true
 
   /vite/2.8.6:
