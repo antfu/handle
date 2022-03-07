@@ -1,9 +1,11 @@
 // @ts-expect-error missing types
-import _getPinyin from 'pinyin/lib/web-pinyin.js'
-import _toneMap from './map/pinyinTone.json'
+import _getPinyinWeb from 'pinyin/lib/web-pinyin.js'
+import _phonetics from './map/phonetics.json'
+import toPhonetics from './map/toPhonetics.json'
 import type { ParsedPinyin } from './types'
 
-const toneMap = _toneMap as Record<string, string>
+const _getPinyin = _getPinyinWeb as typeof import('pinyin')
+const phonetics = _phonetics as Record<string, string>
 
 export function parsePinyin(pinyin: string | ParsedPinyin): ParsedPinyin {
   if (typeof pinyin !== 'string')
@@ -18,9 +20,9 @@ export function parsePinyin(pinyin: string | ParsedPinyin): ParsedPinyin {
       tone = +i
       return ''
     }
-    if (toneMap[i]) {
-      tone = +toneMap[i][1]
-      return toneMap[i][0]
+    if (phonetics[i]) {
+      tone = +phonetics[i][1]
+      return phonetics[i][0]
     }
     return i
   }).filter(Boolean)
@@ -38,9 +40,25 @@ export function pinyinToNumberStyle(pinyin: string | ParsedPinyin) {
 
 export function pinyinToToneStyle(pinyin: string | ParsedPinyin) {
   pinyin = parsePinyin(pinyin)
-  return pinyin.base + (pinyin.tone || '')
+  const toneIndex = pinyinGetTonePosition(pinyin.base)
+  const toneBaseChar = pinyin.base[toneIndex]
+  const withPhonetic = (pinyin.tone ? (toPhonetics as any)[toneBaseChar][pinyin.tone - 1] : null) || toneBaseChar
+  return Array.from(pinyin.base).map((i, index) => index === toneIndex ? withPhonetic : i).join('')
+}
+
+export function pinyinGetTonePosition(pinyin: string) {
+  return [
+    pinyin.lastIndexOf('iu') > -1 ? pinyin.lastIndexOf('iu') + 1 : -1,
+    pinyin.lastIndexOf('a'),
+    pinyin.lastIndexOf('e'),
+    pinyin.lastIndexOf('o'),
+    pinyin.lastIndexOf('i'),
+    pinyin.lastIndexOf('u'),
+    pinyin.lastIndexOf('v'),
+    pinyin.lastIndexOf('ü'),
+  ].find(i => i !== null && i >= 0) || 0
 }
 
 export function getPinyin(text: string) {
-  return _getPinyin(text, { style: _getPinyin.STYLE_TONE2 }).map((i: any) => parsePinyin(i[0]))
+  return _getPinyin(text, { style: _getPinyin.STYLE_TONE2 }).map(i => parsePinyin(i[0]))
 }
