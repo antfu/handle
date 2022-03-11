@@ -152,14 +152,14 @@ watchEffect(() => {
       <template v-if="isDev">
         <div h-200 />
         <div op50 mb-2>
-          测试用
+          成语编号 ${dayNo}
         </div>
         <div flex gap2>
           <a
             class="btn"
             :href="`/?dev=hey&d=${dayNo - 1}`"
           >
-            上一天
+            上一题
           </a>
           <button
             class="btn"
@@ -171,7 +171,7 @@ watchEffect(() => {
             class="btn"
             :href="`/?dev=hey&d=${dayNo + 1}`"
           >
-            下一天
+            下一题
           </a>
         </div>
       </template>

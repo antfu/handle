@@ -30,10 +30,33 @@ export const useNumberTone = computed(() => {
   return _useNumberTone.value
 })
 
+var m_w = 123456789;
+var m_z = 987654321;
+var mask = 0xffffffff;
+
+// Takes any integer
+function seed(i) {
+    m_w = (123456789 + i) & mask;
+    m_z = (987654321 - i) & mask;
+}
+
+// Returns number between 0 (inclusive) and 1.0 (exclusive),
+// just like Math.random().
+function random()
+{
+    m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+    m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+    var result = ((m_z << 16) + (m_w & 65535)) >>> 0;
+    result /= 4294967296;
+    return result;
+}
+
 const params = new URLSearchParams(window.location.search)
 export const isDev = import.meta.hot || params.get('dev') === 'hey'
 export const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
-export const dayNo = ref(+(params.get('d') || daySince.value))
+seed(params.get("seed"))
+export const dayNo = ref(+29+Math.floor(random() * (20 - 0 + 1)) + 0)
+console.log(dayNo.value)
 export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
 export const answer = computed(() =>
   params.get('word')
