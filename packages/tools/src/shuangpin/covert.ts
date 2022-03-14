@@ -1,16 +1,19 @@
 import type { ParsedPinyin } from 'packages/tools/dist'
-import { finals as finalsMap, initals as initialsMap } from '../map/toShuangpin.json'
 import { parsePinyin } from '../pinyin'
 import { pinyinInitials } from '../pinyin/constants'
+import type { SpMode } from './constants'
+import { getShuangpinMaps } from './constants'
 
-export function toShuangpin(pinyin: string | ParsedPinyin) {
+export function toShuangpin(pinyin: string | ParsedPinyin, spMode: SpMode) {
   pinyin = parsePinyin(pinyin)
   const base = pinyin.base
   const initial = pinyinInitials.find(i => base.startsWith(i)) || ''
   const final = base.slice(initial.length)
 
-  const a = initialsMap[initial as keyof typeof initialsMap] || initial
-  const b = finalsMap[final as keyof typeof finalsMap] || final
+  const maps = getShuangpinMaps(spMode)
+
+  const a = maps.initials[initial] || initial
+  const b = maps.finals[final] || final
 
   return a + b
 }

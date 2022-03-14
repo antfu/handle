@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { colorblind, inputMode, meta, useCheckAssist, useNoHint, useNumberTone as useNumberToneRaw, useStrictMode } from '~/storage'
+import { colorblind, inputMode, meta, spMode, useCheckAssist, useNoHint, useNumberTone as useNumberToneRaw, useStrictMode } from '~/storage'
 import { useNumberTone } from '~/state'
 import { locale, t } from '~/i18n'
 
@@ -43,6 +43,15 @@ defineProps<{
           {{ t('shuangpin') }}
         </button>
       </div>
+      <div v-if="inputMode === 'sp'" square-btn m2>
+        <button :class="spMode === 'sougou' ? 'text-primary' : 'op80' " @click="spMode = 'sougou'">
+          {{ t('shuangpin-sougou') }}
+        </button>
+        <div w-1px h-4 border="r base" />
+        <button :class="spMode === 'xiaohe' ? 'text-primary' : 'op80' " @click="spMode = 'xiaohe'">
+          {{ t('shuangpin-xiaohe') }}
+        </button>
+      </div>
       <div square-btn m2 :class="inputMode !== 'py' ? 'op50 pointer-events-none' : ''">
         <button :class="!useNumberTone ? 'text-primary' : 'op80' " @click="useNumberToneRaw = false">
           {{ t('tone-symbol') }}
@@ -82,11 +91,5 @@ defineProps<{
         <div v-if="useStrictMode" square-btn-mark />
       </button>
     </div>
-    <a
-      v-if="inputMode === 'sp'" mt2
-      href="https://zh.wikipedia.org/wiki/%E5%8F%8C%E6%8B%BC" target="_blank" text-sm op50
-    >
-      {{ t('shuangpin-note') }}
-    </a>
   </div>
 </template>

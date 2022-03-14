@@ -1,7 +1,7 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import type { MatchType, ParsedChar } from './logic'
 import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, numberToHanzi } from './logic'
-import { useNumberTone as _useNumberTone, inputMode, meta, tries } from './storage'
+import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
 import { getAnswerOfDay } from './answers'
 
 export const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
@@ -51,8 +51,8 @@ export const isPassed = computed(() => meta.value.passed || (tries.value.length 
 export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
 export const isFinished = computed(() => isPassed.value || meta.value.answer)
 
-export function parseWord(word: string, _ans = answer.value.word, mode = inputMode.value) {
-  return _parseWord(word, _ans, mode)
+export function parseWord(word: string, _ans = answer.value.word, mode = inputMode.value, spM = spMode.value) {
+  return _parseWord(word, _ans, mode, spM)
 }
 
 export function testAnswer(word: ParsedChar[], ans = parsedAnswer.value) {
