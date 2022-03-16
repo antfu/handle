@@ -1,16 +1,17 @@
 import seedrandom from 'seedrandom'
+import type { SpMode } from '@hankit/tools'
 import { pinyinInitials, toShuangpin, toSimplified, toZhuyin } from '@hankit/tools'
 import type { InputMode, MatchResult, ParsedChar } from './types'
 import { getPinyin } from './idioms'
 
-export function parsePinyin(pinyin: string, mode: InputMode = 'py') {
+export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMode = 'sougou') {
   let parts: string[] = []
   if (pinyin) {
     if (mode === 'zy') {
       parts = Array.from(pinyin.trim() ? toZhuyin(pinyin) : '')
     }
     else if (mode === 'sp') {
-      parts = Array.from(toShuangpin(pinyin))
+      parts = Array.from(toShuangpin(pinyin, spMode))
     }
     else {
       let rest = pinyin
@@ -23,14 +24,14 @@ export function parsePinyin(pinyin: string, mode: InputMode = 'py') {
   return parts
 }
 
-export function parseChar(char: string, pinyin?: string, mode?: InputMode): ParsedChar {
+export function parseChar(char: string, pinyin?: string, mode?: InputMode, spMode?: SpMode): ParsedChar {
   if (!pinyin)
     pinyin = getPinyin(char)[0]
   const tone = pinyin.match(/[\d]$/)?.[0] || ''
   if (tone)
     pinyin = pinyin.slice(0, -tone.length).trim()
 
-  const parts = parsePinyin(pinyin, mode)
+  const parts = parsePinyin(pinyin, mode, spMode)
   // if there is no final, actually it's no intital
   if (parts[0] && !parts[1]) {
     parts[1] = parts[0]
@@ -50,7 +51,7 @@ export function parseChar(char: string, pinyin?: string, mode?: InputMode): Pars
   }
 }
 
-export function parseWord(word: string, answer?: string, mode?: InputMode) {
+export function parseWord(word: string, answer?: string, mode?: InputMode, spMode?: SpMode) {
   const pinyins = getPinyin(word)
   const chars = Array.from(word)
   const answerPinyin = answer ? getPinyin(answer) : undefined
@@ -60,7 +61,7 @@ export function parseWord(word: string, answer?: string, mode?: InputMode) {
     // try match the pinyin from the answer word
     if (answerPinyin && answer && answer.includes(char))
       pinyin = answerPinyin[answer.indexOf(char)] || pinyin
-    return parseChar(char, pinyin, mode)
+    return parseChar(char, pinyin, mode, spMode)
   })
 }
 

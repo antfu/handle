@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { pinyinFinals, pinyinInitials, shuangpinFinals, shuangpinInitials, zhuyinSymbols } from '@hankit/tools'
-import { inputMode } from '~/storage'
+import { getShuangpinConstants, pinyinFinals, pinyinInitials, zhuyinSymbols } from '@hankit/tools'
+import { inputMode, spMode } from '~/storage'
 import { t } from '~/i18n'
 import { getSymbolState, showCheatSheet } from '~/state'
 
@@ -24,6 +24,8 @@ const modeText = computed(() => ({
   sp: t('shuangpin'),
   zy: t('zhuyin'),
 }[inputMode.value]))
+
+const spConstants = computed(() => getShuangpinConstants(spMode.value))
 </script>
 
 <template>
@@ -59,12 +61,12 @@ const modeText = computed(() => ({
         {{ t('finals') }}
       </div>
       <div grid="~ cols-4 gap-4" h-min>
-        <div v-for="s of shuangpinInitials" :key="s" :class="getSymbolClass(s, '_1')">
+        <div v-for="s of spConstants.initials" :key="s" :class="getSymbolClass(s, '_1')">
           {{ s }}
         </div>
       </div>
       <div grid="~ cols-4 gap-4" h-min>
-        <div v-for="s of shuangpinFinals" :key="s" :class="getSymbolClass(s, '_2')">
+        <div v-for="s of spConstants.finals" :key="s" :class="getSymbolClass(s, '_2')">
           {{ s }}
         </div>
       </div>
