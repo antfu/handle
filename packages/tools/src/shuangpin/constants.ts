@@ -13,8 +13,8 @@ const shuangpinConstants: Record<SpMode, { initials: string[]; finals: string[] 
     finals: convertFinalMap(sougouMap.finals),
   },
   xiaohe: {
-    initials: shuangpinInitials,
-    finals: convertFinalMap(xiaoheMap.finals),
+    initials: [...shuangpinInitials, 'e'],
+    finals: convertFinalMap(xiaoheMap.finals).map(i => i === 'er' ? 'r' : i),
   },
 }
 

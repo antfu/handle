@@ -126,10 +126,10 @@ const partTwo = computed(() => {
             <div v-if="partTwo" mx-1px flex>
               <div v-for="w,idx of partTwo" :key="idx" relative>
                 <div :class="getColor(parsed?._2)">
-                  {{ w.replace('v', 'u') }}
+                  {{ inputMode === 'sp' ? w : w.replace('v', 'u') }}
                 </div>
                 <VDots
-                  v-if="!useMask && idx === vLocation"
+                  v-if="!useMask && idx === vLocation && inputMode === 'py'"
                   :class="getColor(parsed?._2)"
                   absolute w="87%" left="8%" bottom="0.76rem"
                 />
