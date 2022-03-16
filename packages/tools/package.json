@@ -39,7 +39,7 @@
     "stub": "unbuild --stub"
   },
   "devDependencies": {
-    "pinyin": "^2.11.0",
-    "@types/pinyin": "^2.10.0"
+    "@types/pinyin": "^2.10.0",
+    "pinyin": "^2.11.1"
   }
 }
