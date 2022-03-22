@@ -1,4 +1,4 @@
-import type { ParsedPinyin } from 'packages/tools/dist'
+import type { ParsedPinyin } from '../types'
 import { parsePinyin } from '../pinyin'
 import { pinyinInitials } from '../pinyin/constants'
 import type { SpMode } from './constants'
