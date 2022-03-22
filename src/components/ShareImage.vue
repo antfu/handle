@@ -55,7 +55,7 @@ async function download() {
   </div>
 
   <div v-if="show" fixed style="left: 200vw; top: 200vh">
-    <div ref="el" flex="~ col" items-center p="x6 y4" bg-base relative>
+    <div ref="el" flex="~ col" items-center p="x6 y4" bg-base relative text-center>
       <AppName />
       <div text-xs mt1 mb3 op50 ws-nowrap>
         handle.antfu.me
