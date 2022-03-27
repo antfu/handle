@@ -3,6 +3,7 @@ import type { SpMode } from '@hankit/tools'
 import { pinyinInitials, toShuangpin, toSimplified, toZhuyin } from '@hankit/tools'
 import type { InputMode, MatchResult, ParsedChar } from './types'
 import { getPinyin } from './idioms'
+import { useCheckAssist } from '~/storage'
 
 export function parsePinyin(pinyin: string, mode: InputMode = 'py', spMode: SpMode = 'sougou') {
   let parts: string[] = []
@@ -93,27 +94,37 @@ export function testAnswer(input: ParsedChar[], answer: ParsedChar[]) {
         ? 'exact'
         : includesAndRemove(unmatched.char, char)
           ? 'misplaced'
-          : 'none',
+          : useCheckAssist.value
+            ? 'deleted'
+            : 'none',
       tone: answer[i].tone === a.tone
         ? 'exact'
         : includesAndRemove(unmatched.tone, a.tone)
           ? 'misplaced'
-          : 'none',
+          : useCheckAssist.value
+            ? 'deleted'
+            : 'none',
       _1: !a._1 || answer[i].parts.includes(a._1)
         ? 'exact'
         : includesAndRemove(unmatched.parts, a._1)
           ? 'misplaced'
-          : 'none',
+          : useCheckAssist.value
+            ? 'deleted'
+            : 'none',
       _2: !a._2 || answer[i].parts.includes(a._2)
         ? 'exact'
         : includesAndRemove(unmatched.parts, a._2)
           ? 'misplaced'
-          : 'none',
+          : useCheckAssist.value
+            ? 'deleted'
+            : 'none',
       _3: !a._3 || answer[i].parts.includes(a._3)
         ? 'exact'
         : includesAndRemove(unmatched.parts, a._3)
           ? 'misplaced'
-          : 'none',
+          : useCheckAssist.value
+            ? 'deleted'
+            : 'none',
     }
   })
 }

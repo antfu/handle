@@ -84,7 +84,6 @@ watchEffect(() => {
         v-if="!isFinished"
         :class="{ shake }"
         :word="input"
-        :active="true"
         @click="focus()"
       />
 
