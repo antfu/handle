@@ -1,9 +1,8 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import type { MatchType, ParsedChar } from './logic'
-import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, numberToHanzi } from './logic'
+import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, numberToHanzi, isDstObserved } from './logic'
 import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
 import { getAnswerOfDay } from './answers'
-import './logic/dateExt.ts'
 
 export const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 export const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone|webOS/i.test(navigator.userAgent)
@@ -35,7 +34,7 @@ const params = new URLSearchParams(window.location.search)
 export const isDev = import.meta.hot || params.get('dev') === 'hey'
 export const daySince = useDebounce(computed(() => {
   // Adjust date for daylight saving time, assuming START_DATE is not in DST
-  const adjustedNow = now.value.isDstObserved() ? new Date(+now.value + 3600000) : now.value
+  const adjustedNow = isDstObserved(now.value) ? new Date(+now.value + 3600000) : now.value
   return Math.floor((+adjustedNow - +START_DATE) / 86400000)
 }))
 export const dayNo = ref(+(params.get('d') || daySince.value))

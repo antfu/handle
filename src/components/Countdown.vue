@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { now } from '~/state'
 import { t } from '~/i18n'
-import { START_DATE } from '~/logic'
-const ms = computed(() => 86400000 - ((now.value.isDstObserved() ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000)
+import { START_DATE, isDstObserved } from '~/logic'
+const ms = computed(() => 86400000 - ((isDstObserved(now.value) ? +now.value + 3600000 : +now.value) - +START_DATE) % 86400000)
 const formatted = computed(() => {
   const h = Math.floor((ms.value % 86400000) / 3600000)
   const m = Math.floor((ms.value % 3600000) / 60000)
