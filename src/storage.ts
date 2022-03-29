@@ -89,7 +89,7 @@ export const averageDurations = computed(() => {
 export function formatDuration(duration: number) {
   const ts = duration / 1000
   const m = Math.floor(ts / 60)
-  const s = Math.round(ts % 60)
+  const s = Math.floor(ts % 60)
   if (m)
     return m + t('minutes') + s + t('seconds')
   return s + t('seconds')
