@@ -46,7 +46,7 @@ async function download() {
   </div>
 
   <div flex="~" py4>
-    <button v-if="!isIOS" mx2 square-btn flex-gap-1 @click="download()">
+    <button v-if="!isIOS" mx2 square-btn flex-gap-1 :disabled="!dataUrl" @click="download()">
       <div i-carbon-download />
       {{ t('download') }}
     </button>
