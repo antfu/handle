@@ -20,9 +20,9 @@
     "ia": "x",
     "ian": "m",
     "iang": "l",
+    "iong":"s",
     "iao": "n",
     "ie": "p",
-    "iong": "k",
     "in": "b",
     "ing": "k",
     "iu": "q",
@@ -40,6 +40,7 @@
     "un": "y",
     "uo": "o",
     "v": "v",
-    "ve": "t"
+    "ve": "t",
+    "van": "r"
   }
 }
