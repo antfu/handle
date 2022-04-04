@@ -90,15 +90,15 @@ const partTwo = computed(() => {
       <!-- Zhuyin -->
       <template v-if="inputMode === 'zy'">
         <div
-          text-3xl leading-1em absolute
-          top="1/2" class="translate-y--1/2"
+          absolute text-3xl leading-1em flex items-center text-center
+          top-0 bottom-0
           :class="[getColor(parsed?.char, true), useMask ? 'left-3': 'left-4']"
         >
           {{ char.char }}
         </div>
         <div
           absolute flex items-center text-center
-          top="1/2" class="translate-y--1/2"
+          top-0 bottom-0
           right="2.5" w="5"
         >
           <div flex="~ center" text-xs style="writing-mode: vertical-rl">
@@ -119,7 +119,7 @@ const partTwo = computed(() => {
       <!-- Pinyin or Shuangpin -->
       <template v-else>
         <div
-          text-3xl leading-1em absolute
+          absolute text-3xl leading-1em
           :class="[getColor(parsed?.char, true), useMask ? 'top-8.5': 'top-8']"
         >
           {{ char.char }}
