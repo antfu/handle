@@ -54,7 +54,7 @@ async function download() {
     <ToggleMask mx2 />
   </div>
 
-  <div v-if="show" fixed style="left: 200vw; top: 200vh">
+  <div v-if="show" fixed op0 top-0 left-0 pointer-events-none>
     <div ref="el" flex="~ col" items-center p="x6 y4" bg-base relative text-center>
       <AppName />
       <div text-xs mt1 mb3 op50 ws-nowrap>
