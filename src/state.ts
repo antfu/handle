@@ -1,6 +1,6 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import type { MatchType, ParsedChar } from './logic'
-import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, numberToHanzi, isDstObserved } from './logic'
+import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, isDstObserved, numberToHanzi } from './logic'
 import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
 import { getAnswerOfDay } from './answers'
 
