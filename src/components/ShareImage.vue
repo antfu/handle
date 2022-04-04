@@ -56,13 +56,13 @@ async function download() {
 
   <div v-if="show" fixed op0 top-0 left-0 pointer-events-none>
     <div ref="el" flex="~ col" items-center p="x6 y4" bg-base relative text-center>
-      <AppName />
-      <div text-xs mt1 mb3 op50 ws-nowrap>
+      <AppName w-full />
+      <div w-full text-xs mt1 mb3 op50 ws-nowrap>
         handle.antfu.me
       </div>
 
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
-      <ResultFooter :day="true" mt3 />
+      <ResultFooter :day="true" mt3 w-full />
     </div>
   </div>
 </template>

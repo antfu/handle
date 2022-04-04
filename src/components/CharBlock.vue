@@ -80,17 +80,27 @@ const partTwo = computed(() => {
 </script>
 
 <template>
-  <div h-20 w-20 border-2 font-serif leading-1em flex="~ center" relative :class="blockColor">
+  <div
+    h-20 w-20 border-2
+    flex="~ center" relative
+    leading-1em font-serif
+    :class="blockColor"
+  >
     <template v-if="char?.char?.trim()">
       <!-- Zhuyin -->
       <template v-if="inputMode === 'zy'">
         <div
-          text-3xl leading-1em
-          :class="[getColor(parsed?.char, true), useMask ? 'mr4': 'mr3']"
+          text-3xl leading-1em absolute
+          top="1/2" class="translate-y--1/2"
+          :class="[getColor(parsed?.char, true), useMask ? 'left-3': 'left-4']"
         >
           {{ char.char }}
         </div>
-        <div absolute text-center top-0 bottom-0 right="2.5" w="5" flex items-center>
+        <div
+          absolute flex items-center text-center
+          top="1/2" class="translate-y--1/2"
+          right="2.5" w="5"
+        >
           <div flex="~ center" text-xs style="writing-mode: vertical-rl">
             <span v-if="char._1" :class="getColor(parsed?._1)">
               {{ char._1 }}
@@ -109,8 +119,8 @@ const partTwo = computed(() => {
       <!-- Pinyin or Shuangpin -->
       <template v-else>
         <div
-          text-3xl leading-1em
-          :class="[getColor(parsed?.char, true), useMask ? 'mt6': 'mt4']"
+          text-3xl leading-1em absolute
+          :class="[getColor(parsed?.char, true), useMask ? 'top-8.5': 'top-8']"
         >
           {{ char.char }}
         </div>
@@ -119,7 +129,10 @@ const partTwo = computed(() => {
           text-center left-0 right-0 font-100 flex flex-col items-center
           :class="[useMask ? 'top-14px': 'top-11px']"
         >
-          <div relative flex="~ x-center" items-start ma>
+          <div
+            relative ma items-start
+            flex="~ x-center"
+          >
             <div v-if="char._1" :class="getColor(parsed?._1)" mx-1px>
               {{ char._1 }}
             </div>
