@@ -20,6 +20,7 @@ export function tryFixAnswer(day: number) {
   if (index <= TRIES_LIMIT) {
     meta.passed = true
     meta.failed = false
+    meta.answer = false
   }
   meta.duration = (meta.duration || 0) * newTries.length / tries.length
 }
