@@ -127,7 +127,7 @@ export const _2022_MARCH = prepare(31, seedShuffle([
 ], '2022-03'))
 
 export const _2022_APRIL = prepare(30, seedShuffle([
-  ['破釜沈舟', '破'],
+  ['破釜沉舟', '破'],
   ['急转直下', '下'],
   ['独具匠心', '心'],
   ['不耻下问', '下'],
