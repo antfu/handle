@@ -4,6 +4,7 @@ import { t } from './i18n'
 import { sendAnalytics } from './analytics'
 import { answers } from './answers/list'
 import { START_DATE } from './logic/constants'
+import { tryFixAnswer } from './logic/answer-fix'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
@@ -56,6 +57,8 @@ watchEffect(() => {
 nextTick(() => {
   if (acceptCollecting.value)
     sendAnalytics()
+
+  tryFixAnswer(dayNo.value)
 })
 
 if (isDev || import.meta.hot) {
