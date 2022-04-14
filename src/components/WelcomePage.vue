@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isDark, showHelp, showPrivacyNotes, showVariants, useMask } from '~/state'
-import { initialized, inputMode } from '~/storage'
+import { colorblind, initialized, inputMode } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
@@ -47,20 +47,20 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
     <div h-1px w-10 border="b base" m4 />
 
     <WordBlocks my2 :word="t('example-1')" :revealed="true" answer=" 门  " />
-    <p>{{ t('intro-4') }} <b text-ok>{{ t('intro-5') }}</b> {{ t('intro-6') }}</p>
+    <p>{{ t('intro-4') }} <b text-ok>{{ t('intro-5') }}</b> {{ t('intro-6',colorblind?t('intro-color-2'):t('intro-color-1')) }}</p>
 
     <WordBlocks my2 :word="t('example-2')" :revealed="true" answer="一一一水" />
-    <p>{{ t('intro-7') }} <b text-mis>{{ t('intro-8') }}</b> {{ t('intro-9') }}</p>
+    <p>{{ t('intro-7') }} <b text-mis>{{ t('intro-8') }}</b> {{ t('intro-9',colorblind?t('intro-color-4'):t('intro-color-3')) }}</p>
 
     <WordBlocks my2 :word="t('example-3')" :revealed="true" answer="桥它拖 " />
     <p max-w-130>
       {{ t('intro-10') }} <b>{{ t('intro-11') }}</b> {{ t('intro-12') }}
-      {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
-      {{ t('intro-17') }} <b text-mis>{{ final }}</b> {{ t('intro-19') }}
+      {{ t('intro-13') }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-15',colorblind?t('intro-color-2'):t('intro-color-1')) }} <b op50>{{ t('intro-14') }}</b> {{ t('intro-16') }}
+      {{ t('intro-17') }} <b text-mis>{{ final }}</b> {{ t('intro-19',colorblind?t('intro-color-4'):t('intro-color-3')) }}
     </p>
 
     <WordBlocks my2 :word="t('example-4')" :revealed="true" answer="武运昌隆" />
-    <p>{{ t('intro-20') }}</p>
+    <p>{{ t('intro-20',colorblind?t('intro-color-2'):t('intro-color-1')) }}</p>
 
     <div h-1px w-10 border="b base" m4 />
 
