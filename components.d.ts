@@ -37,7 +37,6 @@ declare module 'vue' {
     VDots: typeof import('./src/components/VDots.vue')['default']
     WelcomePage: typeof import('./src/components/WelcomePage.vue')['default']
     WordBlocks: typeof import('./src/components/WordBlocks.vue')['default']
-    WorldCompare: typeof import('./src/components/WorldCompare.vue')['default']
   }
 }
 
