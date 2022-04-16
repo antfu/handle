@@ -1,7 +1,7 @@
-import { acceptCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
+import { initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from './state'
 import { t } from './i18n'
-import { sendAnalytics } from './analytics'
+// import { sendAnalytics } from './analytics'
 import { answers } from './answers/list'
 import { START_DATE } from './logic/constants'
 import { tryFixAnswer } from './logic/answer-fix'
@@ -23,10 +23,9 @@ watch(daySince, (n, o) => {
 })
 
 watch([isFinished, meta], () => {
-  if (isFinished.value) {
+  if (isFinished.value)
     markEnd()
-    sendAnalytics()
-  }
+    // sendAnalytics()
 }, { flush: 'post' })
 
 watch(isFinished, (v) => {
@@ -55,8 +54,8 @@ watchEffect(() => {
 }, { flush: 'post' })
 
 nextTick(() => {
-  if (acceptCollecting.value)
-    sendAnalytics()
+  // if (acceptCollecting.value)
+  //   sendAnalytics()
 
   tryFixAnswer(dayNo.value)
 })
