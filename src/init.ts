@@ -2,7 +2,7 @@ import { initialized, markEnd, markStart, meta, pauseTimer } from './storage'
 import { answer, dayNo, daySince, isDev, isFinished, isPassed, showCheatSheet, showHelp } from './state'
 import { t } from './i18n'
 // import { sendAnalytics } from './analytics'
-import { answers } from './answers/list'
+import { idioms } from './answers/list'
 import { START_DATE } from './logic/constants'
 import { tryFixAnswer } from './logic/answer-fix'
 
@@ -68,9 +68,9 @@ if (isDev || import.meta.hot) {
 
 if (import.meta.hot) {
   // eslint-disable-next-line no-console
-  console.log(`${answers.length} days prepared`)
+  console.log(`${idioms.length} days prepared`)
   // eslint-disable-next-line no-console
-  console.log(`${answers.length - dayNo.value} days left`)
-  if ((answers.length - daySince.value) < 10)
+  console.log(`${idioms.length - dayNo.value} days left`)
+  if ((idioms.length - daySince.value) < 10)
     throw new Error('Not enough days left!')
 }
