@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite --port 4444",
     "netlify": "netlify dev --port 3333 --targetPort 4444",
