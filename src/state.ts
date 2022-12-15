@@ -41,9 +41,9 @@ export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
 export const answer = computed(() =>
   params.get('word')
     ? {
-      word: params.get('word')!,
-      hint: getHint(params.get('word')!),
-    }
+        word: params.get('word')!,
+        hint: getHint(params.get('word')!),
+      }
     : getAnswerOfDay(dayNo.value),
 )
 

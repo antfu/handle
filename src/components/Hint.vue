@@ -13,7 +13,7 @@ const masked = computed(() => ({
 <template>
   <div p8 flex="~ col gap-4" items-center>
     <p><b>{{ dayNoHanzi }}</b></p>
-    <div>{{ t('hint-note') }} <b>{{ meta.hintLevel === 2 ? t('hanzi'): t('ziyin') }}</b></div>
+    <div>{{ t('hint-note') }} <b>{{ meta.hintLevel === 2 ? t('hanzi') : t('ziyin') }}</b></div>
     <CharBlock :char="meta.hintLevel === 2 ? parsed : masked" />
     <button
       v-if="meta.hintLevel !== 2"

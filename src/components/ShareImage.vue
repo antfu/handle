@@ -61,7 +61,7 @@ async function download() {
         handle.antfu.me
       </div>
 
-      <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
+      <WordBlocks v-for="w, i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
       <ResultFooter :day="true" mt3 w-full />
     </div>
   </div>

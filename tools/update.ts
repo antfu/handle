@@ -29,7 +29,7 @@ function validPinyin(word: string, pinyin: string) {
   const parts = pinyin.split(/\s+/g)
   if (parts.length !== 4)
     return console.log(c.red(`[${word}] invalid length`), c.blue(pinyin))
-  parts.forEach(async(i, idx) => {
+  parts.forEach(async (i, idx) => {
     const match = i.match(/^([a-z]+)([0-4])?$/)
     if (!match)
       return console.error(c.red(`[${word}] invalid pinyin [${idx}]:`), c.blue(i), '->', c.green(await getPinyinWeb(word[idx])))

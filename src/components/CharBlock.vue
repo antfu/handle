@@ -92,7 +92,7 @@ const partTwo = computed(() => {
         <div
           absolute text-3xl leading-1em flex items-center text-center
           top-0 bottom-0
-          :class="[getColor(parsed?.char, true), useMask ? 'left-3': 'left-4']"
+          :class="[getColor(parsed?.char, true), useMask ? 'left-3' : 'left-4']"
         >
           {{ char.char }}
         </div>
@@ -120,14 +120,14 @@ const partTwo = computed(() => {
       <template v-else>
         <div
           absolute text-3xl leading-1em
-          :class="[getColor(parsed?.char, true), useMask ? 'top-8.5': 'top-8']"
+          :class="[getColor(parsed?.char, true), useMask ? 'top-8.5' : 'top-8']"
         >
           {{ char.char }}
         </div>
         <div
           absolute font-mono
           text-center left-0 right-0 font-100 flex flex-col items-center
-          :class="[useMask ? 'top-14px': 'top-11px']"
+          :class="[useMask ? 'top-14px' : 'top-11px']"
         >
           <div
             relative ma items-start
@@ -137,7 +137,7 @@ const partTwo = computed(() => {
               {{ char._1 }}
             </div>
             <div v-if="partTwo" mx-1px flex>
-              <div v-for="w,idx of partTwo" :key="idx" relative>
+              <div v-for="w, idx of partTwo" :key="idx" relative>
                 <div :class="getColor(parsed?._2)">
                   {{ inputMode === 'sp' ? w : w.replace('v', 'u') }}
                 </div>

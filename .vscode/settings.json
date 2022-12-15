@@ -8,10 +8,10 @@
   "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
+    "source.fixAll.eslint": true
   },
   "files.associations": {
-    "*.css": "postcss",
+    "*.css": "postcss"
   },
   "i18n-ally.enabledFrameworks": [
     "vue"
@@ -26,8 +26,8 @@
     {
       "templates": [
         "{{ t('{key}') }}",
-        "t('{key}')",
-      ],
+        "t('{key}')"
+      ]
     }
   ],
   "i18n-ally.sourceLanguage": "zh-cn"

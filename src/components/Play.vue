@@ -69,7 +69,7 @@ watchEffect(() => {
 <template>
   <div>
     <div flex="~ col" pt4 items-center>
-      <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
+      <WordBlocks v-for="w, i of tries" :key="i" :word="w" :revealed="true" @click="focus()" />
 
       <template v-if="meta.answer">
         <div my4>

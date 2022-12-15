@@ -5,7 +5,7 @@ it('getPinyin', () => {
   expect(getPinyin('自怨自艾')).toMatchInlineSnapshot(`
     [
       "zi4",
-      "yuan4",
+      "yvan4",
       "zi4",
       "yi4",
     ]

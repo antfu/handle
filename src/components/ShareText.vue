@@ -56,7 +56,7 @@ async function shareSystem() {
   return false
 }
 
-onMounted(async() => {
+onMounted(async () => {
   if (clipboard.isSupported) {
     await clipboard.copy(text.value)
     copied.value = true
@@ -66,7 +66,7 @@ onMounted(async() => {
 
 <template>
   <p text-center mb4>
-    {{ copied ? t('share-copied'): t('share-not-copied') }}
+    {{ copied ? t('share-copied') : t('share-not-copied') }}
   </p>
   <textarea
     bg-gray-500:5 rounded p5 select-text resize-none outline-none

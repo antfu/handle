@@ -85,7 +85,7 @@ defineProps<{
         square-btn m2
         :class="[
           useStrictMode ? 'text-primary' : 'op80',
-          !!meta.tries?.length ? 'op50 pointer-events-none' : ''
+          !!meta.tries?.length ? 'op50 pointer-events-none' : '',
         ]"
         @click="useStrictMode = !useStrictMode"
       >

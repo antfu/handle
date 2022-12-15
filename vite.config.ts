@@ -20,19 +20,19 @@ export default defineConfig({
   plugins: process.env.TEST
     ? []
     : [
-      Vue(),
-      AutoImport({
-        imports: [
-          'vue',
-          '@vueuse/core',
-        ],
-        dts: true,
-      }),
-      Components({
-        dts: true,
-      }),
-      Unocss(),
-    ],
+        Vue(),
+        AutoImport({
+          imports: [
+            'vue',
+            '@vueuse/core',
+          ],
+          dts: true,
+        }),
+        Components({
+          dts: true,
+        }),
+        Unocss(),
+      ],
   test: {
     includeSource: ['packages/*/src/**/*.ts'],
   },
