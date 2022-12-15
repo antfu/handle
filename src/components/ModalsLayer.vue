@@ -6,7 +6,6 @@ import {
   showFailed,
   showHelp,
   showHint,
-  showPrivacyNotes,
   showSettings,
   showShareDialog,
   showVariants,
@@ -39,8 +38,5 @@ const lg = breakpoints.lg
   </Modal>
   <Modal v-model="showVariants" direction="top">
     <VariantLinks />
-  </Modal>
-  <Modal v-model="showPrivacyNotes" direction="top">
-    <PrivacyNotes />
   </Modal>
 </template>
