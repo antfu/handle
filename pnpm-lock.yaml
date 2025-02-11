@@ -20,6 +20,7 @@ importers:
       '@vitejs/plugin-vue': ^4.0.0
       '@vue/test-utils': ^2.2.6
       '@vueuse/core': ^9.6.0
+      ansis: ^3.12.0
       axios: ^1.2.1
       canvas-confetti: ^1.6.0
       cheerio: ^1.0.0-rc.12
@@ -30,7 +31,6 @@ importers:
       lru-cache: ^7.14.1
       nanoid: ^4.0.0
       ohmyfetch: ^0.4.21
-      picocolors: ^1.0.0
       pinyin: ^2.11.2
       pnpm: ^7.18.2
       seedrandom: ^3.0.5
@@ -69,12 +69,12 @@ importers:
       '@unocss/reset': 0.47.6
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.1+vue@3.2.45
       '@vue/test-utils': 2.2.6_vue@3.2.45
+      ansis: 3.12.0
       cheerio: 1.0.0-rc.12
       eslint: 8.29.0
       file-saver: 2.0.5
       jsdom: 20.0.3
       ohmyfetch: 0.4.21
-      picocolors: 1.0.0
       pnpm: 7.18.2
       typescript: 4.9.4
       unbuild: 1.0.2
@@ -1474,6 +1474,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       color-convert: 2.0.1
+    dev: true
+
+  /ansis/3.12.0:
+    resolution: {integrity: sha512-SxhlInpMkv9QCyI2yHyrhVrTF8dH93M/S86DT5f9brFgr92uJLOCg0RNmtx3YKWKcRmNAaU+gyUfHMdUiqxvFw==}
+    engines: {node: '>=14'}
     dev: true
 
   /anymatch/3.1.2:

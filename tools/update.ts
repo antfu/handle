@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import fs from 'fs'
-import c from 'picocolors'
+import c from 'ansis'
 import { toZhuyin } from '@hankit/tools'
 import _polyphones from '../src/data/polyphones.json'
 import { normalizePinyin } from './utils'
