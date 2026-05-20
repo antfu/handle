@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { filterNonChineseChars } from '@hankit/tools'
-import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
+import { answer, dayNo, isDev, isFailed, isFinished, showCheatSheet, showFailed, showHelp, showHint, startExtraRound } from '~/state'
 import { markStart, meta, tries, useNoHint, useStrictMode } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH, checkValidIdiom } from '~/logic'
@@ -143,7 +143,10 @@ watchEffect(() => {
         </div>
       </Transition>
       <Transition name="fade-in">
-        <div v-if="isFinishedDelay && isFinished">
+        <div v-if="isFinishedDelay && isFinished" flex="~ col" items-center gap-2>
+          <button mt6 btn p="x4 y1.5" text-lg @click="startExtraRound">
+            {{ t('one-more') }}
+          </button>
           <ResultFooter />
           <Countdown />
         </div>
@@ -151,29 +154,6 @@ watchEffect(() => {
 
       <template v-if="isDev">
         <div h-200 />
-        <div op50 mb-2>
-          测试用
-        </div>
-        <div flex gap2>
-          <a
-            class="btn"
-            :href="`/?dev=hey&d=${dayNo - 1}`"
-          >
-            上一天
-          </a>
-          <button
-            class="btn"
-            @click="reset"
-          >
-            重置
-          </button>
-          <a
-            class="btn"
-            :href="`/?dev=hey&d=${dayNo + 1}`"
-          >
-            下一天
-          </a>
-        </div>
       </template>
     </div>
   </div>
