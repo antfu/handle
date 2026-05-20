@@ -1,8 +1,9 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import type { MatchType, ParsedChar } from './logic'
 import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, isDstObserved, numberToHanzi } from './logic'
-import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
+import { extraAnswerHint, extraAnswerWord, extraRound, useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
 import { getAnswerOfDay } from './answers'
+import { answers } from './answers/list'
 
 export const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 export const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone|webOS/i.test(navigator.userAgent)
@@ -44,7 +45,12 @@ export const answer = computed(() =>
         word: params.get('word')!,
         hint: getHint(params.get('word')!),
       }
-    : getAnswerOfDay(dayNo.value),
+    : extraRound.value && extraAnswerWord.value
+      ? {
+          word: extraAnswerWord.value,
+          hint: extraAnswerHint.value || getHint(extraAnswerWord.value),
+        }
+      : getAnswerOfDay(dayNo.value),
 )
 
 export const hint = computed(() => answer.value.hint)
@@ -53,6 +59,24 @@ export const parsedAnswer = computed(() => parseWord(answer.value.word))
 export const isPassed = computed(() => meta.value.passed || (tries.value.length && checkPass(testAnswer(parseWord(tries.value[tries.value.length - 1])))))
 export const isFailed = computed(() => !isPassed.value && tries.value.length >= TRIES_LIMIT)
 export const isFinished = computed(() => isPassed.value || meta.value.answer)
+
+export function startExtraRound() {
+  const currentWord = answer.value.word
+  let newEntry: string[]
+  do {
+    const idx = Math.floor(Math.random() * answers.length)
+    newEntry = answers[idx]
+  } while (!newEntry[0] || newEntry[0] === currentWord)
+
+  extraAnswerWord.value = newEntry[0]
+  extraAnswerHint.value = newEntry[1] || getHint(newEntry[0])
+  extraRound.value = true
+
+  // Reset game state for the new round
+  tries.value = []
+  meta.value = {}
+  showFailed.value = false
+}
 
 export function parseWord(word: string, _ans = answer.value.word, mode = inputMode.value, spM = spMode.value) {
   return _parseWord(word, _ans, mode, spM)

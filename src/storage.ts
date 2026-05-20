@@ -3,6 +3,13 @@ import { preferZhuyin, t } from './i18n'
 import { dayNo } from './state'
 import type { InputMode, TriesMeta } from './logic'
 
+// Extra round state (session-only, not persisted)
+export const extraRound = ref(false)
+export const extraTries = ref<string[]>([])
+export const extraMeta = ref<TriesMeta>({})
+export const extraAnswerWord = ref('')
+export const extraAnswerHint = ref('')
+
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 
 export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
@@ -19,22 +26,34 @@ export const acceptCollecting = useStorage('handle-accept-collecting', true)
 
 export const meta = computed<TriesMeta>({
   get() {
+    if (extraRound.value)
+      return extraMeta.value
     if (!(dayNo.value in history.value))
       history.value[dayNo.value] = {}
     return history.value[dayNo.value]
   },
   set(v) {
+    if (extraRound.value) {
+      extraMeta.value = v
+      return
+    }
     history.value[dayNo.value] = v
   },
 })
 
 export const tries = computed<string[]>({
   get() {
+    if (extraRound.value)
+      return extraTries.value
     if (!meta.value.tries)
       meta.value.tries = []
     return legacyTries.value[dayNo.value] || meta.value.tries
   },
   set(v) {
+    if (extraRound.value) {
+      extraTries.value = v
+      return
+    }
     meta.value.tries = v
   },
 })
